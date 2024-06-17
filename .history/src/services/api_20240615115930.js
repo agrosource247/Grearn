@@ -6,7 +6,11 @@ export const apiRequest = axios.create({
   withCredentials: true,
 });
 
-export const getAllUsers = async (isMounted, setUsers, controller) => {
+export const getAllUsers = async (
+  isMounted: boolean,
+  setUsers: any,
+  controller: any
+) => {
   try {
     const response = await apiRequest.get("/users", {
       signal: controller.signal,
@@ -17,14 +21,19 @@ export const getAllUsers = async (isMounted, setUsers, controller) => {
   }
 };
 
-export const getUser = async (isMounted, setUsers, controller, auth) => {
+export const getUser = async (
+  isMounted: boolean,
+  setUsers: any,
+  controller: any,
+  auth: any
+) => {
   try {
     const response = await apiRequest.get("/users", {
       signal: controller.signal,
     });
 
     const matchingUser = response.data.find(
-      (user) => user.email === auth.email
+      (user: any) => user.email === auth.email
     );
     if (matchingUser) isMounted && setUsers([matchingUser]);
   } catch (err) {

@@ -1,52 +1,51 @@
 import * as React from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { StyleSheet, Text, View, Image } from "react-native";
+import FrameComponent from "../components/FrameComponent";
+import { Border, Color, FontSize, FontFamily } from "../../GlobalStyles";
+import { StatusBar } from "expo-status-bar";
+import GestureHandlerRootView from "react-native-gesture-handler";
 import {
-  Image,
+  FlatList,
+  GestureHandlerRootView,
   ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import FrameComponent from "../../src/components/FrameComponent";
-import SlideScreen from "../../src/screens/SlideScreen";
-import { Border, FontFamily, FontSize, Color } from "../../GlobalStyles";
-
-const Home = () => {
+} from "react-native-gesture-handler";
+import BottomNavigation from "../components/BottomNavigation";
+import SlideScreen from "./SlideScreen";
+import { useNavigation } from "@react-navigation/core";
+const NewUserDashboard = ({ navigation }) => {
   return (
     <GestureHandlerRootView>
       <ScrollView>
-        <View style={styles.home}>
-          <StatusBar style={styles.upBars1} contentFit="cover" />
+        <View style={styles.newUserDashboard}>
+          <StatusBar style={styles.upBars1} />
           <Image
-            style={styles.homeChild}
+            style={styles.newUserDashboardChild}
             contentFit="cover"
             source={require("../assets/ellipse-3.png")}
           />
           <Text style={styles.goodMorning}>Good Morning</Text>
           <Text style={styles.omitoyinDavid}>Omitoyin David</Text>
           <Image
-            style={[styles.iconamoonnotification, styles.homeChildLayout2]}
+            style={[styles.iconamoonnotification, styles.iconChildLayout]}
             contentFit="cover"
             source={require("../assets/iconamoonnotification.png")}
           />
           <View
             style={[styles.investmentPackageParent, styles.newChildLayout2]}
           >
-            <Text style={[styles.investmentPackage, styles.maizeFlexBox]}>
+            <Text style={[styles.investmentPackage, styles.nilFlexBox]}>
               Investment package
             </Text>
             <Text style={styles.grearn}>Grearn</Text>
             <Text style={styles.totalAssets}>Total Assets</Text>
             <View style={[styles.vuesaxlinearhashtag, styles.iconChildLayout]}>
               <View style={styles.wrapper}>
-                <Text style={styles.text}>#140,000.08</Text>
+                <Text style={styles.text}>#0.00</Text>
               </View>
             </View>
-            <View style={styles.maizeWrapper}>
-              <Text style={[styles.maize, styles.maizeFlexBox]}>Maize</Text>
+            <View style={styles.nilWrapper}>
+              <Text style={[styles.nil, styles.nilFlexBox]}>NIL</Text>
             </View>
-
             <Image
               // This is the eye on the
               style={[styles.vuesaxlineareyeIcon, styles.iconChildLayout]}
@@ -66,68 +65,69 @@ const Home = () => {
               source={require("../assets/group-241.png")}
             />
           </View>
-          <Image
-            style={styles.homeChild11}
-            contentFit="cover"
-            source={require("../assets/group-26.png")}
-          />
           <FrameComponent />
-          <Text style={[styles.liveStocks, styles.topTypo]}>Live stocks</Text>
           <SlideScreen />
+          <Text style={[styles.topGainers, styles.topTypo]}>Top Gainers</Text>
+          <Text style={[styles.liveStocks, styles.topTypo]}>Live stocks</Text>
+          <Text style={[styles.topLosers, styles.topTypo]}>Top Losers</Text>
           <Image
-            style={[styles.homeItem, styles.homeLayout1]}
+            //Thsi the Zmaize image
+            style={[styles.newUserDashboardItem, styles.newLayout1]}
             contentFit="cover"
             source={require("../assets/frame-25.png")}
           />
           <Image
-            style={[styles.homeInner, styles.homeLayout]}
+            //This is the Guinea corn image
+            style={[styles.newUserDashboardInner, styles.newLayout]}
             contentFit="cover"
             source={require("../assets/frame-38.png")}
           />
           <Image
+            //This is the Soya bean Image
             style={[styles.frameIcon, styles.frameIconLayout]}
             contentFit="cover"
             source={require("../assets/frame-34.png")}
           />
           <Image
-            style={[styles.homeChild1, styles.homeChildLayout1]}
+            //This is the honey Image
+            style={[styles.newUserDashboardChild1, styles.newChildLayout1]}
             contentFit="cover"
             source={require("../assets/frame-36.png")}
           />
           <Image
-            style={[styles.homeChild2, styles.homeLayout1]}
+            //This is the millet image
+            style={[styles.newUserDashboardChild2, styles.newLayout1]}
             contentFit="cover"
             source={require("../assets/frame-26.png")}
           />
           <Image
-            style={[styles.homeChild3, styles.homeLayout]}
+            //This is the ginger image
+            style={[styles.newUserDashboardChild3, styles.newLayout]}
             contentFit="cover"
             source={require("../assets/frame-33.png")}
           />
           <Image
-            style={[styles.homeChild4, styles.frameIconLayout]}
+            //This is the pepper image
+            style={[styles.newUserDashboardChild4, styles.frameIconLayout]}
             contentFit="cover"
             source={require("../assets/frame-35.png")}
           />
           <Image
-            style={[styles.homeChild5, styles.homeChildLayout1]}
+            //This is the melon image
+            style={[styles.newUserDashboardChild5, styles.newChildLayout1]}
             contentFit="cover"
             source={require("../assets/frame-37.png")}
           />
-
-          <Text style={[styles.topGainers, styles.topTypo]}>Top Gainers</Text>
-          <Text style={[styles.topLosers, styles.topTypo]}>Top Losers</Text>
-
-          <Text style={[styles.maize1, styles.maize1Layout]}>Maize</Text>
+          <Text style={[styles.maize, styles.maizeLayout]}>Maize</Text>
           <Text style={[styles.guineaCorn, styles.soyaBeansTypo]}>
             Guinea corn
           </Text>
           <Text style={[styles.soyaBeans, styles.pepperPosition]}>
             Soya Beans
           </Text>
-          <Text style={[styles.honey, styles.honeyTypo]}>Honey</Text>
+          <Text style={[styles.honey, styles.honeyLayout]}>Honey</Text>
           <Text style={[styles.millet, styles.melonTypo]}>Millet</Text>
-          <Text style={[styles.ginger, styles.gingerTypo]}>Ginger</Text>
+          <Text style={[styles.ginger, styles.honeyTypo]}>Ginger</Text>
           <Text style={[styles.pepper, styles.honeyTypo]}>Pepper</Text>
           <Text style={[styles.melon, styles.melonTypo]}>Melon</Text>
           <Text style={[styles.southEastRegion, styles.southLayout]}>
@@ -161,149 +161,46 @@ const Home = () => {
           <Text style={[styles.text5, styles.textLayout]}>-45%</Text>
           <Text style={[styles.text6, styles.textLayout]}>-45%</Text>
           <Image
-            style={[styles.homeChild6, styles.homeChildLayout2]}
+            style={[styles.newUserDashboardChild6, styles.newChildLayout2]}
             contentFit="cover"
             source={require("../assets/frame-30.png")}
           />
           <Text style={[styles.text7, styles.textLayout]}>-45%</Text>
           <Text style={[styles.text8, styles.textLayout]}>-45%</Text>
-
           <Image
-            style={[styles.homeChild7, styles.homeChildLayout2]}
+            style={[styles.newUserDashboardChild7, styles.newChildLayout2]}
             contentFit="cover"
             source={require("../assets/frame-31.png")}
           />
+
+          <Image
+            style={styles.newUserDashboardChild11}
+            contentFit="cover"
+            source={require("../assets/group-26.png")}
+          />
         </View>
       </ScrollView>
+      <BottomNavigation />
     </GestureHandlerRootView>
   );
 };
 
 const styles = StyleSheet.create({
-  card1: {
-    top: 150,
-    left: 20,
-    borderRadius: Border.br_8xs,
-    backgroundColor: Color.colorLimegreen_100,
-
-    width: 400,
-    height: 100,
-    position: "absolute",
-  },
-  grearn: {
-    left: 15,
-    width: 66,
-    fontSize: FontSize.size_base,
-    color: Color.colorWhite,
-    top: 20,
-    alignItems: "center",
-    display: "flex",
-    textAlign: "left",
-    fontFamily: FontFamily.poppinsSemiBold,
-    fontWeight: "600",
-    position: "absolute",
-  },
-  totalAssets: {
-    top: 44,
-    color: Color.colorGainsboro_300,
-    width: 82,
-    fontSize: FontSize.size_xs,
-    left: 16,
-    alignItems: "center",
-    display: "flex",
-    textAlign: "left",
-    fontFamily: FontFamily.poppinsSemiBold,
-    fontWeight: "600",
-    position: "absolute",
-  },
-  vuesaxlinearhashtag: {
-    top: 92,
-    left: 48,
-    height: 24,
+  upBars1Position: {
+    top: 0,
     position: "absolute",
   },
   iconChildLayout: {
     height: 24,
     width: 24,
-  },
-  wrapper: {
-    top: -24,
-    left: -33,
-    width: 107,
-    height: 24,
     position: "absolute",
-  },
-  text: {
-    top: 4,
-    fontSize: FontSize.size_base,
-    color: Color.colorWhite,
-    alignItems: "center",
-    display: "flex",
-    textAlign: "left",
-    fontFamily: FontFamily.poppinsSemiBold,
-    fontWeight: "600",
-  },
-  maizeWrapper: {
-    top: 56,
-    left: 290,
-    borderRadius: Border.br_7xs,
-    backgroundColor: Color.colorGreen_200,
-    width: 70,
-    height: 30,
-    position: "absolute",
-    overflow: "hidden",
-  },
-  maize: {
-    marginTop: -10,
-    marginLeft: -20,
-    top: "50%",
-    left: "50%",
-    color: Color.colorWhite,
-    fontSize: FontSize.size_smi,
-    fontFamily: FontFamily.poppinsSemiBold,
-    fontWeight: "600",
-  },
-  maizeFlexBox: {
-    color: Color.colorWhite,
-    alignItems: "center",
-    display: "flex",
-    textAlign: "left",
-    position: "absolute",
-  },
-
-  investmentPackage: {
-    left: 230,
-    fontSize: FontSize.size_2xs,
-    width: 118,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    top: 20,
-    color: Color.colorWhite,
   },
   newChildLayout2: {
     borderRadius: Border.br_8xs,
     position: "absolute",
     overflow: "hidden",
   },
-  investmentPackageParent: {
-    top: 160,
-    backgroundColor: Color.colorYellowgreen_100,
-    width: 400,
-    height: 102,
-    left: 20,
-    borderRadius: Border.br_8xs,
-  },
-  homeChildLayout2: {
-    height: 24,
-    width: 24,
-    position: "absolute",
-  },
-  horizontalScrollView: {},
-  parentFlexBox: {
-    flexDirection: "row",
-    overflow: "hidden",
-  },
-  maizeFlexBox: {
+  nilFlexBox: {
     color: Color.colorWhite,
     alignItems: "center",
     display: "flex",
@@ -319,15 +216,13 @@ const styles = StyleSheet.create({
   topTypo: {
     color: Color.colorDarkslategray_500,
     fontSize: FontSize.size_base,
-    lineHeight: 20,
     alignItems: "center",
     display: "flex",
-    textAlign: "left",
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
     position: "absolute",
   },
-  homeLayout1: {
+  newLayout1: {
     height: 59,
     width: 72,
     borderRadius: Border.br_9xs,
@@ -335,7 +230,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     overflow: "hidden",
   },
-  homeLayout: {
+  newLayout: {
     top: 660,
     height: 59,
     width: 72,
@@ -351,7 +246,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     overflow: "hidden",
   },
-  homeChildLayout1: {
+  newChildLayout1: {
     top: 826,
     width: 72,
     borderRadius: Border.br_9xs,
@@ -359,7 +254,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     overflow: "hidden",
   },
-  maize1Layout: {
+  maizeLayout: {
+    height: 17,
     top: 581,
   },
   soyaBeansTypo: {
@@ -367,10 +263,8 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     left: 107,
     color: Color.colorDarkslategray_500,
-
     alignItems: "center",
     display: "flex",
-    textAlign: "left",
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
     position: "absolute",
@@ -379,8 +273,13 @@ const styles = StyleSheet.create({
     top: 747,
     height: 17,
   },
-  honeyTypo: {
-    width: 55,
+  honeyLayout: {
+    height: 19,
+    top: 830,
+  },
+  melonTypo: {
+    width: 46,
+    left: 320,
     fontSize: FontSize.size_sm,
     color: Color.colorDarkslategray_500,
     alignItems: "center",
@@ -390,19 +289,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     position: "absolute",
   },
-  gingerTypo: {
-    marginTop: -10,
-    fontSize: FontSize.size_sm,
-    color: Color.colorDarkslategray_500,
-    alignItems: "center",
-    display: "flex",
-    fontFamily: FontFamily.poppinsSemiBold,
-    fontWeight: "600",
-    position: "absolute",
-  },
-  melonTypo: {
-    width: 46,
-    left: 310,
+  honeyTypo: {
+    width: 55,
     fontSize: FontSize.size_sm,
     color: Color.colorDarkslategray_500,
     alignItems: "center",
@@ -420,10 +308,8 @@ const styles = StyleSheet.create({
     top: 680,
     color: Color.colorDarkslategray_400,
     fontSize: FontSize.size_4xs,
-    height: 17,
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
-    lineHeight: 11,
     alignItems: "center",
     display: "flex",
     textAlign: "left",
@@ -433,10 +319,8 @@ const styles = StyleSheet.create({
     top: 763,
     color: Color.colorDarkslategray_400,
     fontSize: FontSize.size_4xs,
-    height: 17,
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
-    lineHeight: 11,
     alignItems: "center",
     display: "flex",
     textAlign: "left",
@@ -449,20 +333,11 @@ const styles = StyleSheet.create({
     height: 19,
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
-    lineHeight: 11,
     alignItems: "center",
     display: "flex",
     textAlign: "left",
     position: "absolute",
   },
-  vuesaxlineareyeIcon: {
-    top: 68,
-    left: 75,
-    height: 24,
-    marginHorizontal: 50,
-    position: "relative",
-  },
-
   southTypo3: {
     color: Color.colorDarkslategray_400,
     fontSize: FontSize.size_4xs,
@@ -470,7 +345,6 @@ const styles = StyleSheet.create({
     height: 17,
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
-    lineHeight: 11,
     alignItems: "center",
     display: "flex",
     textAlign: "left",
@@ -481,7 +355,6 @@ const styles = StyleSheet.create({
     color: Color.colorLimegreen_100,
     left: 107,
     fontSize: FontSize.size_xs,
-
     alignItems: "center",
     display: "flex",
     textAlign: "left",
@@ -515,14 +388,12 @@ const styles = StyleSheet.create({
   },
   cardsTypo: {
     color: Color.colorGray_600,
-    height: 12,
     left: 0,
     alignItems: "center",
     display: "flex",
     textAlign: "left",
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
-    lineHeight: 28,
     fontSize: FontSize.size_3xs,
   },
   profileLayout: {
@@ -533,49 +404,43 @@ const styles = StyleSheet.create({
     width: 59,
     position: "absolute",
   },
-  homeChildLayout: {
+  newChildLayout: {
     height: 100,
     width: 133,
-    top: 400,
+    top: 401,
     borderRadius: Border.br_9xs,
   },
   upBars1: {
     left: 47,
     width: 337,
-    height: 37,
-    top: 0,
-    position: "absolute",
     overflow: "hidden",
   },
-  homeChild: {
+  newUserDashboardChild: {
     top: 69,
-    left: 20,
     width: 65,
     height: 65,
+    left: 20,
     position: "absolute",
   },
   goodMorning: {
-    top: 70,
+    top: 81,
     color: Color.colorDimgray_400,
     width: 75,
     alignItems: "center",
     display: "flex",
-    textAlign: "left",
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
-    lineHeight: 28,
     fontSize: FontSize.size_3xs,
     left: 89,
-    // position: "absolute",
+    position: "absolute",
   },
   omitoyinDavid: {
     top: 97,
     color: Color.colorDarkslategray_200,
-    width: 103,
-    lineHeight: 15,
     fontSize: FontSize.size_smi,
     alignItems: "center",
     display: "flex",
+    flexDirection: "row",
     textAlign: "left",
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
@@ -586,6 +451,125 @@ const styles = StyleSheet.create({
     top: 72,
     left: 400,
     overflow: "hidden",
+  },
+  investmentPackage: {
+    left: 230,
+    fontSize: FontSize.size_2xs,
+    width: 118,
+    fontFamily: FontFamily.poppinsMedium,
+    fontWeight: "500",
+    top: 20,
+    color: Color.colorWhite,
+  },
+  grearn: {
+    left: 15,
+    width: 66,
+    fontSize: FontSize.size_base,
+    color: Color.colorWhite,
+    top: 20,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  totalAssets: {
+    top: 44,
+    color: Color.colorGainsboro_300,
+    width: 82,
+    fontSize: FontSize.size_xs,
+    left: 16,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  text: {
+    top: 4,
+    width: 54,
+    left: 0,
+    fontSize: FontSize.size_base,
+    color: Color.colorWhite,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  wrapper: {
+    top: -24,
+    left: -33,
+    width: 107,
+    height: 24,
+    position: "absolute",
+  },
+  vuesaxlinearhashtag: {
+    top: 92,
+    left: 48,
+    height: 24,
+    position: "absolute",
+  },
+  nil: {
+    left: 15,
+    width: 22,
+    color: Color.colorWhite,
+    fontSize: FontSize.size_smi,
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    marginHorizontal: 10,
+    marginVertical: 5,
+  },
+  nilWrapper: {
+    top: 56,
+    left: 290,
+    borderRadius: Border.br_7xs,
+    backgroundColor: Color.colorGreen_200,
+    width: 70,
+    height: 30,
+  },
+  frameChild: {
+    top: 75,
+    left: 228,
+  },
+  frameItem: {
+    top: 104,
+    left: -75,
+  },
+  frameInner: {
+    top: 116,
+    left: 60,
+  },
+  groupIcon: {
+    top: -109,
+    left: 245,
+    width: 259,
+    height: 257,
+    position: "absolute",
+  },
+  frameChild1: {
+    top: -1,
+    left: 201,
+    width: 251,
+    height: 254,
+    position: "absolute",
+  },
+  vuesaxlineareyeIcon: {
+    top: 68,
+    left: 86,
+    height: 24,
+    position: "absolute",
+  },
+  investmentPackageParent: {
+    top: 160,
+    backgroundColor: Color.colorYellowgreen_100,
+    width: 400,
+    height: 102,
+    left: 20,
+    borderRadius: Border.br_8xs,
   },
   topGainers: {
     width: 101,
@@ -602,31 +586,31 @@ const styles = StyleSheet.create({
     left: 230,
     top: 531,
   },
-  homeItem: {
+  newUserDashboardItem: {
     left: 30,
   },
-  homeInner: {
+  newUserDashboardInner: {
     left: 30,
   },
   frameIcon: {
     left: 30,
   },
-  homeChild1: {
+  newUserDashboardChild1: {
     left: 30,
   },
-  homeChild2: {
-    left: 230,
+  newUserDashboardChild2: {
+    left: 240,
   },
-  homeChild3: {
-    left: 230,
+  newUserDashboardChild3: {
+    left: 240,
   },
-  homeChild4: {
-    left: 230,
+  newUserDashboardChild4: {
+    left: 240,
   },
-  homeChild5: {
-    left: 230,
+  newUserDashboardChild5: {
+    left: 240,
   },
-  maize1: {
+  maize: {
     width: 49,
     fontSize: FontSize.size_sm,
     left: 107,
@@ -640,7 +624,6 @@ const styles = StyleSheet.create({
   },
   guineaCorn: {
     top: 664,
-    height: 17,
   },
   soyaBeans: {
     width: 91,
@@ -655,27 +638,31 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   honey: {
-    top: 830,
-    height: 19,
-    left: 107,
     width: 55,
+    fontSize: FontSize.size_sm,
+    color: Color.colorDarkslategray_500,
+    alignItems: "center",
+    display: "flex",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+    left: 107,
+    top: 830,
   },
   millet: {
     top: 581,
-    width: 46,
   },
   ginger: {
-    left: 310,
-    top: 670,
+    left: 320,
+    top: 664,
   },
   pepper: {
-    left: 310,
+    left: 320,
     top: 747,
-    height: 17,
   },
   melon: {
     top: 830,
-    height: 19,
+    left: 320,
   },
   southEastRegion: {
     color: Color.colorDarkslategray_400,
@@ -700,19 +687,19 @@ const styles = StyleSheet.create({
     left: 107,
   },
   southWestRegion: {
-    left: 310,
+    left: 320,
     width: 87,
   },
   southWestRegion1: {
-    left: 310,
+    left: 320,
     width: 87,
   },
   southWestRegion2: {
-    left: 310,
+    left: 320,
     width: 87,
   },
   southWestRegion3: {
-    left: 310,
+    left: 320,
     width: 87,
   },
   text1: {
@@ -737,6 +724,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_xs,
     alignItems: "center",
     display: "flex",
+    textAlign: "left",
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
     position: "absolute",
@@ -756,7 +744,7 @@ const styles = StyleSheet.create({
   text5: {
     color: Color.colorRed_100,
     width: 35,
-    left: 310,
+    left: 320,
     fontSize: FontSize.size_xs,
     alignItems: "center",
     display: "flex",
@@ -768,7 +756,7 @@ const styles = StyleSheet.create({
   text6: {
     color: Color.colorRed_100,
     width: 35,
-    left: 310,
+    left: 320,
     fontSize: FontSize.size_xs,
     alignItems: "center",
     display: "flex",
@@ -777,16 +765,16 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     top: 700,
   },
-  homeChild6: {
+  newUserDashboardChild6: {
     left: 144,
     top: 531,
-    borderRadius: Border.br_8xs,
-    overflow: "hidden",
+    height: 24,
+    width: 24,
   },
   text7: {
     color: Color.colorRed_100,
     width: 35,
-    left: 310,
+    left: 320,
     fontSize: FontSize.size_xs,
     alignItems: "center",
     display: "flex",
@@ -798,7 +786,7 @@ const styles = StyleSheet.create({
   text8: {
     color: Color.colorRed_100,
     width: 35,
-    left: 310,
+    left: 320,
     fontSize: FontSize.size_xs,
     alignItems: "center",
     display: "flex",
@@ -807,35 +795,34 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     top: 870,
   },
-  homeChild7: {
+  newUserDashboardChild7: {
     left: 376,
     top: 531,
-    borderRadius: Border.br_8xs,
-    overflow: "hidden",
+    height: 24,
+    width: 24,
   },
-  homeChild8: {
+  newUserDashboardChild8: {
     left: 30,
   },
-  homeChild9: {
+  newUserDashboardChild9: {
     left: 174,
   },
-  homeChild10: {
+  newUserDashboardChild10: {
     left: 318,
   },
-  homeChild11: {
+  newUserDashboardChild11: {
     top: 272,
     left: 205,
     width: 20,
     height: 9,
     position: "absolute",
   },
-  home: {
+  newUserDashboard: {
     borderRadius: Border.br_smi,
     backgroundColor: Color.colorMintcream,
-    flex: 1,
     width: "100%",
     height: 932,
   },
 });
 
-export default Home;
+export default NewUserDashboard;

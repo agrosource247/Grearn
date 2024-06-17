@@ -12,33 +12,16 @@ import { FontSize, FontFamily, Color, Border } from "../../GlobalStyles";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
 import { ScrollView } from "react-native-gesture-handler";
-import { apiRequest } from "../services/api";
-import UseAuth from "../services/hooks/UseAuth";
 const SignIn = ({ navigation }) => {
-  const { setAuth } = UseAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = async () => {
+  function handleLogin(email, password) {
     if (!email || !password) {
       alert("Please enter both email and password.");
       return;
     }
-    //   navigation.navigate("NewUserDashboard");
-    try {
-      const res = await apiRequest.post(`/auth/signin`, {
-        email,
-        password,
-      });
-      if (res.status === 200) {
-        const accessToken = res?.data?.accessToken;
-        const roles = res?.data?.roles;
-        setAuth({ email, password, roles, accessToken });
-        navigation.navigate("NewUserDashboard");
-      } else Alert("Error", res.data.message);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    navigation.navigate("NewUserDashboard");
+  }
 
   const handleSignUpPress = () => {
     // Navigate to the SignUp page
@@ -93,7 +76,7 @@ const SignIn = ({ navigation }) => {
             <TextInput
               value={password}
               style={[styles.enterPasswordPosition, styles.wrapperLayout]}
-              placeholder="Enter password"
+              placeholder="  Enter password"
               onChangeText={setPassword}
               secureTextEntry={true}
             />

@@ -70,8 +70,8 @@ const App = ({ navigation }) => {
 
   return (
     <>
-      <NavigationContainer>
-        <AuthProvider>
+      <AuthProvider>
+        <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Onboarding"
             screenOptions={{ headerShown: false }}
@@ -286,8 +286,8 @@ const App = ({ navigation }) => {
               options={{ headerShown: false }}
             />
           </Stack.Navigator>
-        </AuthProvider>
-      </NavigationContainer>
+        </NavigationContainer>
+      </AuthProvider>
     </>
   );
 };

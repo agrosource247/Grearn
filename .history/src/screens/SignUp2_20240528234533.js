@@ -1,8 +1,8 @@
 import React from "react";
 import { Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Color, Border, FontSize, FontFamily } from "../../GlobalStyles";
-
+import { Color, Border, FontSize, FontFamily } from "/GlobalStyles";
+s;
 import {
   GestureHandlerRootView,
   ScrollView,

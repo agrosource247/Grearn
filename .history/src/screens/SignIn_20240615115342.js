@@ -12,32 +12,36 @@ import { FontSize, FontFamily, Color, Border } from "../../GlobalStyles";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
 import { ScrollView } from "react-native-gesture-handler";
-import { apiRequest } from "../services/api";
-import UseAuth from "../services/hooks/UseAuth";
 const SignIn = ({ navigation }) => {
-  const { setAuth } = UseAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = async () => {
+  const handleLogin = () => {
     if (!email || !password) {
       alert("Please enter both email and password.");
       return;
     }
-    //   navigation.navigate("NewUserDashboard");
-    try {
-      const res = await apiRequest.post(`/auth/signin`, {
-        email,
-        password,
-      });
-      if (res.status === 200) {
-        const accessToken = res?.data?.accessToken;
-        const roles = res?.data?.roles;
-        setAuth({ email, password, roles, accessToken });
-        navigation.navigate("NewUserDashboard");
-      } else Alert("Error", res.data.message);
-    } catch (err) {
-      console.log(err);
-    }
+  //   navigation.navigate("NewUserDashboard");
+  //   try {
+  //     const response = await fetch("https://your-api-endpoint.com/login", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ email, password }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+
+  //     const data = await response.json();
+  //     // Handle successful login here, e.g., navigate to the dashboard
+  //     navigation.navigate("NewUserDashboard");
+  //   } catch (error) {
+  //     alert("Failed to log in. Please check your credentials and try again.");
+  //     console.error("Login error:", error);
+  //   }
+  // };
   };
 
   const handleSignUpPress = () => {
