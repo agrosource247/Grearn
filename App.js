@@ -43,252 +43,90 @@ import Rectangle from "./src/screens/Rectangle";
 import FirstSignUp from "./src/screens/FirstSignUp";
 import NewInvestment3 from "./src/screens/NewInvestment3";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text, TouchableOpacity } from "react-native";
 import MyCancel from "./src/screens/MyCancel";
-import useNavigation from "@react-navigation/native";
 import { AuthProvider } from "./src/services/hooks/AuthContext";
+
+import ForgotPassword from "./src/screens/ForgotPassword";
+import ResetPassword from "./src/screens/ResetPassword";
+
 const App = ({ navigation }) => {
-  // const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
+	// const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
 
-  const [fontsLoaded, error] = useFonts({
-    "Poppins-Regular": require("./src/assets/fonts/Poppins-Regular.ttf"),
-    "Poppins-Medium": require("./src/assets/fonts/Poppins-Medium.ttf"),
-    "Poppins-SemiBold": require("./src/assets/fonts/Poppins-SemiBold.ttf"),
-    "Poppins-Bold": require("./src/assets/fonts/Poppins-Bold.ttf"),
-    "Inter-Bold": require("./src/assets/fonts/Inter-Bold.ttf"),
-  });
+	const [fontsLoaded, error] = useFonts({
+		"Poppins-Regular": require("./src/assets/fonts/Poppins-Regular.ttf"),
+		"Poppins-Medium": require("./src/assets/fonts/Poppins-Medium.ttf"),
+		"Poppins-SemiBold": require("./src/assets/fonts/Poppins-SemiBold.ttf"),
+		"Poppins-Bold": require("./src/assets/fonts/Poppins-Bold.ttf"),
+		"Inter-Bold": require("./src/assets/fonts/Inter-Bold.ttf"),
+	});
 
-  // React.useEffect(() => {
-  //   setTimeout(() => {
-  //     setHideSplashScreen(false);
-  //   }, 2000); //Hide after 2sec
-  // }, []); //[ensure this is run once after component launch]
+	// React.useEffect(() => {
+	//   setTimeout(() => {
+	//     setHideSplashScreen(false);
+	//   }, 2000); //Hide after 2sec
+	// }, []); //[ensure this is run once after component launch]
 
-  if (!fontsLoaded && !error) {
-    return null;
-  }
+	if (!fontsLoaded && !error) {
+		return null;
+	}
 
-  return (
-    <>
-      <NavigationContainer>
-        <AuthProvider>
-          <Stack.Navigator
-            initialRouteName="Onboarding"
-            screenOptions={{ headerShown: false }}
-          >
-            <Stack.Screen
-              name="SplashScreen"
-              component={SplashScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="MyCancel"
-              component={MyCancel}
-              options={{ headerShown: false }}
-            />
+	return (
+		<>
+			<NavigationContainer>
+				<AuthProvider>
+					<Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
+						<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
+						<Stack.Screen name="MyCancel" component={MyCancel} options={{ headerShown: false }} />
 
-            <Stack.Screen
-              name="Onboarding"
-              component={Onboarding}
-              options={{ headerShown: false }}
-            />
-            {/* Add other screens to the stack here */}
-            <Stack.Screen
-              name="Onboarding1"
-              component={Onboarding1}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Onboarding2"
-              component={Onboarding2}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SignIn"
-              component={SignIn}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SecondSignUp"
-              component={SecondSignUp}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SignUp1"
-              component={SignUp1}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SignUp2"
-              component={SignUp2}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="NewUserDashboard"
-              component={NewUserDashboard}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="DashboardWith2Investment"
-              component={DashboardWith2Investment}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Investment"
-              component={Investment}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="NewInvestment"
-              component={NewInvestment}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="NewInvestment1"
-              component={NewInvestment1}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="AddNewCard"
-              component={AddNewCard}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Profile"
-              component={Profile}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="ManageProfileText"
-              component={ManageProfileText}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="MyCards"
-              component={MyCards}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Prompt1"
-              component={Prompt1}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Prompt2"
-              component={Prompt2}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Prompt3"
-              component={Prompt3}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Prompt4"
-              component={Prompt4}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="VerifyCard"
-              component={VerifyCard}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="VerifyCard1"
-              component={VerifyCard1}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="VerifyCard2"
-              component={VerifyCard2}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="InvalidPin"
-              component={InvalidPin}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="NewInvestment2"
-              component={NewInvestment2}
-              options={{ headerShown: false }}
-            />
+						<Stack.Screen name="Onboarding" component={Onboarding} options={{ headerShown: false }} />
+						{/* Add other screens to the stack here */}
+						<Stack.Screen name="Onboarding1" component={Onboarding1} options={{ headerShown: false }} />
+						<Stack.Screen name="Onboarding2" component={Onboarding2} options={{ headerShown: false }} />
+						<Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
+						<Stack.Screen name="SecondSignUp" component={SecondSignUp} options={{ headerShown: false }} />
+						<Stack.Screen name="SignUp1" component={SignUp1} options={{ headerShown: false }} />
+						<Stack.Screen name="SignUp2" component={SignUp2} options={{ headerShown: false }} />
+						<Stack.Screen name="NewUserDashboard" component={NewUserDashboard} options={{ headerShown: false }} />
+						<Stack.Screen name="DashboardWith2Investment" component={DashboardWith2Investment} options={{ headerShown: false }} />
+						<Stack.Screen name="Investment" component={Investment} options={{ headerShown: false }} />
+						<Stack.Screen name="NewInvestment" component={NewInvestment} options={{ headerShown: false }} />
+						<Stack.Screen name="NewInvestment1" component={NewInvestment1} options={{ headerShown: false }} />
+						<Stack.Screen name="AddNewCard" component={AddNewCard} options={{ headerShown: false }} />
+						<Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+						<Stack.Screen name="ManageProfileText" component={ManageProfileText} options={{ headerShown: false }} />
+						<Stack.Screen name="MyCards" component={MyCards} options={{ headerShown: false }} />
+						<Stack.Screen name="Prompt1" component={Prompt1} options={{ headerShown: false }} />
+						<Stack.Screen name="Prompt2" component={Prompt2} options={{ headerShown: false }} />
+						<Stack.Screen name="Prompt3" component={Prompt3} options={{ headerShown: false }} />
+						<Stack.Screen name="Prompt4" component={Prompt4} options={{ headerShown: false }} />
+						<Stack.Screen name="VerifyCard" component={VerifyCard} options={{ headerShown: false }} />
+						<Stack.Screen name="VerifyCard1" component={VerifyCard1} options={{ headerShown: false }} />
+						<Stack.Screen name="VerifyCard2" component={VerifyCard2} options={{ headerShown: false }} />
+						<Stack.Screen name="InvalidPin" component={InvalidPin} options={{ headerShown: false }} />
+						<Stack.Screen name="NewInvestment2" component={NewInvestment2} options={{ headerShown: false }} />
 
-            <Stack.Screen
-              name="NewInvestment3"
-              component={NewInvestment3}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="PackageInfo"
-              component={PackageInfo}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Investing"
-              component={Investing}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="InsufficientFunds"
-              component={InsufficientFunds}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="AboveLimit"
-              component={AboveLimit}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="BelowLimit"
-              component={BelowLimit}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Confirmation"
-              component={Confirmation}
-              options={{ headerShown: false }}
-            />
+						<Stack.Screen name="NewInvestment3" component={NewInvestment3} options={{ headerShown: false }} />
+						<Stack.Screen name="PackageInfo" component={PackageInfo} options={{ headerShown: false }} />
+						<Stack.Screen name="Investing" component={Investing} options={{ headerShown: false }} />
+						<Stack.Screen name="InsufficientFunds" component={InsufficientFunds} options={{ headerShown: false }} />
+						<Stack.Screen name="AboveLimit" component={AboveLimit} options={{ headerShown: false }} />
+						<Stack.Screen name="BelowLimit" component={BelowLimit} options={{ headerShown: false }} />
+						<Stack.Screen name="Confirmation" component={Confirmation} options={{ headerShown: false }} />
 
-            <Stack.Screen
-              name="Frame"
-              component={Frame}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Frame1"
-              component={Frame1}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="FrameScreen"
-              component={FrameScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Profile1"
-              component={Profile1}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Rectangle"
-              component={Rectangle}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="FirstSignUp"
-              component={FirstSignUp}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </AuthProvider>
-      </NavigationContainer>
-    </>
-  );
+						<Stack.Screen name="Frame" component={Frame} options={{ headerShown: false }} />
+						<Stack.Screen name="Frame1" component={Frame1} options={{ headerShown: false }} />
+						<Stack.Screen name="FrameScreen" component={FrameScreen} options={{ headerShown: false }} />
+						<Stack.Screen name="Profile1" component={Profile1} options={{ headerShown: false }} />
+						<Stack.Screen name="Rectangle" component={Rectangle} options={{ headerShown: false }} />
+						<Stack.Screen name="FirstSignUp" component={FirstSignUp} options={{ headerShown: false }} />
+						<Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+
+						<Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false }} />
+						<Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false }} />
+					</Stack.Navigator>
+				</AuthProvider>
+			</NavigationContainer>
+		</>
+	);
 };
 export default App;
