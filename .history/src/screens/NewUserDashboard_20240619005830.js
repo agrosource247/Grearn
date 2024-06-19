@@ -110,12 +110,12 @@ const NewUserDashboard = ({ navigation }) => {
                 contentFit="cover"
                 source={require("../assets/group-23.png")}
               />
-              <Image
+              {/* <Image
                 /* This is for the white lineimage you are seeing below on the card */
                 style={styles.frameChild1}
                 contentFit="cover"
                 source={require("../assets/group-241.png")}
-              />
+              /> */}
             </View>
             <FrameComponent />
             <SlideScreen />

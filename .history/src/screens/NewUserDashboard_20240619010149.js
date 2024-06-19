@@ -118,7 +118,7 @@ const NewUserDashboard = ({ navigation }) => {
               />
             </View>
             <FrameComponent />
-            <SlideScreen />
+            {/* <SlideScreen /> */}
             <Text style={[styles.topGainers, styles.topTypo]}>Top Gainers</Text>
             <Text style={[styles.liveStocks, styles.topTypo]}>Live stocks</Text>
             <Text style={[styles.topLosers, styles.topTypo]}>Top Losers</Text>

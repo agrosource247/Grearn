@@ -222,13 +222,13 @@ const NewUserDashboard = ({ navigation }) => {
             <Image
               style={[styles.newUserDashboardChild7, styles.newChildLayout2]}
               contentFit="cover"
-              source={require("../assets/frame-31.png")}
+              // source={require("../assets/frame-31.png")}
             />
 
             <Image
               style={styles.newUserDashboardChild11}
               contentFit="cover"
-              source={require("../assets/group-26.png")}
+              // source={require("../assets/group-26.png")}
             />
           </View>
         ) : loading ? (

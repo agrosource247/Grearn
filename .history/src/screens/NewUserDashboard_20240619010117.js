@@ -117,7 +117,7 @@ const NewUserDashboard = ({ navigation }) => {
                 source={require("../assets/group-241.png")}
               />
             </View>
-            <FrameComponent />
+            {/* <FrameComponent /> */}
             <SlideScreen />
             <Text style={[styles.topGainers, styles.topTypo]}>Top Gainers</Text>
             <Text style={[styles.liveStocks, styles.topTypo]}>Live stocks</Text>

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import FrameComponent from "../components/FrameComponent";
 import { Border, Color, FontSize, FontFamily } from "../../GlobalStyles";
 import { StatusBar } from "expo-status-bar";
-import styles from "../styles/NewUserDashboardStyles";
+
 import {
   FlatList,
   GestureHandlerRootView,
@@ -245,5 +245,7 @@ const NewUserDashboard = ({ navigation }) => {
     </GestureHandlerRootView>
   );
 };
+
+
 
 export default NewUserDashboard;
