@@ -1,21 +1,52 @@
 import * as React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Color, Border, FontSize, FontFamily } from "../../GlobalStyles";
-import { TextInput } from "react-native-gesture-handler";
+import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
+import UseAuth from "../services/hooks/UseAuth";
+import { apiRequest } from "../services/api";
 
-const SignUp1 = () => {
+const ResetPassword = ({ navigation }) => {
+	const [code, setCode] = React.useState("");
+	const [password, setPassword] = React.useState("");
+	const [cpassword, setCPassword] = React.useState("");
+	const { auth } = UseAuth();
+
+	const handleResetPwd = async () => {
+		if (!code) return alert("Verification code field is required!.");
+		if (!password) return alert("Password field is required!.");
+
+		try {
+			const res = await apiRequest.post(`/pwd/reset-password/${auth.id}/${auth.token}`, { code, password, cpassword });
+			if (res.status === 200) navigation.navigate("SignIn");
+			else alert(res.data.message);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	return (
-		<View>
-			<View style={[styles.frameCreate]}>
-				<Text style={[styles.createPosition]}>Create password</Text>
-				<TextInput style={[styles.passwordWrapperLayout, styles.passwordPosition1]} placeholder="Enter password" color="black" />
+		<GestureHandlerRootView>
+			<View>
+				<View>
+					<View style={[styles.frameCreate]}>
+						<Text style={[styles.createPosition]}>Verification code</Text>
+						<TextInput style={[styles.passwordWrapperLayout, styles.passwordPosition1]} placeholder="Verification code" color="black" onChangeText={setCode} value={code} />
+					</View>
+					<View style={[styles.frameCreate]}>
+						<Text style={[styles.createPosition]}>Create password</Text>
+						<TextInput style={[styles.passwordWrapperLayout, styles.passwordPosition1]} placeholder="Enter password" color="black" onChangeText={setPassword} value={password} />
+					</View>
+					<Text style={[styles.yourPasswordMust, styles.logInTypo]}>Your password must have a minimum of 8 characters, which should include an uppercase, lowercase, a number, and a special character</Text>
+					<View style={[styles.frameConfirm]}>
+						<Text style={[styles.passwordPosition]}>Confirm password</Text>
+						<TextInput style={[styles.confirmPasswordBorder, styles.confirmPosition]} placeholder="Confirm password" color="black" onChangeText={setCPassword} value={cpassword} />
+					</View>
+				</View>
+				<Pressable style={styles.proceedWrapper} onPress={handleResetPwd}>
+					<Text style={styles.proceed}>Proceed</Text>
+				</Pressable>
 			</View>
-			<Text style={[styles.yourPasswordMust, styles.logInTypo]}>Your password must have a minimum of 8 characters, which should include an uppercase, lowercase, a number, and a special character</Text>
-			<View style={[styles.frameConfirm]}>
-				<Text style={[styles.passwordPosition]}>Confirm password</Text>
-				<TextInput style={[styles.confirmPasswordBorder, styles.confirmPosition]} placeholder="Confirm password" color="black" />
-			</View>
-		</View>
+		</GestureHandlerRootView>
 	);
 };
 
@@ -232,4 +263,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default SignUp1;
+export default ResetPassword;

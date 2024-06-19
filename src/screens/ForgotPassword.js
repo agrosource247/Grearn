@@ -1,25 +1,88 @@
-import * as React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React from "react";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Color, Border, FontSize, FontFamily } from "../../GlobalStyles";
-import { TextInput } from "react-native-gesture-handler";
+import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
+import { apiRequest } from "../services/api";
+import UseAuth from "../services/hooks/UseAuth";
 
-const SignUp1 = () => {
+const ForgotPassword = ({ navigation }) => {
+	const [email, setEmail] = React.useState("");
+	const { setAuth } = UseAuth();
+
+	const handleForgotPwd = async () => {
+		if (!email) return alert("Email field is required!.");
+		try {
+			const res = await apiRequest.post("/pwd/forgot-password", { email });
+			await setAuth({ id: res.data.id, token: res.data.token });
+			if (res.status === 200) navigation.navigate("ResetPassword");
+			else alert(res.data.message);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	return (
-		<View>
-			<View style={[styles.frameCreate]}>
-				<Text style={[styles.createPosition]}>Create password</Text>
-				<TextInput style={[styles.passwordWrapperLayout, styles.passwordPosition1]} placeholder="Enter password" color="black" />
+		<GestureHandlerRootView>
+			<View>
+				<View style={[styles.frameCreate]}>
+					<Text style={[styles.createPosition]}>Enter your Email address to reset password</Text>
+				</View>
+
+				<View style={[styles.omitoyinayomide20gmailcomWrapper]}>
+					<Text>Email Address</Text>
+					<TextInput
+						style={[styles.text1Position, styles.wrapperLayout]}
+						onChangeText={setEmail} // update email state with new value entered by user
+						value={email}
+						placeholder="Omitoyinayomide20@gmail.com"
+						color="black"
+					/>
+				</View>
+
+				<Pressable style={styles.proceedWrapper} onPress={handleForgotPwd}>
+					<Text style={styles.proceed}>Proceed</Text>
+				</Pressable>
 			</View>
-			<Text style={[styles.yourPasswordMust, styles.logInTypo]}>Your password must have a minimum of 8 characters, which should include an uppercase, lowercase, a number, and a special character</Text>
-			<View style={[styles.frameConfirm]}>
-				<Text style={[styles.passwordPosition]}>Confirm password</Text>
-				<TextInput style={[styles.confirmPasswordBorder, styles.confirmPosition]} placeholder="Confirm password" color="black" />
-			</View>
-		</View>
+		</GestureHandlerRootView>
 	);
 };
 
 const styles = StyleSheet.create({
+	wrapperLayout: {
+		width: 400,
+		height: 48,
+		borderWidth: 1,
+		borderColor: Color.colorLightgray_100,
+		borderStyle: "solid",
+		borderRadius: Border.br_7xs,
+
+		left: 25,
+		position: "absolute",
+		fontSize: FontSize.size_base,
+	},
+	text1Position: {
+		padding: 10,
+		marginLeft: -164,
+		height: 15,
+		color: Color.colorSilver_200,
+		fontSize: FontSize.size_xs,
+		top: "50%",
+		marginTop: -8,
+		fontFamily: FontFamily.poppinsMedium,
+		fontWeight: "500",
+		textAlign: "left",
+		left: "50%",
+		position: "absolute",
+	},
+	omitoyinayomide20gmailcomWrapper: {
+		top: 470,
+		left: 165,
+	},
+
+	emailAddress: {
+		marginTop: -45,
+		width: 102,
+	},
 	frameConfirm: {
 		top: 130,
 		left: 5,
@@ -232,4 +295,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default SignUp1;
+export default ForgotPassword;
