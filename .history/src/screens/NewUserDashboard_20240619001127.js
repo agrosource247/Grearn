@@ -5,7 +5,6 @@ import { Border, Color, FontSize, FontFamily } from "../../GlobalStyles";
 import { StatusBar } from "expo-status-bar";
 import styles from "../styles/NewUserDashboardStyles";
 import {
-  FlatList,
   GestureHandlerRootView,
   ScrollView,
 } from "react-native-gesture-handler";
@@ -13,6 +12,22 @@ import BottomNavigation from "../components/BottomNavigation";
 import SlideScreen from "./SlideScreen";
 import { useNavigation } from "@react-navigation/core";
 const NewUserDashboard = ({ navigation }) => {
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    // Replace with your API endpoint
+    const fetchUserInfo = async () => {
+      try {
+        const response = await fetch("https://your-api-endpoint.com/user-info");
+        const data = await response.json();
+        setUserName(data.name); // Adjust based on your API response
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
   return (
     <GestureHandlerRootView>
       <ScrollView>
@@ -24,7 +39,8 @@ const NewUserDashboard = ({ navigation }) => {
             source={require("../assets/ellipse-3.png")}
           />
           <Text style={styles.goodMorning}>Good Morning</Text>
-          <Text style={styles.omitoyinDavid}>Omitoyin David</Text>
+          // Omitoyin David
+          <Text style={styles.omitoyinDavid}>{}</Text>
           <Image
             style={[styles.iconamoonnotification, styles.iconChildLayout]}
             contentFit="cover"
@@ -172,7 +188,6 @@ const NewUserDashboard = ({ navigation }) => {
             contentFit="cover"
             source={require("../assets/frame-31.png")}
           />
-
           <Image
             style={styles.newUserDashboardChild11}
             contentFit="cover"

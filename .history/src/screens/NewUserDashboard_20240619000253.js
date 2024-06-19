@@ -5,7 +5,6 @@ import { Border, Color, FontSize, FontFamily } from "../../GlobalStyles";
 import { StatusBar } from "expo-status-bar";
 import styles from "../styles/NewUserDashboardStyles";
 import {
-  FlatList,
   GestureHandlerRootView,
   ScrollView,
 } from "react-native-gesture-handler";
