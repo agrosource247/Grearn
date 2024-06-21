@@ -5,7 +5,7 @@ import Home from "../screens/Home";
 import Investment from "../screens/Investment";
 import MyCards from "../screens/MyCards";
 import Profile from "../screens/Profile";
-import { Border, FontFamily, FontSize, Color } from "../../GlobalStyles";
+import { FontSize, Color } from "../../GlobalStyles";
 
 const Tab = createBottomTabNavigator();
 

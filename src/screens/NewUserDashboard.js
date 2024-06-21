@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import FrameComponent from "../components/FrameComponent";
 import { Border, Color, FontSize, FontFamily } from "../../GlobalStyles";
 import { StatusBar } from "expo-status-bar";
@@ -60,7 +60,7 @@ const NewUserDashboard = ({ navigation }) => {
 				{users.length > 0 ? (
 					<View style={styles.newUserDashboard}>
 						<StatusBar style={styles.upBars1} />
-						<Image style={styles.newUserDashboardChild} contentFit="cover" source={{ uri: users[0].avatar }} />
+						<Image style={styles.newUserDashboardChild} contentFit="cover" source={{ uri: users[0]?.avatar }} />
 						<Text style={styles.goodMorning}>{time}</Text>
 						<Text style={styles.omitoyinDavid}>
 							{users[0].firstname} {users[0].lastname}

@@ -79,6 +79,42 @@ export const Notification = async (isMounted, data, controller, auth, req) => {
 	}
 };
 
+export const Flutterwave = async (isMounted, data, controller, auth, req) => {
+	try {
+		if (req === "get") {
+			const response = await apiRequest.get("/deposit/flutterwave", {
+				signal: controller.signal,
+			});
+
+			const matchingUser = response.data.find((user) => user._id === auth.id);
+			if (matchingUser) isMounted && data([matchingUser]);
+		}
+		if (req === "patch") {
+			const response = await apiRequest.patch("/deposit/flutterwave", {
+				signal: controller.signal,
+				data,
+			});
+			return response;
+		}
+		if (req === "post") {
+			const response = await apiRequest.post("/deposit/flutterwave", {
+				signal: controller.signal,
+				data,
+			});
+			return response;
+		}
+		if (req === "delete") {
+			const response = await apiRequest.delete("/deposit/flutterwave", {
+				signal: controller.signal,
+				data,
+			});
+			return response;
+		}
+	} catch (err) {
+		console.error(err);
+	}
+};
+
 // Make Users Requests to the API
 export const getAllUsers = async (isMounted, data, controller) => {
 	try {
@@ -89,4 +125,17 @@ export const getAllUsers = async (isMounted, data, controller) => {
 	} catch (err) {
 		console.error(err);
 	}
+};
+
+export const generateRandomCode = async () => {
+	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	const numbers = "0123456789";
+	let first = "grearn-";
+	let second = "";
+	let third = "";
+
+	for (let i = 0; i < 6; i++) second += letters.charAt(Math.floor(Math.random() * letters.length));
+	for (let i = 0; i < 8; i++) third += numbers.charAt(Math.floor(Math.random() * numbers.length));
+
+	return first + second + "-" + third;
 };

@@ -26,7 +26,7 @@ const SecondSignUp = ({ navigation }) => {
 
 		try {
 			const res = await apiRequest.post("/auth/signup", {
-				firstname,
+				firstname: lastname,
 				lastname,
 				username,
 				phone,

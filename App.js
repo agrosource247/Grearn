@@ -48,6 +48,7 @@ import { AuthProvider } from "./src/services/hooks/AuthContext";
 
 import ForgotPassword from "./src/screens/ForgotPassword";
 import ResetPassword from "./src/screens/ResetPassword";
+import FlutterwaveDeposit from "./src/screens/FlutterwaveDeposit";
 
 const App = ({ navigation }) => {
 	// const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -77,7 +78,6 @@ const App = ({ navigation }) => {
 					<Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
 						<Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
 						<Stack.Screen name="MyCancel" component={MyCancel} options={{ headerShown: false }} />
-
 						<Stack.Screen name="Onboarding" component={Onboarding} options={{ headerShown: false }} />
 						{/* Add other screens to the stack here */}
 						<Stack.Screen name="Onboarding1" component={Onboarding1} options={{ headerShown: false }} />
@@ -104,7 +104,6 @@ const App = ({ navigation }) => {
 						<Stack.Screen name="VerifyCard2" component={VerifyCard2} options={{ headerShown: false }} />
 						<Stack.Screen name="InvalidPin" component={InvalidPin} options={{ headerShown: false }} />
 						<Stack.Screen name="NewInvestment2" component={NewInvestment2} options={{ headerShown: false }} />
-
 						<Stack.Screen name="NewInvestment3" component={NewInvestment3} options={{ headerShown: false }} />
 						<Stack.Screen name="PackageInfo" component={PackageInfo} options={{ headerShown: false }} />
 						<Stack.Screen name="Investing" component={Investing} options={{ headerShown: false }} />
@@ -112,7 +111,6 @@ const App = ({ navigation }) => {
 						<Stack.Screen name="AboveLimit" component={AboveLimit} options={{ headerShown: false }} />
 						<Stack.Screen name="BelowLimit" component={BelowLimit} options={{ headerShown: false }} />
 						<Stack.Screen name="Confirmation" component={Confirmation} options={{ headerShown: false }} />
-
 						<Stack.Screen name="Frame" component={Frame} options={{ headerShown: false }} />
 						<Stack.Screen name="Frame1" component={Frame1} options={{ headerShown: false }} />
 						<Stack.Screen name="FrameScreen" component={FrameScreen} options={{ headerShown: false }} />
@@ -121,8 +119,10 @@ const App = ({ navigation }) => {
 						<Stack.Screen name="FirstSignUp" component={FirstSignUp} options={{ headerShown: false }} />
 						<Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 
+						{/* NEWLY ADDED SCREEN */}
 						<Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false }} />
 						<Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false }} />
+						<Stack.Screen name="FlutterwaveDeposit" component={FlutterwaveDeposit} options={{ headerShown: false }} />
 					</Stack.Navigator>
 				</AuthProvider>
 			</NavigationContainer>
