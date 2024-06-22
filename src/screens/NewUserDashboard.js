@@ -55,6 +55,12 @@ const NewUserDashboard = ({ navigation }) => {
 		}, [])
 	);
 
+	const handleTransaction = async (e) => {
+		e.preventDefault();
+		console.log("first");
+	};
+
+	console.log(users[0]?.walletbalance);
 	return (
 		<GestureHandlerRootView>
 			<ScrollView>
@@ -73,7 +79,7 @@ const NewUserDashboard = ({ navigation }) => {
 							<Text style={styles.totalAssets}>Total Assets</Text>
 							<View style={[styles.vuesaxlinearhashtag, styles.iconChildLayout]}>
 								<View style={styles.wrapper}>
-									<Text style={styles.text}># {users[0].walletbalance}</Text>
+									<Text style={styles.text}># {users[0]?.walletbalance}</Text>
 								</View>
 							</View>
 							<Image
@@ -101,9 +107,17 @@ const NewUserDashboard = ({ navigation }) => {
 						</View>
 						<FrameComponent />
 						<SlideScreen />
-						<Text style={[styles.topGainers, styles.topTypo]}>Top Gainers</Text>
+
+						<Pressable style={[styles.topGainers, styles.topTypo]} onPress={handleTransaction}>
+							<Text>Transactions History</Text>
+						</Pressable>
+						{/* <Text style={[styles.topGainers, styles.topTypo]}>Top Gainers</Text> */}
 						<Text style={[styles.liveStocks, styles.topTypo]}>Live stocks</Text>
-						<Text style={[styles.topLosers, styles.topTypo]}>Top Losers</Text>
+						{/* <Text style={[styles.topLosers, styles.topTypo]}>Top Losers</Text> */}
+						<Pressable style={[styles.topLosers, styles.topTypo]}>
+							<Text>Investment History</Text>
+						</Pressable>
+
 						<Image
 							//Thsi the Zmaize image
 							style={[styles.newUserDashboardItem, styles.newLayout1]}

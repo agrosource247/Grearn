@@ -1,3 +1,4 @@
+import React from "react";
 import { View, Text, Pressable, TextInput, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -42,15 +43,16 @@ const SecondSignUp = ({ navigation }) => {
 	const [cpassword, setCPassword] = React.useState("");
 	const [country, setCountry] = React.useState("");
 	const [dob, setDob] = React.useState("");
+	const [loading, setLoading] = React.useState(false);
 
 	//Removing Zeroes
-	const handlePhoneChange = (text) => {
-		//removing leading zeroes
-		if (text.startsith("0")) {
-			text = text.replace(/^0+/, "");
-		}
-		setPhone(text);
-	};
+	// const handlePhoneChange = (text) => {
+	// 	//removing leading zeroes
+	// 	if (text.startswith("0")) {
+	// 		text = text.replace(/^0+/, "");
+	// 	}
+	// 	setPhone(text);
+	// };
 	// Handle sign-up logic
 	const handleSignUpData = async () => {
 		if (!firstname) return alert("Firstname field is required.");
@@ -62,6 +64,7 @@ const SecondSignUp = ({ navigation }) => {
 		if (!cpassword) return alert("Comfirm Password field is required.");
 
 		try {
+			setLoading(true);
 			const res = await apiRequest.post("/auth/signup", {
 				firstname,
 				lastname,
@@ -81,6 +84,8 @@ const SecondSignUp = ({ navigation }) => {
 			}
 		} catch (error) {
 			console.error("Error signing up:", error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -127,7 +132,7 @@ const SecondSignUp = ({ navigation }) => {
 
 							<View style={styles.frame12}>
 								<View style={styles.numberwrapper}>
-									<TextInput style={[styles.text1, styles.RightTextTypo, styles.phonewrapperBorder]} placeholder="9049733613" value={phone} onChangeText={handlePhoneChange} keyboardType="numeric" color="black" />
+									<TextInput style={[styles.text1, styles.RightTextTypo, styles.phonewrapperBorder]} placeholder="9049733613" value={phone} onChangeText={setPhone} keyboardType="numeric" color="black" />
 								</View>
 								<View style={styles.container}>
 									<TextInput style={[styles.text1, styles.textTypo, styles.countrywrapperBorder]} value={country} onChangeText={setCountry} placeholder="+234" maxLength={4} keyboardType="numeric" color="black" />
@@ -154,7 +159,7 @@ const SecondSignUp = ({ navigation }) => {
 					</View>
 
 					<Pressable style={styles.proceedWrapper} onPress={handleSignUpData}>
-						<Text style={styles.proceed}>Proceed</Text>
+						<Text style={styles.proceed}>{loading ? "Loading..." : "Proceed"}</Text>
 					</Pressable>
 					<View style={styles.letsYou}>
 						<Text>

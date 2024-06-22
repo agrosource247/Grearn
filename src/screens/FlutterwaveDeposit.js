@@ -7,15 +7,20 @@ import { PayWithFlutterwave } from "flutterwave-react-native";
 import { Flutterwave, User, generateRandomCode } from "../services/api";
 import UseAuth from "../services/hooks/UseAuth";
 
-const FlutterwaveDeposit = () => {
+const FlutterwaveDeposit = ({ navigation }) => {
 	const { auth } = UseAuth();
 	const [tx_ref, setTx_ref] = React.useState("");
 	const [users, setUsers] = React.useState([]);
 	const [email, setEmail] = React.useState("");
-	const [amount, setAmount] = React.useState("");
+	const [amount, setAmount] = React.useState(Number);
+	const [OrderID, setOrderID] = React.useState("");
 	const [loading, setLoading] = React.useState(false);
 
 	// To make a get request to the users API with jsonwebtokens
+
+	// 	 {"status": "cancelled", "tx_ref": "grearn-WeIITe-94507969"}
+	//  LOG  { "status": "completed", "transaction_id": "5846375", "tx_ref": "grearn-WeIITe-94507969" }
+
 	React.useEffect(() => {
 		let isMounted = true;
 		const controller = new AbortController();
@@ -52,6 +57,8 @@ const FlutterwaveDeposit = () => {
 			const form = await setForm();
 
 			const res = await Flutterwave(isMounted, form, controller, auth, "post");
+			setOrderID(res.data);
+
 			if (res?.status === 200) {
 				isMounted = false;
 				controller.abort();
@@ -61,8 +68,29 @@ const FlutterwaveDeposit = () => {
 		}
 	};
 
-	const handleOnRedirect = (data) => {
+	const handleOnRedirect = async (data) => {
 		console.log(data);
+		console.log(OrderID);
+		try {
+			let isMounted = true;
+			const controller = new AbortController();
+			if (data.status === "completed") {
+				const success = {
+					OrderID,
+					completed: true,
+					refund: false,
+				};
+
+				const updateRes = await Flutterwave(isMounted, success, controller, auth, "patch");
+				if (updateRes.status === 200) {
+					isMounted = false;
+					controller.abort();
+					navigation.navigate("NewUserDashboard");
+				} else alert(res?.data.message);
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
