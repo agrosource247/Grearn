@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Image } from "expo-image";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FontFamily, FontSize, Border, Color } from "../../GlobalStyles";

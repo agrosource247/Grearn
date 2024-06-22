@@ -4,9 +4,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { apiRequest } from "../services/api";
 import styles from "../styles/SecondSignUpstyles";
 
-// Constants for styling
-import { Color, Border, FontSize, FontFamily } from "../../GlobalStyles";
-
 // Component: Loading Bar
 const LoadingBar2 = () => (
 	<View style={styles.frameParent}>
@@ -36,9 +33,9 @@ const MyCancel2 = ({ navigation }) => (
 
 // Component: SecondSignUp
 const SecondSignUp = ({ navigation }) => {
-	const [firstName, setFirstName] = React.useState("");
-	const [lastName, setLastName] = React.useState("");
-	const [username, setUserName] = React.useState("");
+	const [firstname, setFirstname] = React.useState("");
+	const [lastname, setLastname] = React.useState("");
+	const [username, setUsername] = React.useState("");
 	const [email, setEmail] = React.useState("");
 	const [phone, setPhone] = React.useState("");
 	const [password, setPassword] = React.useState("");
@@ -56,22 +53,23 @@ const SecondSignUp = ({ navigation }) => {
 	};
 	// Handle sign-up logic
 	const handleSignUpData = async () => {
-		if (!firstName) return alert("Firstname field is required.");
-		if (!lastName) return alert("Lastname field is required.");
+		if (!firstname) return alert("Firstname field is required.");
+		if (!lastname) return alert("Lastname field is required.");
 		if (!username) return alert("Username field is required.");
 		if (!phone) return alert("Phone field is required.");
 		if (!email) return alert("Email field is required.");
 		if (!password) return alert("Password field is required.");
+		if (!cpassword) return alert("Comfirm Password field is required.");
 
 		try {
 			const res = await apiRequest.post("/auth/signup", {
-				firstName,
-				lastName,
+				firstname,
+				lastname,
 				username,
 				phone,
 				email,
 				password,
-				cPassword,
+				cpassword,
 				country,
 				dob,
 			});
@@ -105,10 +103,10 @@ const SecondSignUp = ({ navigation }) => {
 					</View>
 
 					<View style={styles.firstNameWrapper}>
-						<TextInput style={[styles.firstName, styles.nameTypo, styles.nameWrapperLayout]} onChangeText={setFirstName} value={firstName} placeholder="First name" color="black" />
+						<TextInput style={[styles.firstName, styles.nameTypo, styles.nameWrapperLayout]} onChangeText={setFirstname} value={firstname} placeholder="First name" color="black" />
 
 						<View style={styles.lastNameWrapper}>
-							<TextInput style={[styles.lastName, styles.nameTypo, styles.nameWrapperLayout]} onChangeText={setLastName} value={lastName} placeholder="Last name" color="black" />
+							<TextInput style={[styles.lastName, styles.nameTypo, styles.nameWrapperLayout]} onChangeText={setLastname} value={lastname} placeholder="Last name" color="black" />
 						</View>
 					</View>
 
@@ -119,7 +117,7 @@ const SecondSignUp = ({ navigation }) => {
 
 					<View style={styles.dee002Wrapper}>
 						<Text style={styles.usernamePosition}>Username</Text>
-						<TextInput style={[styles.dee002, styles.wrapperLayout]} onChangeText={setUserName} value={username} placeholder="Dee002" color="black" />
+						<TextInput style={[styles.dee002, styles.wrapperLayout]} onChangeText={setUsername} value={username} placeholder="Dee002" color="black" />
 
 						<View style={[styles.frame2, styles.frameLayout1]}>
 							<View style={styles.frame11}>
