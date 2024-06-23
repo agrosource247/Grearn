@@ -22,7 +22,12 @@ const Transactions = ({ navigation }) => {
 			controller.abort();
 		};
 	}, [auth.id]);
-	console.log(transactions);
+
+	const handleRowClick = (item) => {
+		console.log(item);
+		alert(`Amount: ${item.amount}, product: ${item.product}, transactionType: ${item.transactionType}, Date: ${new Date(item.createdAt).toLocaleDateString()}, Time: ${new Date(item.createdAt).toLocaleTimeString()}`);
+	};
+
 	return (
 		<GestureHandlerRootView>
 			<ScrollView>
@@ -46,7 +51,7 @@ const Transactions = ({ navigation }) => {
 									.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 									.map((item, index) => {
 										return (
-											<DataTable.Row key={index}>
+											<DataTable.Row key={index} onPress={() => handleRowClick(item)}>
 												<DataTable.Cell>{new Date(item.createdAt).toLocaleDateString()}</DataTable.Cell>
 												<DataTable.Cell>{new Date(item.createdAt).toLocaleTimeString()}</DataTable.Cell>
 												<DataTable.Cell>{item.transactionType}</DataTable.Cell>
