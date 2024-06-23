@@ -11,9 +11,13 @@ const Withdrawal = ({ navigation }) => {
 	const [users, setUsers] = React.useState([]);
 	const [account_number, setAccount_number] = React.useState("");
 	const [account_bank, setAccount_bank] = React.useState("");
+	const [display_bank, setDisplay_bank] = React.useState("");
 	const [account_name, setAccount_name] = React.useState("");
-	const [amount, setAmount] = React.useState("");
+	const [amount, setAmount] = React.useState(Number);
 	const [loading, setLoading] = React.useState(false);
+	const [confirm, setConfirm] = React.useState(false);
+	const [data, setData] = React.useState({});
+	const [banks, setBanks] = React.useState([]);
 
 	// To make a get request to the users API with jsonwebtokens
 	React.useEffect(() => {
@@ -21,12 +25,21 @@ const Withdrawal = ({ navigation }) => {
 		const controller = new AbortController();
 
 		User(isMounted, setUsers, controller, auth, "get");
-
+		setBank();
 		return () => {
 			isMounted = false;
 			controller.abort();
 		};
 	}, [auth.id]);
+
+	const setBank = async () => {
+		try {
+			const bank = await Withdraw("", new AbortController(), "get");
+			setBanks(bank.data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	React.useEffect(() => {
 		if (users.length > 0) {
@@ -35,13 +48,16 @@ const Withdrawal = ({ navigation }) => {
 	}, [users]);
 
 	const setForm = async () => {
+		const charges = 0.05 * parseInt(amount);
+		const newAmount = parseInt(charges) + parseInt(amount);
+
 		const form = {
 			id: auth.id,
 			product: "Flutterwave",
 			transactionType: "Withdrawal",
 			completed: true,
 			refund: false,
-			amount: amount,
+			amount: newAmount.toString(),
 			account_bank: account_bank,
 			account_number: account_number,
 			account_name: account_name,
@@ -57,17 +73,27 @@ const Withdrawal = ({ navigation }) => {
 
 	const handleDeposit = async (e) => {
 		e.preventDefault();
+		if (!users[0]?.walletbalance < 0) return alert("You wallet balance is low please fund your wallet");
 		if (!amount) return alert("Amount field is required");
+		if (amount < 999) return alert("Minimum withdrawal is #1000");
+		if (amount > users[0]?.walletbalance) return alert("Insufficient funds");
 		setLoading(true);
 
-		console.log(account_bank);
-		console.log(account_name);
-		console.log(account_number);
 		if (!account_bank && !account_name && !account_number) {
 			alert("Account Details field are required");
 			navigation.navigate("BankDetails");
+		} else {
+			const form = await setForm();
+			setData(form);
+			const matchingBank = banks.find((bank) => bank.code === form.account_bank);
+			setDisplay_bank(matchingBank.name);
+			setConfirm(true);
+			setLoading(false);
 		}
+	};
 
+	const handleConfirm = async (e) => {
+		e.preventDefault();
 		try {
 			const controller = new AbortController();
 			const form = await setForm();
@@ -88,16 +114,31 @@ const Withdrawal = ({ navigation }) => {
 	return (
 		<GestureHandlerRootView>
 			<ScrollView>
-				<View style={styles.addNewCard}>
-					<StatusBar style={[styles.upBars1, styles.upBars1Position]} contentFit="cover" />
-					<Text style={styles.addCard}>Deposit</Text>
-					<Text style={styles.pleaseEnterCard}>Please enter amount to fund</Text>
-					<TextInput style={[styles.enterYourCardNumberWrapper, styles.enterCardLayout]} placeholder="Enter amount" onChangeText={setAmount} value={amount}></TextInput>
+				{confirm ? (
+					<View style={styles.addNewCard}>
+						<StatusBar style={[styles.upBars1, styles.upBars1Position]} contentFit="cover" />
+						<Text style={styles.addCard}>Comfirm transaction details</Text>
+						<Text style={[styles.enterYourCardNumberWrapper]}>Bank name: {display_bank}</Text>
+						<Text style={[styles.enterYourCardNumberWrapper]}>Account number: {data?.account_number}</Text>
+						<Text style={[styles.enterYourCardNumberWrapper]}>Account name:{data?.account_name}</Text>
+						<Text style={[styles.enterYourCardNumberWrapper]}>Amount:{data?.amount}</Text>
 
-					<Pressable style={styles.saveWrapper} onPress={handleDeposit}>
-						<Text style={[styles.save, styles.savePosition]}>{loading ? "Loading" : "Proceed"}</Text>
-					</Pressable>
-				</View>
+						<Pressable style={styles.saveWrapper} onPress={handleConfirm}>
+							<Text style={[styles.save, styles.savePosition]}>{loading ? "Loading" : "Proceed"}</Text>
+						</Pressable>
+					</View>
+				) : (
+					<View style={styles.addNewCard}>
+						<StatusBar style={[styles.upBars1, styles.upBars1Position]} contentFit="cover" />
+						<Text style={styles.addCard}>Withdraw funds</Text>
+						<Text style={styles.pleaseEnterCard}>5% will be deducted to cover trasaction cost</Text>
+						<TextInput style={[styles.enterYourCardNumberWrapper, styles.enterCardLayout]} placeholder="Enter amount" onChangeText={setAmount} value={amount}></TextInput>
+
+						<Pressable style={styles.saveWrapper} onPress={handleDeposit}>
+							<Text style={[styles.save, styles.savePosition]}>{loading ? "Loading" : "Proceed"}</Text>
+						</Pressable>
+					</View>
+				)}
 			</ScrollView>
 		</GestureHandlerRootView>
 	);
