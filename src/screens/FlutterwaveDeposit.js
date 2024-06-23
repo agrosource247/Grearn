@@ -16,11 +16,6 @@ const FlutterwaveDeposit = ({ navigation }) => {
 	const [OrderID, setOrderID] = React.useState("");
 	const [loading, setLoading] = React.useState(false);
 
-	// To make a get request to the users API with jsonwebtokens
-
-	// 	 {"status": "cancelled", "tx_ref": "grearn-WeIITe-94507969"}
-	//  LOG  { "status": "completed", "transaction_id": "5846375", "tx_ref": "grearn-WeIITe-94507969" }
-
 	React.useEffect(() => {
 		let isMounted = true;
 		const controller = new AbortController();
@@ -47,6 +42,7 @@ const FlutterwaveDeposit = ({ navigation }) => {
 	const handleDeposit = async (e) => {
 		e.preventDefault();
 		if (!amount) return alert("Amount field is required");
+		if (amount < 1000) return alert("Minimum deposit is #1000");
 		setLoading(true);
 		const ref = await generateRandomCode();
 		setTx_ref(ref);

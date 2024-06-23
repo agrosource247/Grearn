@@ -5,8 +5,8 @@ import { StatusBar } from "expo-status-bar";
 import UseAuth from "../services/hooks/UseAuth";
 import { Transaction } from "../services/api";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
-
 import { DataTable } from "react-native-paper";
+
 const Transactions = ({ navigation }) => {
 	const { auth } = UseAuth();
 	const [transactions, setTransactions] = React.useState([]);
@@ -22,7 +22,7 @@ const Transactions = ({ navigation }) => {
 			controller.abort();
 		};
 	}, [auth.id]);
-
+	console.log(transactions);
 	return (
 		<GestureHandlerRootView>
 			<ScrollView>
@@ -35,21 +35,26 @@ const Transactions = ({ navigation }) => {
 						{transactions ? (
 							<DataTable style={[styles.frameCreate]}>
 								<DataTable.Header style={styles.tableHeader}>
-									<DataTable.Title>Product</DataTable.Title>
+									<DataTable.Title>Date</DataTable.Title>
+									<DataTable.Title>Time</DataTable.Title>
 									<DataTable.Title>Transaction type</DataTable.Title>
 									<DataTable.Title>Amount</DataTable.Title>
 									<DataTable.Title>Status</DataTable.Title>
 								</DataTable.Header>
-								{transactions?.map((item, index) => {
-									return (
-										<DataTable.Row key={index}>
-											<DataTable.Cell>{item.product}</DataTable.Cell>
-											<DataTable.Cell>{item.transactionType}</DataTable.Cell>
-											<DataTable.Cell>{item.amount}</DataTable.Cell>
-											<DataTable.Cell>{item.completed === true ? "Success" : "Failed"}</DataTable.Cell>
-										</DataTable.Row>
-									);
-								})}
+								{transactions
+									?.slice()
+									.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+									.map((item, index) => {
+										return (
+											<DataTable.Row key={index}>
+												<DataTable.Cell>{new Date(item.createdAt).toLocaleDateString()}</DataTable.Cell>
+												<DataTable.Cell>{new Date(item.createdAt).toLocaleTimeString()}</DataTable.Cell>
+												<DataTable.Cell>{item.transactionType}</DataTable.Cell>
+												<DataTable.Cell>{item.amount}</DataTable.Cell>
+												<DataTable.Cell>{item.completed === true ? "Success" : "Failed"}</DataTable.Cell>
+											</DataTable.Row>
+										);
+									})}
 							</DataTable>
 						) : (
 							<View style={styles.editIconParent}>
