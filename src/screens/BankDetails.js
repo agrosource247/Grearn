@@ -1,27 +1,75 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image } from "expo-image";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FontFamily, FontSize, Border, Color } from "../../GlobalStyles";
 import { StatusBar } from "expo-status-bar";
 import UseAuth from "../services/hooks/UseAuth";
-import { Transaction } from "../services/api";
-import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
+import { User, Withdraw } from "../services/api";
+import { GestureHandlerRootView, ScrollView, TextInput } from "react-native-gesture-handler";
+import { Picker } from "@react-native-picker/picker";
 
-import { DataTable } from "react-native-paper";
-const Transactions = ({ navigation }) => {
+const BankDetails = ({ navigation }) => {
+	const [users, setUsers] = React.useState([]);
+	const [banks, setBanks] = React.useState([]);
+	const [bankname, setBankname] = React.useState("");
+	const [accountname, setAccountname] = React.useState("");
+	const [accountnumber, setAccountnumber] = React.useState("");
+	const [loading, setLoading] = React.useState(false);
 	const { auth } = UseAuth();
-	const [transactions, setTransactions] = React.useState([]);
+
+	const setForm = async () => {
+		const form = {
+			id: auth.id,
+			bankname: bankname,
+			accountname: accountname,
+			accountnumber: accountnumber,
+		};
+		return form;
+	};
+
+	const setBank = async () => {
+		try {
+			const bank = await Withdraw("", new AbortController(), "get");
+			setBanks(bank.data);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	React.useEffect(() => {
 		let isMounted = true;
 		const controller = new AbortController();
 
-		Transaction(isMounted, setTransactions, controller, auth, "get");
-
+		User(isMounted, setUsers, controller, auth, "get");
+		setBank();
+		// setBanks(bank);
 		return () => {
 			isMounted = false;
 			controller.abort();
 		};
 	}, [auth.id]);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setLoading(true);
+		try {
+			let isMounted = true;
+			const controller = new AbortController();
+			const form = await setForm();
+
+			const res = await User(isMounted, form, controller, auth, "patch");
+			if (res?.status === 200) {
+				isMounted = false;
+				controller.abort();
+				alert("Update Successful");
+				// navigation.navigate("NewUserDashboard");
+			} else alert(res?.data.message);
+		} catch (err) {
+			console.log(err);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	return (
 		<GestureHandlerRootView>
@@ -29,33 +77,42 @@ const Transactions = ({ navigation }) => {
 				<View style={styles.profile}>
 					<View style={styles.editIconParent}>
 						<StatusBar style={styles.editIcon} />
-						<Text style={styles.profile2}>Transactions History</Text>
+						<Pressable onPress={() => navigation.navigate("NewUserDashboard")}>
+							<Image style={[styles.vuesaxlineararrowLeftIcon, styles.iconLayout]} contentFit="cover" source={require("../assets/vuesaxlineararrowleft1.png")} />
+						</Pressable>
+
+						<Text style={styles.profile2}>Profile</Text>
 					</View>
+
 					<View>
-						{transactions ? (
-							<DataTable style={[styles.frameCreate]}>
-								<DataTable.Header style={styles.tableHeader}>
-									<DataTable.Title>Product</DataTable.Title>
-									<DataTable.Title>Transaction type</DataTable.Title>
-									<DataTable.Title>Amount</DataTable.Title>
-									<DataTable.Title>Status</DataTable.Title>
-								</DataTable.Header>
-								{transactions?.map((item, index) => {
-									return (
-										<DataTable.Row key={index}>
-											<DataTable.Cell>{item.product}</DataTable.Cell>
-											<DataTable.Cell>{item.transactionType}</DataTable.Cell>
-											<DataTable.Cell>{item.amount}</DataTable.Cell>
-											<DataTable.Cell>{item.completed === true ? "Success" : "Failed"}</DataTable.Cell>
-										</DataTable.Row>
-									);
-								})}
-							</DataTable>
-						) : (
-							<View style={styles.editIconParent}>
-								<Text style={styles.profile2}>No Transactions found</Text>
+						<View>
+							<View style={[styles.frameCreate]}>
+								<Text style={[styles.createPosition]}> Select Bank Name</Text>
+								{banks ? (
+									<Picker selectedValue={bankname} style={{ height: 50, width: 200 }} onValueChange={(itemValue, itemIndex) => setBankname(itemValue)}>
+										{banks?.map((bank, index) => (
+											<Picker.Item label={bank.name} value={bank.code} key={index} />
+										))}
+									</Picker>
+								) : (
+									<Text style={[styles.createPosition]}>Loading...</Text>
+								)}
 							</View>
-						)}
+							<View style={[styles.frameCreate]}>
+								<Text style={[styles.createPosition]}>Account Number</Text>
+								<TextInput style={[styles.passwordWrapperLayout, styles.passwordPosition1]} placeholder={users ? users[0]?.accountnumber : "Account Number"} color="black" onChangeText={setAccountnumber} value={accountnumber} />
+							</View>
+							<View style={[styles.frameCreate]}>
+								<Text style={[styles.createPosition]}>Account Name</Text>
+								<TextInput style={[styles.passwordWrapperLayout, styles.passwordPosition1]} placeholder={users ? users[0]?.accountname : "Account Name"} color="black" onChangeText={setAccountname} value={accountname} />
+							</View>
+						</View>
+						<Pressable style={styles.proceedWrapper} onPress={handleSubmit}>
+							<Text style={styles.proceed}>{loading ? "Loading" : "Proceed"}</Text>
+						</Pressable>
+						<Pressable style={styles.proceedWrapper} onPress={() => navigation.navigate("Withdrawal")}>
+							<Text style={styles.proceed}>Withdrawal</Text>
+						</Pressable>
 					</View>
 				</View>
 			</ScrollView>
@@ -64,12 +121,6 @@ const Transactions = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-	container: {
-		padding: 15,
-	},
-	tableHeader: {
-		backgroundColor: "#DCDCDC",
-	},
 	frameConfirm: {
 		top: 130,
 		left: 5,
@@ -483,4 +534,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Transactions;
+export default BankDetails;

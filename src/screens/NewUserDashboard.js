@@ -55,11 +55,6 @@ const NewUserDashboard = ({ navigation }) => {
 		}, [])
 	);
 
-	const handleTransaction = async (e) => {
-		e.preventDefault();
-		console.log("first");
-	};
-
 	console.log(users[0]?.walletbalance);
 	return (
 		<GestureHandlerRootView>
@@ -79,7 +74,7 @@ const NewUserDashboard = ({ navigation }) => {
 							<Text style={styles.totalAssets}>Total Assets</Text>
 							<View style={[styles.vuesaxlinearhashtag, styles.iconChildLayout]}>
 								<View style={styles.wrapper}>
-									<Text style={styles.text}># {users[0]?.walletbalance}</Text>
+									<Text style={styles.text}>{users[0]?.walletbalance}</Text>
 								</View>
 							</View>
 							<Image
@@ -108,13 +103,16 @@ const NewUserDashboard = ({ navigation }) => {
 						<FrameComponent />
 						<SlideScreen />
 
-						<Pressable style={[styles.topGainers, styles.topTypo]} onPress={handleTransaction}>
+						<Pressable style={[styles.topGainers, styles.topTypo]} onPress={() => navigation.navigate("Transactions")}>
 							<Text>Transactions History</Text>
 						</Pressable>
+						<Pressable style={[styles.liveStocks, styles.topTypo]} onPress={() => navigation.navigate("Withdrawal")}>
+							<Text>Withdraw</Text>
+						</Pressable>
 						{/* <Text style={[styles.topGainers, styles.topTypo]}>Top Gainers</Text> */}
-						<Text style={[styles.liveStocks, styles.topTypo]}>Live stocks</Text>
+						{/* <Text style={[styles.liveStocks, styles.topTypo]}>Live stocks</Text> */}
 						{/* <Text style={[styles.topLosers, styles.topTypo]}>Top Losers</Text> */}
-						<Pressable style={[styles.topLosers, styles.topTypo]}>
+						<Pressable style={[styles.topLosers, styles.topTypo]} onPress={() => navigation.navigate("InvestmentHistory")}>
 							<Text>Investment History</Text>
 						</Pressable>
 

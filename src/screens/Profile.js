@@ -134,6 +134,9 @@ const Profile = ({ navigation }) => {
 								<TextInput style={[styles.passwordWrapperLayout, styles.passwordPosition1]} placeholder={users ? users[0]?.dob : "Date of birth"} color="black" onChangeText={setDob} value={dob} />
 							</View>
 						</View>
+						<Pressable style={[styles.proceedWrapper]} onPress={() => navigation.navigate("BankDetails")}>
+							<Text style={styles.proceed}>Add Account details</Text>
+						</Pressable>
 						<Pressable style={styles.proceedWrapper} onPress={handleSubmit}>
 							<Text style={styles.proceed}>{loading ? "Loading" : "Proceed"}</Text>
 						</Pressable>

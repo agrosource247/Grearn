@@ -49,6 +49,9 @@ import { AuthProvider } from "./src/services/hooks/AuthContext";
 import ForgotPassword from "./src/screens/ForgotPassword";
 import ResetPassword from "./src/screens/ResetPassword";
 import FlutterwaveDeposit from "./src/screens/FlutterwaveDeposit";
+import Transactions from "./src/screens/Transactions";
+import Withdrawal from "./src/screens/Withdrawal";
+import BankDetails from "./src/screens/BankDetails";
 
 const App = ({ navigation }) => {
 	// const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -123,6 +126,9 @@ const App = ({ navigation }) => {
 						<Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false }} />
 						<Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false }} />
 						<Stack.Screen name="FlutterwaveDeposit" component={FlutterwaveDeposit} options={{ headerShown: false }} />
+						<Stack.Screen name="Transactions" component={Transactions} options={{ headerShown: false }} />
+						<Stack.Screen name="Withdrawal" component={Withdrawal} options={{ headerShown: false }} />
+						<Stack.Screen name="BankDetails" component={BankDetails} options={{ headerShown: false }} />
 					</Stack.Navigator>
 				</AuthProvider>
 			</NavigationContainer>

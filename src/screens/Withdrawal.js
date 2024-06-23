@@ -3,24 +3,19 @@ import { StyleSheet, Text, View, StatusBar, TextInput, Pressable } from "react-n
 import { FontFamily, FontSize, Color, Border } from "../../GlobalStyles";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ScrollView } from "react-native-gesture-handler";
-import { PayWithFlutterwave } from "flutterwave-react-native";
-import { Deposit, User, generateRandomCode } from "../services/api";
+import { User, Withdraw } from "../services/api";
 import UseAuth from "../services/hooks/UseAuth";
 
-const FlutterwaveDeposit = ({ navigation }) => {
+const Withdrawal = ({ navigation }) => {
 	const { auth } = UseAuth();
-	const [tx_ref, setTx_ref] = React.useState("");
 	const [users, setUsers] = React.useState([]);
-	const [email, setEmail] = React.useState("");
+	const [account_number, setAccount_number] = React.useState("");
+	const [account_bank, setAccount_bank] = React.useState("");
+	const [account_name, setAccount_name] = React.useState("");
 	const [amount, setAmount] = React.useState("");
-	const [OrderID, setOrderID] = React.useState("");
 	const [loading, setLoading] = React.useState(false);
 
 	// To make a get request to the users API with jsonwebtokens
-
-	// 	 {"status": "cancelled", "tx_ref": "grearn-WeIITe-94507969"}
-	//  LOG  { "status": "completed", "transaction_id": "5846375", "tx_ref": "grearn-WeIITe-94507969" }
-
 	React.useEffect(() => {
 		let isMounted = true;
 		const controller = new AbortController();
@@ -33,92 +28,76 @@ const FlutterwaveDeposit = ({ navigation }) => {
 		};
 	}, [auth.id]);
 
+	React.useEffect(() => {
+		if (users.length > 0) {
+			setAccount();
+		}
+	}, [users]);
+
 	const setForm = async () => {
 		const form = {
 			id: auth.id,
 			product: "Flutterwave",
-			transactionType: "Deposit",
+			transactionType: "Withdrawal",
+			completed: true,
+			refund: false,
 			amount: amount,
-			tx_ref: tx_ref,
+			account_bank: account_bank,
+			account_number: account_number,
+			account_name: account_name,
 		};
 		return form;
+	};
+
+	const setAccount = async () => {
+		setAccount_number(users[0]?.accountnumber);
+		setAccount_name(users[0]?.accountname);
+		setAccount_bank(users[0]?.bankname);
 	};
 
 	const handleDeposit = async (e) => {
 		e.preventDefault();
 		if (!amount) return alert("Amount field is required");
 		setLoading(true);
-		const ref = await generateRandomCode();
-		setTx_ref(ref);
-		setEmail(users ? users[0]?.email : "");
+
+		console.log(account_bank);
+		console.log(account_name);
+		console.log(account_number);
+		if (!account_bank && !account_name && !account_number) {
+			alert("Account Details field are required");
+			navigation.navigate("BankDetails");
+		}
 
 		try {
 			const controller = new AbortController();
 			const form = await setForm();
-			const res = await Deposit(form, controller, "post");
-			setOrderID(res.data);
+
+			const res = await Withdraw(form, controller, "post");
 			if (res?.status === 200) {
+				alert("Transaction Successful Processed, You'll receive you funds shortly");
 				controller.abort();
-			} else alert(res?.data.message);
+			} else alert("Transaction Failed, please try again");
+			navigation.navigate("NewUserDashboard");
 		} catch (err) {
 			console.log(err);
-		}
-	};
-
-	const handleOnRedirect = async (data) => {
-		try {
-			const controller = new AbortController();
-			if (data.status === "completed") {
-				const success = {
-					OrderID,
-					completed: true,
-					refund: false,
-				};
-
-				const updateRes = await Deposit(success, controller, "patch");
-				if (updateRes.status === 200) {
-					controller.abort();
-					alert("Transaction Successful");
-				} else alert(res?.data.message);
-			} else alert("Transaction Failed, Please try again");
-			navigation.navigate("NewUserDashboard");
-		} catch (error) {
-			console.log(error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	return (
 		<GestureHandlerRootView>
 			<ScrollView>
-				{loading ? (
-					<View style={styles.addNewCard}>
-						<PayWithFlutterwave
-							onRedirect={handleOnRedirect}
-							style={styles.saveWrapper}
-							options={{
-								tx_ref: tx_ref,
-								authorization: "FLWPUBK_TEST-3af686adab1e36f1325158bb5000952f-X",
-								customer: {
-									email: email,
-								},
-								amount: amount,
-								currency: "NGN",
-								payment_options: "banktransfer",
-							}}
-						/>
-					</View>
-				) : (
-					<View style={styles.addNewCard}>
-						<StatusBar style={[styles.upBars1, styles.upBars1Position]} contentFit="cover" />
-						<Text style={styles.addCard}>Deposit</Text>
-						<Text style={styles.pleaseEnterCard}>Please enter amount to fund</Text>
-						<TextInput style={[styles.enterYourCardNumberWrapper, styles.enterCardLayout]} placeholder="Enter amount" onChangeText={setAmount} value={amount}></TextInput>
+				<View style={styles.addNewCard}>
+					<StatusBar style={[styles.upBars1, styles.upBars1Position]} contentFit="cover" />
+					<Text style={styles.addCard}>Deposit</Text>
+					<Text style={styles.pleaseEnterCard}>Please enter amount to fund</Text>
+					<TextInput style={[styles.enterYourCardNumberWrapper, styles.enterCardLayout]} placeholder="Enter amount" onChangeText={setAmount} value={amount}></TextInput>
 
-						<Pressable style={styles.saveWrapper} onPress={handleDeposit}>
-							<Text style={[styles.save, styles.savePosition]}>{loading ? "Loading" : "Proceed"}</Text>
-						</Pressable>
-					</View>
-				)}
+					<Pressable style={styles.saveWrapper} onPress={handleDeposit}>
+						<Text style={[styles.save, styles.savePosition]}>{loading ? "Loading" : "Proceed"}</Text>
+					</Pressable>
+				</View>
 			</ScrollView>
 		</GestureHandlerRootView>
 	);
@@ -447,4 +426,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default FlutterwaveDeposit;
+export default Withdrawal;

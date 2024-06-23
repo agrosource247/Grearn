@@ -42,6 +42,47 @@ export const User = async (isMounted, data, controller, auth, req) => {
 	}
 };
 
+export const Transaction = async (isMounted, data, controller, auth, req) => {
+	try {
+		if (req === "get") {
+			const response = await apiRequest.get("/transaction", {
+				signal: controller.signal,
+			});
+
+			const matchingUsers = response.data.filter((user) => user.user === auth.id);
+			if (matchingUsers.length > 0) {
+				isMounted && data(matchingUsers);
+			}
+		}
+
+		if (req === "patch") {
+			const response = await apiRequest.patch("/transaction", {
+				signal: controller.signal,
+				data,
+			});
+			return response;
+		}
+
+		if (req === "post") {
+			const response = await apiRequest.post("/transaction", {
+				signal: controller.signal,
+				data,
+			});
+			return response;
+		}
+
+		if (req === "delete") {
+			const response = await apiRequest.delete("/transaction", {
+				signal: controller.signal,
+				data,
+			});
+			return response;
+		}
+	} catch (err) {
+		console.error(err);
+	}
+};
+
 export const Notification = async (isMounted, data, controller, auth, req) => {
 	try {
 		if (req === "get") {
@@ -79,32 +120,37 @@ export const Notification = async (isMounted, data, controller, auth, req) => {
 	}
 };
 
-export const Flutterwave = async (isMounted, data, controller, auth, req) => {
+export const Deposit = async (data, controller, req) => {
 	try {
-		if (req === "get") {
-			const response = await apiRequest.get("/deposit/flutterwave", {
-				signal: controller.signal,
-			});
-
-			const matchingUser = response.data.find((user) => user._id === auth.id);
-			if (matchingUser) isMounted && data([matchingUser]);
-		}
 		if (req === "patch") {
-			const response = await apiRequest.patch("/deposit/flutterwave", {
+			const response = await apiRequest.patch("/fund/deposit", {
 				signal: controller.signal,
 				data,
 			});
 			return response;
 		}
 		if (req === "post") {
-			const response = await apiRequest.post("/deposit/flutterwave", {
+			const response = await apiRequest.post("/fund/deposit", {
 				signal: controller.signal,
 				data,
 			});
 			return response;
 		}
-		if (req === "delete") {
-			const response = await apiRequest.delete("/deposit/flutterwave", {
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+export const Withdraw = async (data, controller, req) => {
+	try {
+		if (req === "get") {
+			const response = await apiRequest.get("/fund/banks", {
+				signal: controller.signal,
+			});
+			return response.data;
+		}
+		if (req === "post") {
+			const response = await apiRequest.post("/fund/withdraw", {
 				signal: controller.signal,
 				data,
 			});
