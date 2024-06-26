@@ -7,6 +7,25 @@ import { Transaction } from "../services/api";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import { DataTable } from "react-native-paper";
 
+export const TransactionsDetails = ({ route }) => {
+	const { item } = route.params;
+	console.log(item);
+	return (
+		<View style={styles.container}>
+			<View style={styles.addNewCard}>
+				<Text style={styles.enterYourCardNumberWrapper}>TRANSACTION DETAILS</Text>
+				<Text style={styles.enterYourCardNumberWrapper}>Amount: {item.product}</Text>
+				<Text style={styles.enterYourCardNumberWrapper}>Transaction type: {item.transactionType}</Text>
+				<Text style={styles.enterYourCardNumberWrapper}>Date: {new Date(item.createdAt).toLocaleDateString()}</Text>
+				<Text style={styles.enterYourCardNumberWrapper}>Time: {new Date(item.createdAt).toLocaleTimeString()}</Text>
+				<Text style={styles.enterYourCardNumberWrapper}>Reference code: {item.tx_ref}</Text>
+				<Text style={styles.enterYourCardNumberWrapper}>Status: {item.completed ? "Success" : "Failed"}</Text>
+				{item.transactionType === "Investment" && <Text style={styles.enterYourCardNumberWrapper}>Days Left: {item.duration}</Text>}
+			</View>
+		</View>
+	);
+};
+
 const Transactions = ({ navigation }) => {
 	const { auth } = UseAuth();
 	const [transactions, setTransactions] = React.useState([]);
@@ -22,11 +41,6 @@ const Transactions = ({ navigation }) => {
 			controller.abort();
 		};
 	}, [auth.id]);
-
-	const handleRowClick = (item) => {
-		console.log(item);
-		alert(`Amount: ${item.amount}, product: ${item.product}, transactionType: ${item.transactionType}, Date: ${new Date(item.createdAt).toLocaleDateString()}, Time: ${new Date(item.createdAt).toLocaleTimeString()}`);
-	};
 
 	return (
 		<GestureHandlerRootView>
@@ -51,12 +65,12 @@ const Transactions = ({ navigation }) => {
 									.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 									.map((item, index) => {
 										return (
-											<DataTable.Row key={index} onPress={() => handleRowClick(item)}>
+											<DataTable.Row key={index} onPress={() => navigation.navigate("TransactionsDetails", { item: item })}>
 												<DataTable.Cell>{new Date(item.createdAt).toLocaleDateString()}</DataTable.Cell>
 												<DataTable.Cell>{new Date(item.createdAt).toLocaleTimeString()}</DataTable.Cell>
 												<DataTable.Cell>{item.transactionType}</DataTable.Cell>
 												<DataTable.Cell>{item.amount}</DataTable.Cell>
-												<DataTable.Cell>{item.completed === true ? "Success" : "Failed"}</DataTable.Cell>
+												<DataTable.Cell>{item.completed ? "Success" : "Failed"}</DataTable.Cell>
 											</DataTable.Row>
 										);
 									})}
@@ -74,6 +88,23 @@ const Transactions = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	addNewCard: {
+		marginBottom: 10,
+		padding: 10,
+		borderWidth: 1,
+		borderColor: "lightgray",
+		borderRadius: 5,
+	},
+	enterYourCardNumberWrapper: {
+		fontSize: 16,
+		fontWeight: "bold",
+		marginBottom: 5,
+	},
 	container: {
 		padding: 15,
 	},

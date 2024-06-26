@@ -106,14 +106,14 @@ const NewUserDashboard = ({ navigation }) => {
 						<Pressable style={[styles.topGainers, styles.topTypo]} onPress={() => navigation.navigate("Transactions")}>
 							<Text>Transactions History</Text>
 						</Pressable>
-						<Pressable style={[styles.liveStocks, styles.topTypo]} onPress={() => navigation.navigate("Withdrawal")}>
-							<Text>Withdraw</Text>
+						<Pressable style={[styles.liveStocks, styles.topTypo]} onPress={() => navigation.navigate("Admin")}>
+							<Text>Admin Panel</Text>
 						</Pressable>
 						{/* <Text style={[styles.topGainers, styles.topTypo]}>Top Gainers</Text> */}
 						{/* <Text style={[styles.liveStocks, styles.topTypo]}>Live stocks</Text> */}
 						{/* <Text style={[styles.topLosers, styles.topTypo]}>Top Losers</Text> */}
-						<Pressable style={[styles.topLosers, styles.topTypo]} onPress={() => navigation.navigate("InvestmentHistory")}>
-							<Text>Investment History</Text>
+						<Pressable style={[styles.topLosers, styles.topTypo]} onPress={() => navigation.navigate("NewInvestmentPage")}>
+							<Text>Investment</Text>
 						</Pressable>
 
 						<Image

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const apiRequest = axios.create({
-	// baseURL: "http://localhost:3500",
 	baseURL: "https://grearnapi.vercel.app",
 	withCredentials: true,
 });
@@ -161,13 +160,56 @@ export const Withdraw = async (data, controller, req) => {
 	}
 };
 
-// Make Users Requests to the API
-export const getAllUsers = async (isMounted, data, controller) => {
+export const Investment = async (data, controller, req) => {
+	try {
+		if (req === "get") {
+			const response = await apiRequest.get("/investment", {
+				signal: controller.signal,
+			});
+			return response;
+		}
+		if (req === "post") {
+			const response = await apiRequest.post("/investment", {
+				signal: controller.signal,
+				data,
+			});
+			return response;
+		}
+		if (req === "patch") {
+			const response = await apiRequest.patch("/investment", {
+				signal: controller.signal,
+				data,
+			});
+			return response;
+		}
+		if (req === "delete") {
+			const response = await apiRequest.delete("/investment", {
+				signal: controller.signal,
+				data,
+			});
+			return response;
+		}
+	} catch (err) {
+		console.error(err);
+	}
+};
+
+export const AdminUsersCall = async (data, controller) => {
 	try {
 		const response = await apiRequest.get("/users", {
 			signal: controller.signal,
 		});
-		isMounted && data(response.data);
+		data(response.data);
+	} catch (err) {
+		console.error(err);
+	}
+};
+export const AdminTransactionCall = async (data, controller) => {
+	try {
+		const response = await apiRequest.get("/transaction", {
+			signal: controller.signal,
+		});
+		data(response.data);
 	} catch (err) {
 		console.error(err);
 	}

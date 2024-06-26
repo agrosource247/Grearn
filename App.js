@@ -49,13 +49,14 @@ import { AuthProvider } from "./src/services/hooks/AuthContext";
 import ForgotPassword from "./src/screens/ForgotPassword";
 import ResetPassword from "./src/screens/ResetPassword";
 import FlutterwaveDeposit from "./src/screens/FlutterwaveDeposit";
-import Transactions from "./src/screens/Transactions";
+import Transactions, { TransactionsDetails } from "./src/screens/Transactions";
 import Withdrawal from "./src/screens/Withdrawal";
 import BankDetails from "./src/screens/BankDetails";
+import NewInvestmentPage, { NewInvestmentDetailsPage } from "./src/screens/NewInvestmentPage";
+import Admin, { AdminUsers, AdminInvestments, AdminTransactions, AdminUpdateInvestments } from "./src/screens/Admin ";
+import { AdminUserEdit } from "./src/screens/AdminEdit";
 
 const App = ({ navigation }) => {
-	// const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
-
 	const [fontsLoaded, error] = useFonts({
 		"Poppins-Regular": require("./src/assets/fonts/Poppins-Regular.ttf"),
 		"Poppins-Medium": require("./src/assets/fonts/Poppins-Medium.ttf"),
@@ -63,12 +64,6 @@ const App = ({ navigation }) => {
 		"Poppins-Bold": require("./src/assets/fonts/Poppins-Bold.ttf"),
 		"Inter-Bold": require("./src/assets/fonts/Inter-Bold.ttf"),
 	});
-
-	// React.useEffect(() => {
-	//   setTimeout(() => {
-	//     setHideSplashScreen(false);
-	//   }, 2000); //Hide after 2sec
-	// }, []); //[ensure this is run once after component launch]
 
 	if (!fontsLoaded && !error) {
 		return null;
@@ -127,8 +122,17 @@ const App = ({ navigation }) => {
 						<Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false }} />
 						<Stack.Screen name="FlutterwaveDeposit" component={FlutterwaveDeposit} options={{ headerShown: false }} />
 						<Stack.Screen name="Transactions" component={Transactions} options={{ headerShown: false }} />
+						<Stack.Screen name="TransactionsDetails" component={TransactionsDetails} options={{ headerShown: false }} />
 						<Stack.Screen name="Withdrawal" component={Withdrawal} options={{ headerShown: false }} />
 						<Stack.Screen name="BankDetails" component={BankDetails} options={{ headerShown: false }} />
+						<Stack.Screen name="NewInvestmentPage" component={NewInvestmentPage} options={{ headerShown: false }} />
+						<Stack.Screen name="NewInvestmentDetails" component={NewInvestmentDetailsPage} options={{ headerShown: false }} />
+						<Stack.Screen name="Admin" component={Admin} options={{ headerShown: false }} />
+						<Stack.Screen name="AdminUsers" component={AdminUsers} options={{ headerShown: false }} />
+						<Stack.Screen name="AdminTransactions" component={AdminTransactions} options={{ headerShown: false }} />
+						<Stack.Screen name="AdminInvestments" component={AdminInvestments} options={{ headerShown: false }} />
+						<Stack.Screen name="AdminUpdateInvestments" component={AdminUpdateInvestments} options={{ headerShown: false }} />
+						<Stack.Screen name="AdminUserEdit" component={AdminUserEdit} options={{ headerShown: false }} />
 					</Stack.Navigator>
 				</AuthProvider>
 			</NavigationContainer>
