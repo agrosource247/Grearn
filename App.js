@@ -53,8 +53,8 @@ import Transactions, { TransactionsDetails } from "./src/screens/Transactions";
 import Withdrawal from "./src/screens/Withdrawal";
 import BankDetails from "./src/screens/BankDetails";
 import NewInvestmentPage, { NewInvestmentDetailsPage } from "./src/screens/NewInvestmentPage";
-import Admin, { AdminUsers, AdminInvestments, AdminTransactions, AdminUpdateInvestments } from "./src/screens/Admin ";
-import { AdminUserEdit } from "./src/screens/AdminEdit";
+import Admin, { AdminUsers, AdminInvestments, AdminTransactions } from "./src/screens/Admin ";
+import { AdminUserEdit, AdminInvestmentEdit, AdminTransactionEdit, AdminNewInvestment } from "./src/screens/AdminEdit";
 
 const App = ({ navigation }) => {
 	const [fontsLoaded, error] = useFonts({
@@ -131,8 +131,10 @@ const App = ({ navigation }) => {
 						<Stack.Screen name="AdminUsers" component={AdminUsers} options={{ headerShown: false }} />
 						<Stack.Screen name="AdminTransactions" component={AdminTransactions} options={{ headerShown: false }} />
 						<Stack.Screen name="AdminInvestments" component={AdminInvestments} options={{ headerShown: false }} />
-						<Stack.Screen name="AdminUpdateInvestments" component={AdminUpdateInvestments} options={{ headerShown: false }} />
 						<Stack.Screen name="AdminUserEdit" component={AdminUserEdit} options={{ headerShown: false }} />
+						<Stack.Screen name="AdminNewInvestment" component={AdminNewInvestment} options={{ headerShown: false }} />
+						<Stack.Screen name="AdminInvestmentEdit" component={AdminInvestmentEdit} options={{ headerShown: false }} />
+						<Stack.Screen name="AdminTransactionEdit" component={AdminTransactionEdit} options={{ headerShown: false }} />
 					</Stack.Navigator>
 				</AuthProvider>
 			</NavigationContainer>

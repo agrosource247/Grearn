@@ -214,6 +214,16 @@ export const AdminTransactionCall = async (data, controller) => {
 		console.error(err);
 	}
 };
+export const AdminInvestmentCall = async (data, controller) => {
+	try {
+		const response = await apiRequest.get("/investment", {
+			signal: controller.signal,
+		});
+		data(response.data);
+	} catch (err) {
+		console.error(err);
+	}
+};
 
 export const generateRandomCode = async () => {
 	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";

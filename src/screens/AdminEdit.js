@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View, TextInput, ScrollView, Pressable } from 
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Picker } from "@react-native-picker/picker";
-import { User } from "../services/api";
+import { Investment, Transaction, User } from "../services/api";
 import UseAuth from "../services/hooks/UseAuth";
 
 export const AdminUserEdit = ({ route, navigation }) => {
@@ -105,6 +105,290 @@ export const AdminUserEdit = ({ route, navigation }) => {
 					<Pressable style={styles.button} onPress={handleSubmit} disabled={loading}>
 						<Text style={styles.buttonText}>{loading ? "Loading" : "Proceed"}</Text>
 					</Pressable>
+				</View>
+			</ScrollView>
+		</GestureHandlerRootView>
+	);
+};
+
+export const AdminNewInvestment = ({ navigation }) => {
+	const { auth } = UseAuth();
+	const [product, setProduct] = React.useState("");
+	const [roi, setRoi] = React.useState("");
+	const [minimum_invest, setMinimum_invest] = React.useState("");
+	const [info, setInfo] = React.useState("");
+	const [geo_location, setGeo_location] = React.useState("");
+	const [gain, setGain] = React.useState("");
+	const [duration, setDuration] = React.useState("");
+	const [loading, setLoading] = React.useState(false);
+
+	const setForm = async () => {
+		const form = {
+			id: auth.id,
+			product: product,
+			roi: roi,
+			minimum_invest: minimum_invest,
+			info: info,
+			geo_location: geo_location,
+			gain: gain,
+			duration: duration,
+			completed: true,
+		};
+		return form;
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setLoading(true);
+		try {
+			let isMounted = true;
+			const controller = new AbortController();
+			const form = await setForm();
+			const res = await Investment(form, controller, "post");
+			if (res?.status === 200) {
+				isMounted = false;
+				controller.abort();
+				alert("Update Successful");
+				navigation.navigate("Admin");
+			} else alert(res?.data.message);
+		} catch (err) {
+			console.log(err);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	return (
+		<GestureHandlerRootView style={styles.container}>
+			<ScrollView contentContainerStyle={styles.scrollContent}>
+				<View style={styles.profile}>
+					<StatusBar style="auto" />
+					<Text style={styles.profileTitle}>Add New Investment</Text>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Product</Text>
+						<TextInput style={styles.input} placeholder="Product" value={product} onChangeText={setProduct} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Minimum Invest</Text>
+						<TextInput style={styles.input} placeholder="25000" value={minimum_invest} onChangeText={setMinimum_invest} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>ROI</Text>
+						<TextInput style={styles.input} placeholder="5" value={roi} onChangeText={setRoi} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Duration in days</Text>
+						<TextInput style={styles.input} placeholder="60" value={duration} onChangeText={setDuration} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Gain</Text>
+						<TextInput style={styles.input} placeholder="54" value={gain} onChangeText={setGain} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Geo Location</Text>
+						<TextInput style={styles.input} placeholder="Geo_location" value={geo_location} onChangeText={setGeo_location} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Info</Text>
+						<TextInput style={styles.input} placeholder="Info" value={info} onChangeText={setInfo} />
+					</View>
+
+					<Pressable style={styles.button} onPress={handleSubmit} disabled={loading}>
+						<Text style={styles.buttonText}>{loading ? "Loading" : "Proceed"}</Text>
+					</Pressable>
+				</View>
+			</ScrollView>
+		</GestureHandlerRootView>
+	);
+};
+
+export const AdminInvestmentEdit = ({ route, navigation }) => {
+	const { investment } = route.params;
+	const [product, setProduct] = React.useState(investment ? investment.product : "");
+	const [roi, setRoi] = React.useState(investment ? investment.roi : "");
+	const [minimum_invest, setMinimum_invest] = React.useState(investment ? investment.minimum_invest : "");
+	const [info, setInfo] = React.useState(investment ? investment.info : "");
+	const [geo_location, setGeo_location] = React.useState(investment ? investment.geo_location : "");
+	const [gain, setGain] = React.useState(investment ? investment.gain : "");
+	const [duration, setDuration] = React.useState(investment ? investment.duration : "");
+	const [loading, setLoading] = React.useState(false);
+	const [delLoading, setdelLoading] = React.useState(false);
+
+	const setForm = async () => {
+		const form = {
+			OrderID: investment._id,
+			product: product,
+			roi: roi,
+			minimum_invest: minimum_invest,
+			info: info,
+			geo_location: geo_location,
+			gain: gain,
+			duration: duration,
+			completed: true,
+		};
+		return form;
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setLoading(true);
+		try {
+			const controller = new AbortController();
+			const form = await setForm();
+			const res = await Investment(form, controller, "patch");
+			if (res?.status === 200) {
+				controller.abort();
+				alert("Update Successful");
+				navigation.navigate("Admin");
+			} else alert(res?.data.message);
+		} catch (err) {
+			console.log(err);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	// console.log(investment);
+
+	const handleDelete = async () => {
+		setdelLoading(true);
+		try {
+			const controller = new AbortController();
+			const form = await setForm();
+			const res = await Investment(form, controller, "delete");
+			console.log(res);
+			if (res?.status === 200) {
+				controller.abort();
+				alert("Investment Successfully Deleted");
+				navigation.navigate("Admin");
+			} else alert(res?.data.message);
+		} catch (err) {
+			console.log(err);
+		} finally {
+			setdelLoading(false);
+		}
+	};
+	return (
+		<GestureHandlerRootView style={styles.container}>
+			<ScrollView contentContainerStyle={styles.scrollContent}>
+				<View style={styles.profile}>
+					<StatusBar style="auto" />
+					<Text style={styles.profileTitle}>Profile: {investment && investment.product}</Text>
+					<Pressable style={styles.button} onPress={handleDelete}>
+						<Text style={styles.buttonText}>{delLoading ? "Loading..." : "Delete"}</Text>
+					</Pressable>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Product</Text>
+						<TextInput style={styles.input} placeholder="Product" value={product} onChangeText={setProduct} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Minimum Invest</Text>
+						<TextInput style={styles.input} placeholder="Minimum_invest" value={minimum_invest.toString()} onChangeText={setMinimum_invest} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>ROI</Text>
+						<TextInput style={styles.input} placeholder="Roi" value={roi.toString()} onChangeText={setRoi} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Duration in days</Text>
+						<TextInput style={styles.input} placeholder="Duration" value={duration.toString()} onChangeText={setDuration} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Gain</Text>
+						<TextInput style={styles.input} placeholder="Gain" value={gain.toString()} onChangeText={setGain} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Geo Location</Text>
+						<TextInput style={styles.input} placeholder="Geo_location" value={geo_location} onChangeText={setGeo_location} />
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Info</Text>
+						<TextInput style={styles.input} placeholder="Info" value={info} onChangeText={setInfo} />
+					</View>
+
+					<Pressable style={styles.button} onPress={handleSubmit} disabled={loading}>
+						<Text style={styles.buttonText}>{loading ? "Loading" : "Proceed"}</Text>
+					</Pressable>
+				</View>
+			</ScrollView>
+		</GestureHandlerRootView>
+	);
+};
+
+export const AdminTransactionEdit = ({ route, navigation }) => {
+	const { transaction } = route.params;
+	const { auth } = UseAuth();
+	const [completed, setCompleted] = React.useState(transaction?.completed);
+	const [loading, setLoading] = React.useState(false);
+
+	const setForm = async () => {
+		const form = {
+			OrderID: transaction._id,
+			refund: true,
+			completed: completed,
+		};
+		return form;
+	};
+
+	console.log(transaction);
+	const handleRefund = async (e) => {
+		e.preventDefault();
+		setLoading(true);
+		try {
+			let isMounted = true;
+			const controller = new AbortController();
+			const form = await setForm();
+			const res = await Transaction(isMounted, form, controller, auth, "patch");
+			if (res?.status === 200) {
+				isMounted = false;
+				controller.abort();
+				alert("Update Successful");
+				navigation.navigate("Admin");
+			} else alert(res?.data.message);
+		} catch (err) {
+			console.log(err);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	return (
+		<GestureHandlerRootView style={styles.container}>
+			<ScrollView contentContainerStyle={styles.scrollContent}>
+				<View style={styles.profile}>
+					<StatusBar style="auto" />
+
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Username: {transaction?.username}</Text>
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Product: {transaction?.product}</Text>
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Transaction type: {transaction?.transactionType}</Text>
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Amount: {transaction?.amount}</Text>
+					</View>
+					{transaction.transactionType === "Investment" && (
+						<View style={styles.inputContainer}>
+							<Text style={styles.label}>Days Left: {transaction?.duration}</Text>
+						</View>
+					)}
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Status: {transaction?.completed ? "Success" : "Failed"}</Text>
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Date Created: {new Date(transaction.createdAt).toLocaleDateString()}</Text>
+					</View>
+					<View style={styles.inputContainer}>
+						<Text style={styles.label}>Time Created: {new Date(transaction.createdAt).toLocaleTimeString()}</Text>
+					</View>
+					{!transaction?.completed && (
+						<Pressable style={styles.button} onPress={handleRefund}>
+							<Text style={styles.buttonText}>Refund</Text>
+						</Pressable>
+					)}
 				</View>
 			</ScrollView>
 		</GestureHandlerRootView>

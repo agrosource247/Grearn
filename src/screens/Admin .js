@@ -1,24 +1,33 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import UseAuth from "../services/hooks/UseAuth";
-import { AdminUsersCall, User } from "../services/api";
+import { AdminInvestmentCall, AdminTransactionCall, AdminUsersCall, User } from "../services/api";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import { useFocusEffect } from "@react-navigation/core";
 
 const Admin = ({ navigation }) => {
 	const { auth } = UseAuth();
 	const [users, setUsers] = React.useState([]);
+	const [transactions, setTransactions] = React.useState([]);
+	const [investments, setInvestments] = React.useState([]);
 	const [loading, setLoading] = React.useState(false);
 
 	React.useEffect(() => {
 		AdminUsersCall(setUsers, new AbortController(), "get");
+		AdminTransactionCall(setTransactions, new AbortController(), "get");
+		AdminInvestmentCall(setInvestments, new AbortController(), "get");
 	}, [auth.id]);
 
 	useFocusEffect(
 		React.useCallback(() => {
 			setLoading(true);
-			setUsers([]); // Clear previous data
+			// Clear previous data
+			setUsers([]);
+			setInvestments([]);
+			setTransactions([]);
 			AdminUsersCall(setUsers, new AbortController(), "get");
+			AdminTransactionCall(setTransactions, new AbortController(), "get");
+			AdminInvestmentCall(setInvestments, new AbortController(), "get");
 			setLoading(false);
 		}, [])
 	);
@@ -31,15 +40,12 @@ const Admin = ({ navigation }) => {
 				<View style={styles.addNewCard}>
 					<Text style={styles.enterYourCardNumberWrapper}>ADMIN PANEL</Text>
 					<Pressable style={styles.proceedButton} onPress={() => navigation.navigate("AdminUsers", { users: users })}>
-						<Text style={styles.proceedButtonText}>ALL USERS</Text>
+						<Text style={styles.proceedButtonText}>VIEW USERS</Text>
 					</Pressable>
-					<Pressable style={styles.proceedButton} onPress={() => navigation.navigate("AdminInvestments")}>
-						<Text style={styles.proceedButtonText}>ADD INVESTMENTS</Text>
+					<Pressable style={styles.proceedButton} onPress={() => navigation.navigate("AdminInvestments", { investments: investments })}>
+						<Text style={styles.proceedButtonText}>VIEW INVESTMENTS</Text>
 					</Pressable>
-					<Pressable style={styles.proceedButton} onPress={() => navigation.navigate("AdminUpdateInvestments")}>
-						<Text style={styles.proceedButtonText}>UPDATE INVESTMENTS</Text>
-					</Pressable>
-					<Pressable style={styles.proceedButton} onPress={() => navigation.navigate("AdminTransactions")}>
+					<Pressable style={styles.proceedButton} onPress={() => navigation.navigate("AdminTransactions", { transactions: transactions })}>
 						<Text style={styles.proceedButtonText}>VIEW TRANSACTIONS</Text>
 					</Pressable>
 				</View>
@@ -79,61 +85,69 @@ export const AdminUsers = ({ route, navigation }) => {
 	);
 };
 
-export const AdminInvestments = ({ navigation }) => {
-	const [loading, setLoading] = React.useState(false);
-
+export const AdminTransactions = ({ route, navigation }) => {
+	const { transactions } = route.params;
 	return (
-		<View style={styles.container}>
-			<View style={styles.addNewCard}>
-				<Text style={styles.enterYourCardNumberWrapper}> ALL TRANSACTION</Text>
-				{/* <Text style={styles.enterYourCardNumberWrapper}> TOTAL TRANSACTION: {users.length}</Text> */}
-				<View>
-					{/* {users.map((user, index) => {
-						return (
-							<Text style={styles.addNewCard} key={index} onPress={() => navigation.navigate("AdminUserEdit", { user: user })}>
-								<Text>Username: {user.username}</Text>
-								<Text>Email: {user.email}</Text>
-								<Text>Walletbalance: {user.Walletbalance}</Text>
-								<Text>firstname: {user.firstname}</Text>
-								<Text>lastname: {user.lastname}</Text>
-								<Text>roles: {user.roles}</Text>
-								<Text>Date Created: {new Date(user.createdAt).toLocaleDateString()}</Text>
-							</Text>
-						);
-					})} */}
+		<GestureHandlerRootView>
+			<ScrollView>
+				<View style={styles.container}>
+					<View style={styles.addNewCard}>
+						<Text style={styles.enterYourCardNumberWrapper}> ALL TRANSACTION</Text>
+						<Text style={styles.enterYourCardNumberWrapper}> TOTAL TRANSACTION: {transactions?.length}</Text>
+						<View>
+							{transactions?.map((transaction, index) => {
+								return (
+									<Text style={styles.addNewCard} key={index} onPress={() => navigation.navigate("AdminTransactionEdit", { transaction: transaction })}>
+										<Text>Product: {transaction.product}</Text>
+										<Text>Transaction type: {transaction.transactionType}</Text>
+										<Text>Amount: {transaction.amount}</Text>
+										{transaction.transactionType === "Investment" && <Text>Duration: {transaction.duration}</Text>}
+										<Text>Completed: {transaction.completed ? "Success" : "Failed"}</Text>
+										<Text>Date Created: {new Date(transaction.createdAt).toLocaleDateString()}</Text>
+										<Text>Time Created: {new Date(transaction.createdAt).toLocaleTimeString()}</Text>
+									</Text>
+								);
+							})}
+						</View>
+					</View>
 				</View>
-			</View>
-		</View>
+			</ScrollView>
+		</GestureHandlerRootView>
 	);
 };
 
-export const AdminUpdateInvestments = ({ navigation }) => {
-	const [loading, setLoading] = React.useState(false);
-
+export const AdminInvestments = ({ route, navigation }) => {
+	const { investments } = route.params;
 	return (
-		<View style={styles.container}>
-			<View style={styles.addNewCard}>
-				<Text style={styles.enterYourCardNumberWrapper}> UPDATE INVESTMENTS</Text>
-				<Pressable style={styles.proceedButton} onPress={() => setLoading(true)}>
-					<Text style={styles.proceedButtonText}>{loading ? "Loading..." : "ADD USER"}</Text>
-				</Pressable>
-			</View>
-		</View>
-	);
-};
-
-export const AdminTransactions = ({ navigation }) => {
-	const [loading, setLoading] = React.useState(false);
-
-	return (
-		<View style={styles.container}>
-			<View style={styles.addNewCard}>
-				<Text style={styles.enterYourCardNumberWrapper}> ALL TRANSACTIONS</Text>
-				<Pressable style={styles.proceedButton} onPress={() => setLoading(true)}>
-					<Text style={styles.proceedButtonText}>{loading ? "Loading..." : "ADD USER"}</Text>
-				</Pressable>
-			</View>
-		</View>
+		<GestureHandlerRootView>
+			<ScrollView>
+				<View style={styles.container}>
+					<View style={styles.addNewCard}>
+						<Text style={styles.enterYourCardNumberWrapper}> ALL INVESTMENT</Text>
+						<Text style={styles.enterYourCardNumberWrapper}> TOTAL INVESTMENT: {investments?.length}</Text>
+						<Pressable style={styles.proceedButton} onPress={() => navigation.navigate("AdminNewInvestment")}>
+							<Text style={styles.proceedButtonText}>Add New Investment</Text>
+						</Pressable>
+						<View>
+							{investments?.map((investment, index) => {
+								return (
+									<Text style={styles.addNewCard} key={index} onPress={() => navigation.navigate("AdminInvestmentEdit", { investment: investment })}>
+										<Text>Product: {investment.product}</Text>
+										<Text>Minimun Invest: {investment.minimum_invest}</Text>
+										<Text>ROI: {investment.roi}</Text>
+										<Text>Geo Location: {investment.geo_location}</Text>
+										<Text>Duration: {investment.duration}</Text>
+										<Text>Info: {investment.info}</Text>
+										<Text>Date Created: {new Date(investment.createdAt).toLocaleDateString()}</Text>
+										<Text>Time Created: {new Date(investment.createdAt).toLocaleTimeString()}</Text>
+									</Text>
+								);
+							})}
+						</View>
+					</View>
+				</View>
+			</ScrollView>
+		</GestureHandlerRootView>
 	);
 };
 
