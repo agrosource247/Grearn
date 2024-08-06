@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Border, Color, FontSize, FontFamily } from "../../GlobalStyles";
+<<<<<<< HEAD
 import { Dimensions } from "react-native";
 import {
   scale,
@@ -10,6 +11,9 @@ import {
 // Get the dimensions of the screen
 const { width, height } = Dimensions.get("window");
 const avatarSize = 65; // Adjust this to your desired size
+=======
+
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
 const styles = StyleSheet.create({
   upBars1Position: {
     top: 0,
@@ -20,7 +24,15 @@ const styles = StyleSheet.create({
     width: 24,
     position: "absolute",
   },
+<<<<<<< HEAD
 
+=======
+  newChildLayout2: {
+    borderRadius: Border.br_8xs,
+    position: "absolute",
+    overflow: "hidden",
+  },
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
   nilFlexBox: {
     color: Color.colorWhite,
     alignItems: "center",
@@ -34,6 +46,7 @@ const styles = StyleSheet.create({
     width: 179,
     position: "absolute",
   },
+<<<<<<< HEAD
 
   container: {
     flex: 1,
@@ -42,6 +55,173 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
 
+=======
+  topTypo: {
+    color: Color.colorDarkslategray_500,
+    fontSize: FontSize.size_base,
+    alignItems: "center",
+    display: "flex",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  newLayout1: {
+    height: 59,
+    width: 72,
+    borderRadius: Border.br_9xs,
+    top: 577,
+    position: "absolute",
+    overflow: "hidden",
+  },
+  newLayout: {
+    top: 660,
+    height: 59,
+    width: 72,
+    borderRadius: Border.br_9xs,
+    position: "absolute",
+    overflow: "hidden",
+  },
+  frameIconLayout: {
+    top: 743,
+    height: 59,
+    width: 72,
+    borderRadius: Border.br_9xs,
+    position: "absolute",
+    overflow: "hidden",
+  },
+  newChildLayout1: {
+    top: 826,
+    width: 72,
+    borderRadius: Border.br_9xs,
+    height: 65,
+    position: "absolute",
+    overflow: "hidden",
+  },
+  maizeLayout: {
+    height: 17,
+    top: 581,
+  },
+  soyaBeansTypo: {
+    width: 91,
+    fontSize: FontSize.size_sm,
+    left: 107,
+    color: Color.colorDarkslategray_500,
+    alignItems: "center",
+    display: "flex",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  pepperPosition: {
+    top: 747,
+    height: 17,
+  },
+  honeyLayout: {
+    height: 19,
+    top: 830,
+  },
+  melonTypo: {
+    width: 46,
+    left: 320,
+    fontSize: FontSize.size_sm,
+    color: Color.colorDarkslategray_500,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  honeyTypo: {
+    width: 55,
+    fontSize: FontSize.size_sm,
+    color: Color.colorDarkslategray_500,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  southLayout: {
+    width: 85,
+    left: 107,
+  },
+  southTypo2: {
+    top: 680,
+    color: Color.colorDarkslategray_400,
+    fontSize: FontSize.size_4xs,
+    fontFamily: FontFamily.poppinsMedium,
+    fontWeight: "500",
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    position: "absolute",
+  },
+  southTypo1: {
+    top: 763,
+    color: Color.colorDarkslategray_400,
+    fontSize: FontSize.size_4xs,
+    fontFamily: FontFamily.poppinsMedium,
+    fontWeight: "500",
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    position: "absolute",
+  },
+  southTypo: {
+    top: 848,
+    color: Color.colorDarkslategray_400,
+    fontSize: FontSize.size_4xs,
+    height: 19,
+    fontFamily: FontFamily.poppinsMedium,
+    fontWeight: "500",
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    position: "absolute",
+  },
+  southTypo3: {
+    color: Color.colorDarkslategray_400,
+    fontSize: FontSize.size_4xs,
+    top: 597,
+    height: 17,
+    fontFamily: FontFamily.poppinsMedium,
+    fontWeight: "500",
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    position: "absolute",
+  },
+  textTypo1: {
+    width: 37,
+    color: Color.colorLimegreen_100,
+    left: 107,
+    fontSize: FontSize.size_xs,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  textPosition2: {
+    top: 700,
+    height: 14,
+  },
+  textPosition1: {
+    top: 783,
+    height: 14,
+  },
+  textPosition: {
+    top: 870,
+    height: 15,
+  },
+  textLayout: {
+    width: 35,
+    position: "absolute",
+  },
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
   parentLayout: {
     height: 36,
     top: 11,
@@ -74,27 +254,58 @@ const styles = StyleSheet.create({
     top: 401,
     borderRadius: Border.br_9xs,
   },
+<<<<<<< HEAD
 
   newUserDashboardChild: {
     top: 69,
     width: avatarSize,
     height: avatarSize,
     borderRadius: avatarSize / 2,
+=======
+  upBars1: {
+    left: 47,
+    width: 337,
+    overflow: "hidden",
+  },
+  newUserDashboardChild: {
+    top: 69,
+    width: 65,
+    height: 65,
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
     left: 20,
     position: "absolute",
   },
   goodMorning: {
+<<<<<<< HEAD
     marginTop: 70,
     color: Color.colorDimgray_400,
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
     fontSize: FontSize.size_3xs,
     left: scale(-50),
+=======
+    top: 81,
+    color: Color.colorDimgray_400,
+    width: 75,
+    alignItems: "center",
+    display: "flex",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    fontSize: FontSize.size_3xs,
+    left: 89,
+    position: "absolute",
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
   },
   omitoyinDavid: {
     top: 97,
     color: Color.colorDarkslategray_200,
     fontSize: FontSize.size_smi,
+<<<<<<< HEAD
+=======
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
     textAlign: "left",
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
@@ -102,6 +313,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   iconamoonnotification: {
+<<<<<<< HEAD
     top: 69,
     right: 17,
     position: "absolute",
@@ -109,11 +321,23 @@ const styles = StyleSheet.create({
   investmentPackage: {
     // marginLeft: 269,
     right: scale(4),
+=======
+    top: 72,
+    left: 400,
+    overflow: "hidden",
+  },
+  investmentPackage: {
+    left: 230,
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
     fontSize: FontSize.size_2xs,
     width: 118,
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
+<<<<<<< HEAD
     top: moderateScale(20),
+=======
+    top: 20,
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
     color: Color.colorWhite,
   },
   grearn: {
@@ -130,11 +354,22 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   totalAssets: {
+<<<<<<< HEAD
     top: verticalScale(44),
     color: Color.colorGainsboro_300,
     width: moderateScale(82),
     fontSize: FontSize.size_xs,
     left: scale(16),
+=======
+    top: 44,
+    color: Color.colorGainsboro_300,
+    width: 82,
+    fontSize: FontSize.size_xs,
+    left: 16,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
     position: "absolute",
@@ -176,6 +411,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   nilWrapper: {
+<<<<<<< HEAD
     borderRadius: Border.br_7xs,
     backgroundColor: Color.colorGreen_200,
     width: moderateScale(70),
@@ -183,6 +419,14 @@ const styles = StyleSheet.create({
     bottom: verticalScale(17),
     right: scale(7),
     position: "absolute",
+=======
+    top: 56,
+    left: 290,
+    borderRadius: Border.br_7xs,
+    backgroundColor: Color.colorGreen_200,
+    width: 70,
+    height: 30,
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
   },
   frameChild: {
     top: 75,
@@ -198,13 +442,22 @@ const styles = StyleSheet.create({
   },
   groupIcon: {
     top: -109,
+<<<<<<< HEAD
     left: 200,
+=======
+    left: 245,
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
     width: 259,
     height: 257,
     position: "absolute",
   },
   frameChild1: {
+<<<<<<< HEAD
     left: 150,
+=======
+    top: -1,
+    left: 201,
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
     width: 251,
     height: 254,
     position: "absolute",
@@ -216,12 +469,21 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   investmentPackageParent: {
+<<<<<<< HEAD
     borderRadius: Border.br_8xs,
     overflow: "hidden",
     marginTop: verticalScale(60),
     width: "90%",
     height: 102,
     backgroundColor: Color.colorYellowgreen_100,
+=======
+    top: 160,
+    backgroundColor: Color.colorYellowgreen_100,
+    width: 400,
+    height: 102,
+    left: 20,
+    borderRadius: Border.br_8xs,
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
   },
   topGainers: {
     width: 101,
@@ -229,6 +491,7 @@ const styles = StyleSheet.create({
     top: 531,
   },
   liveStocks: {
+<<<<<<< HEAD
     marginTop: scale(4),
     width: 97,
     height: 20,
@@ -238,6 +501,11 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
     alignSelf: "flex-start",
+=======
+    top: 365,
+    width: 97,
+    left: 30,
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
   },
   topLosers: {
     width: 87,
@@ -245,6 +513,7 @@ const styles = StyleSheet.create({
     top: 531,
   },
   newUserDashboardItem: {
+<<<<<<< HEAD
     // left: 30,
     height: 59,
     width: 72,
@@ -296,6 +565,222 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(15),
   },
 
+=======
+    left: 30,
+  },
+  newUserDashboardInner: {
+    left: 30,
+  },
+  frameIcon: {
+    left: 30,
+  },
+  newUserDashboardChild1: {
+    left: 30,
+  },
+  newUserDashboardChild2: {
+    left: 240,
+  },
+  newUserDashboardChild3: {
+    left: 240,
+  },
+  newUserDashboardChild4: {
+    left: 240,
+  },
+  newUserDashboardChild5: {
+    left: 240,
+  },
+  maize: {
+    width: 49,
+    fontSize: FontSize.size_sm,
+    left: 107,
+    top: 581,
+    color: Color.colorDarkslategray_500,
+    alignItems: "center",
+    display: "flex",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  guineaCorn: {
+    top: 664,
+  },
+  soyaBeans: {
+    width: 91,
+    fontSize: FontSize.size_sm,
+    left: 107,
+    color: Color.colorDarkslategray_500,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  honey: {
+    width: 55,
+    fontSize: FontSize.size_sm,
+    color: Color.colorDarkslategray_500,
+    alignItems: "center",
+    display: "flex",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+    left: 107,
+    top: 830,
+  },
+  millet: {
+    top: 581,
+  },
+  ginger: {
+    left: 320,
+    top: 664,
+  },
+  pepper: {
+    left: 320,
+    top: 747,
+  },
+  melon: {
+    top: 830,
+    left: 320,
+  },
+  southEastRegion: {
+    color: Color.colorDarkslategray_400,
+    fontSize: FontSize.size_4xs,
+    top: 597,
+    fontFamily: FontFamily.poppinsMedium,
+    fontWeight: "500",
+    alignItems: "center",
+    display: "flex",
+    position: "absolute",
+  },
+  southEastRegion1: {
+    width: 85,
+    left: 107,
+  },
+  southEastRegion2: {
+    width: 85,
+    left: 107,
+  },
+  southEastRegion3: {
+    width: 85,
+    left: 107,
+  },
+  southWestRegion: {
+    left: 320,
+    width: 87,
+  },
+  southWestRegion1: {
+    left: 320,
+    width: 87,
+  },
+  southWestRegion2: {
+    left: 320,
+    width: 87,
+  },
+  southWestRegion3: {
+    left: 320,
+    width: 87,
+  },
+  text1: {
+    top: 617,
+  },
+  text2: {
+    width: 37,
+    color: Color.colorLimegreen_100,
+    left: 107,
+    fontSize: FontSize.size_xs,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  text3: {
+    width: 37,
+    color: Color.colorLimegreen_100,
+    left: 107,
+    fontSize: FontSize.size_xs,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  text4: {
+    width: 37,
+    color: Color.colorLimegreen_100,
+    left: 107,
+    fontSize: FontSize.size_xs,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    position: "absolute",
+  },
+  text5: {
+    color: Color.colorRed_100,
+    width: 35,
+    left: 320,
+    fontSize: FontSize.size_xs,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    top: 617,
+  },
+  text6: {
+    color: Color.colorRed_100,
+    width: 35,
+    left: 320,
+    fontSize: FontSize.size_xs,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    top: 700,
+  },
+  newUserDashboardChild6: {
+    left: 144,
+    top: 531,
+    height: 24,
+    width: 24,
+  },
+  text7: {
+    color: Color.colorRed_100,
+    width: 35,
+    left: 320,
+    fontSize: FontSize.size_xs,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    top: 783,
+  },
+  text8: {
+    color: Color.colorRed_100,
+    width: 35,
+    left: 320,
+    fontSize: FontSize.size_xs,
+    alignItems: "center",
+    display: "flex",
+    textAlign: "left",
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    top: 870,
+  },
+  newUserDashboardChild7: {
+    left: 376,
+    top: 531,
+    height: 24,
+    width: 24,
+  },
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
   newUserDashboardChild8: {
     left: 30,
   },
@@ -305,6 +790,7 @@ const styles = StyleSheet.create({
   newUserDashboardChild10: {
     left: 318,
   },
+<<<<<<< HEAD
 
   newUserDashboard: {
     alignItems: "center",
@@ -333,6 +819,20 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 18,
     marginBottom: 20,
+=======
+  newUserDashboardChild11: {
+    top: 272,
+    left: 205,
+    width: 20,
+    height: 9,
+    position: "absolute",
+  },
+  newUserDashboard: {
+    borderRadius: Border.br_smi,
+    backgroundColor: Color.colorMintcream,
+    width: "100%",
+    height: 932,
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
   },
 });
 export default styles;

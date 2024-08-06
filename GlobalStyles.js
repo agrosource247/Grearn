@@ -23,6 +23,7 @@ export const FontSize = {
 };
 /* Colors */
 export const Color = {
+<<<<<<< HEAD
   colorDown: "#8e8e8e",
   colorUp: "#444444",
   colorMediumGray: "#545454",
@@ -31,6 +32,10 @@ export const Color = {
   colorA: "#aaaaaa",
   colorMintcream: "#fbfff9",
   // colorWhite: "#fff",
+=======
+  colorMintcream: "#fbfff9",
+  colorWhite: "#fff",
+>>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
   colorDarkslategray_100: "#474747",
   colorDarkslategray_200: "#434343",
   colorDarkslategray_300: "#424242",
