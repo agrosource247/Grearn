@@ -1,0 +1,14 @@
+{
+  /* <View style={styles.frame}>
+  <Pressable onPress={() => navigation.navigate("Investment")}>
+    <Image
+      //top arrow
+      style={[styles.vuesaxlineararrowLeftIcon, styles.iconLayout]}
+      contentFit="cover"
+      source={require("../assets/vuesaxlineararrowleft.png")}
+    />
+  </Pressable>
+  <Text style={styles.investments}>Investments</Text>
+</View>; */
+}
+<View></View>;
