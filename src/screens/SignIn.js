@@ -1,113 +1,9 @@
 import React from "react";
-<<<<<<< HEAD
 import { Pressable, StatusBar, Text, View, TextInput } from "react-native";
-import {
-  GestureHandlerRootView,
-  ScrollView,
-} from "react-native-gesture-handler";
+import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import { apiRequest } from "../services/api";
 import UseAuth from "../services/hooks/UseAuth";
 import styles from "../styles/SignInstyles";
-
-const SignIn = ({ navigation }) => {
-  const { setAuth } = UseAuth();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
-
-  const handleLogin = async () => {
-    if (!email || !password)
-      return alert("Please enter both email and password.");
-    setLoading(true);
-
-    try {
-      const res = await apiRequest.post(`/auth/signin`, {
-        email,
-        password,
-      });
-      if (res.status === 200) {
-        const accessToken = res?.data?.accessToken;
-        const roles = res?.data?.roles;
-        const id = res?.data?.id;
-        setAuth({ id, roles, accessToken });
-        navigation.navigate("NewUserDashboard");
-      } else alert(res.data.message);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSignUpPress = () => navigation.navigate("SecondSignUp");
-  const handleForgotPwdPress = () => navigation.navigate("ForgotPassword");
-
-  return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.signIn}>
-          <StatusBar barStyle="default" translucent={true} contentFit="cover" />
-          <View style={styles.topContainer}>
-            <Text style={styles.cancel} onPress={() => navigation.goBack()}>
-              Cancel
-            </Text>
-            <View style={styles.signUpContainer}>
-              <Text style={styles.dontHaveAn}>Don’t have an account?</Text>
-              <Pressable onPress={handleSignUpPress}>
-                <Text style={styles.signUp}> Sign Up</Text>
-              </Pressable>
-            </View>
-          </View>
-          <View style={styles.logInContainer}>
-            <Text style={styles.logIn}>Log in</Text>
-            <Pressable onPress={handleForgotPwdPress}>
-              <Text style={styles.forgotPwd}>Forgot Password?</Text>
-            </Pressable>
-          </View>
-          <Text style={styles.enterYourEmail}>
-            Enter your email and password to log in
-          </Text>
-
-          <View style={styles.inputWrapper}>
-            <Text style={styles.inputLabel}>Email Address</Text>
-            <TextInput
-              value={email}
-              style={styles.textInput}
-              placeholder="Enter email"
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-          </View>
-
-          <View style={styles.inputWrapper}>
-            <Text style={styles.inputLabel}>Password</Text>
-            <TextInput
-              value={password}
-              style={styles.textInput}
-              placeholder="Enter password"
-              onChangeText={setPassword}
-              secureTextEntry={true}
-            />
-          </View>
-          <Pressable style={styles.logInButton} onPress={handleLogin}>
-            <Text style={styles.logInButtonText}>
-              {loading ? "Loading..." : "Log In"}
-            </Text>
-          </Pressable>
-        </View>
-      </ScrollView>
-    </GestureHandlerRootView>
-  );
-};
-
-=======
-import { Pressable, StatusBar, StyleSheet, Text, View, TextInput } from "react-native";
-import { FontSize, FontFamily, Color, Border } from "../../GlobalStyles";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { ScrollView } from "react-native-gesture-handler";
-import { apiRequest } from "../services/api";
-import UseAuth from "../services/hooks/UseAuth";
 
 const SignIn = ({ navigation }) => {
 	const { setAuth } = UseAuth();
@@ -138,218 +34,49 @@ const SignIn = ({ navigation }) => {
 		}
 	};
 
-	// Navigate to the SignUp page
 	const handleSignUpPress = () => navigation.navigate("SecondSignUp");
 	const handleForgotPwdPress = () => navigation.navigate("ForgotPassword");
 
 	return (
-		<GestureHandlerRootView>
-			<ScrollView>
+		<GestureHandlerRootView style={{ flex: 1 }}>
+			<ScrollView contentContainerStyle={styles.scrollViewContent}>
 				<View style={styles.signIn}>
-					<StatusBar
-						barStyle="default"
-						translucent={true}
-						contentFit="cover"
-						// hidden
-					/>
-					<View style={{ top: -30 }}>
-						<Text style={[styles.cancel, styles.cancelTypo]}>Cancel</Text>
-						<Text style={[styles.dontHaveAnContainer, styles.cancelTypo]}>
-							<View style={{ top: 20 }}>
-								<Text style={styles.dontHaveAn}>Don’t have an account?</Text>
-							</View>
+					<StatusBar barStyle="default" translucent={true} contentFit="cover" />
+					<View style={styles.topContainer}>
+						<Text style={styles.cancel} onPress={() => navigation.goBack()}>
+							Cancel
+						</Text>
+						<View style={styles.signUpContainer}>
+							<Text style={styles.dontHaveAn}>Don’t have an account?</Text>
 							<Pressable onPress={handleSignUpPress}>
-								<Text style={[styles.signUp, styles.dontHaveContainer]}>Sign Up</Text>
+								<Text style={styles.signUp}> Sign Up</Text>
 							</Pressable>
-						</Text>
+						</View>
 					</View>
-					<Text style={styles.logIn}>Log in</Text>
-					<Text style={[styles.enterYourEmail, styles.signUpTypo]}>Enter your email and password to log in</Text>
+					<View style={styles.logInContainer}>
+						<Text style={styles.logIn}>Log in</Text>
+						<Pressable onPress={handleForgotPwdPress}>
+							<Text style={styles.forgotPwd}>Forgot Password?</Text>
+						</Pressable>
+					</View>
+					<Text style={styles.enterYourEmail}>Enter your email and password to log in</Text>
 
-					<View style={[styles.omitoyinayomide20gmailcomWrapper]}>
-						<Text style={[styles.emailAddress, styles.passwordTypo]}>Email Address</Text>
-						<TextInput value={email} style={[styles.enterPasswordPosition, styles.EmailwrapperLayout]} placeholder={email ? email : "grearnapi@gmail.com"} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
+					<View style={styles.inputWrapper}>
+						<Text style={styles.inputLabel}>Email Address</Text>
+						<TextInput value={email} style={styles.textInput} placeholder="Enter email" onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
 					</View>
 
-					<View style={[styles.enterPasswordWrapper]}>
-						<Text style={[styles.password, styles.passwordTypo]}>Password</Text>
-
-						<TextInput value={password} style={[styles.enterPasswordPosition, styles.wrapperLayout]} placeholder="Enter password" onChangeText={setPassword} secureTextEntry={true} />
+					<View style={styles.inputWrapper}>
+						<Text style={styles.inputLabel}>Password</Text>
+						<TextInput value={password} style={styles.textInput} placeholder="Enter password" onChangeText={setPassword} secureTextEntry={true} />
 					</View>
-					<Pressable style={styles.logInWrapper} onPress={handleLogin}>
-						<Text style={styles.logIn1}>{loading ? "Loading..." : "Log In"}</Text>
+					<Pressable style={styles.logInButton} onPress={handleLogin}>
+						<Text style={styles.logInButtonText}>{loading ? "Loading..." : "Log In"}</Text>
 					</Pressable>
-
-					<View style={{ top: -30 }}>
-						<Text style={[styles.dontHaveAnContainer, styles.cancelTypo]}>
-							<Pressable onPress={handleForgotPwdPress}>
-								<Text style={[styles.signUp, styles.forgotpassword]}>Forgot Password?</Text>
-							</Pressable>
-						</Text>
-					</View>
 				</View>
 			</ScrollView>
 		</GestureHandlerRootView>
 	);
 };
 
-const styles = StyleSheet.create({
-	cancelTypo: {
-		fontSize: FontSize.size_smi,
-		left: 205,
-	},
-	forgotpassword: {
-		top: -50,
-		left: 90, // left: "50%",
-
-		// marginLeft: -200,
-	},
-	signUpTypo: {
-		fontFamily: FontFamily.poppinsMedium,
-		fontWeight: "500",
-	},
-	wrapperLayout: {
-		height: 48,
-		width: 400,
-		borderWidth: 1,
-		borderColor: Color.colorLightgray_100,
-		borderStyle: "solid",
-		borderRadius: Border.br_7xs,
-		position: "absolute",
-		left: -25,
-	},
-	EmailwrapperLayout: {
-		height: 48,
-		width: 400,
-		borderWidth: 1,
-		borderColor: Color.colorLightgray_100,
-		borderStyle: "solid",
-		borderRadius: Border.br_7xs,
-		position: "absolute",
-		left: 25,
-	},
-	enterPasswordPosition: {
-		paddingHorizontal: 10,
-		color: Color.colorSilver_200,
-		fontSize: FontSize.size_xs,
-		marginLeft: 0,
-		marginTop: -8,
-		fontFamily: FontFamily.poppinsMedium,
-		fontWeight: "500",
-		position: "absolute",
-	},
-	passwordTypo: {
-		height: 16,
-		color: Color.colorGray_300,
-		top: "50%",
-		fontFamily: FontFamily.poppinsMedium,
-		fontWeight: "500",
-		fontSize: FontSize.size_smi,
-		textAlign: "left",
-		left: "50%",
-		position: "absolute",
-		overflow: "hidden",
-	},
-
-	logIn: {
-		marginLeft: -200,
-		top: 80,
-		fontSize: FontSize.size_3xl,
-		left: "50%",
-		color: Color.colorGray_700,
-		fontFamily: FontFamily.poppinsSemiBold,
-		fontWeight: "600",
-		position: "absolute",
-	},
-	cancel: {
-		top: 75,
-		fontSize: FontSize.size_smi,
-		marginLeft: -180,
-		color: Color.colorGray_700,
-		fontFamily: FontFamily.poppinsSemiBold,
-		fontWeight: "600",
-	},
-	dontHaveAn: {
-		color: Color.colorDimgray_200,
-	},
-	text: {
-		color: Color.colorGray_700,
-	},
-	dontHaveAnAccount: {
-		fontFamily: FontFamily.poppinsRegular,
-		fontSize: FontSize.size_smi,
-	},
-	signUp: {
-		color: Color.colorYellowgreen_100,
-	},
-	dontHaveAnContainer: {
-		marginHorizontal: 20,
-
-		marginTop: 50,
-	},
-	dontHaveContainer: {
-		marginHorizontal: 10,
-		marginTop: 0,
-	},
-	enterYourEmail: {
-		top: 120,
-		color: Color.colorDimgray_200,
-		fontSize: FontSize.size_smi,
-		left: "50%",
-		position: "absolute",
-		marginLeft: -200,
-	},
-	logIn1: {
-		marginTop: -15,
-		marginLeft: -31,
-		fontSize: FontSize.size_xl,
-		color: Color.colorGainsboro_100,
-		top: "50%",
-		fontFamily: FontFamily.poppinsSemiBold,
-		fontWeight: "600",
-		left: "50%",
-	},
-	logInWrapper: {
-		top: 500,
-		backgroundColor: Color.colorYellowgreen_100,
-		width: 400,
-		height: 60,
-		borderRadius: Border.br_7xs,
-		left: 25,
-	},
-
-	omitoyinayomide20gmailcomWrapper: {
-		top: 150,
-		left: 0,
-		borderColor: Color.colorLightgray_100,
-		borderStyle: "solid",
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	emailAddress: {
-		marginTop: -45,
-		marginLeft: -200,
-		position: "absolute",
-		overflow: "hidden",
-	},
-
-	enterPasswordWrapper: {
-		top: 250,
-		left: 50,
-	},
-	password: {
-		marginTop: -35,
-		marginLeft: -250,
-	},
-	signIn: {
-		borderRadius: Border.br_smi,
-		backgroundColor: Color.colorWhite,
-		flex: 1,
-		width: "100%",
-		height: 932,
-		overflow: "hidden",
-	},
-});
-
->>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
 export default SignIn;

@@ -1,102 +1,4 @@
 import * as React from "react";
-<<<<<<< HEAD
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { Border, FontFamily, FontSize, Color } from "../../GlobalStyles";
-import {
-  scale,
-  verticalScale,
-  moderateScale,
-  moderateVerticalScale,
-} from "react-native-size-matters";
-
-const FrameComponent = () => {
-  const navigation = useNavigation();
-
-  const historyPress = () => {
-    // navigation.navigate("FlutterwaveDeposit");
-  };
-
-  const addMoneyPress = () => {
-    navigation.navigate("FlutterwaveDeposit");
-  };
-
-  const withdrawPress = () => {
-    navigation.navigate("Withdrawal");
-  };
-
-  return (
-    <View style={styles.frameParent}>
-      <View style={styles.buttonContainer}>
-        <Pressable onPress={historyPress} style={styles.button}>
-          <Image
-            style={styles.image}
-            contentFit="cover"
-            source={require("../assets/frame-52.png")}
-          />
-          <Text style={styles.text}>History</Text>
-        </Pressable>
-
-        <Pressable onPress={addMoneyPress} style={styles.button}>
-          <Image
-            style={styles.image}
-            contentFit="cover"
-            source={require("../assets/frame-53.png")}
-          />
-          <Text style={styles.text}>Add money</Text>
-        </Pressable>
-
-        <Pressable onPress={withdrawPress} style={styles.button}>
-          <Image
-            style={styles.image}
-            contentFit="cover"
-            source={require("../assets/frame-54.png")}
-          />
-          <Text style={styles.text}>Withdraw</Text>
-        </Pressable>
-      </View>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  frameParent: {
-    marginTop: scale(5),
-    paddingTop: scale(10),
-    borderRadius: Border.br_8xs,
-    backgroundColor: Color.colorWhite,
-    shadowColor: "#6CBC37",
-    shadowRadius: 4,
-    elevation: 4,
-    shadowOpacity: 1,
-    height: 75,
-    width: "90%",
-    justifyContent: "center",
-    alignContent: "center",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    flex: 1,
-  },
-  button: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    height: 33,
-    width: 25,
-    borderRadius: Border.br_7xs,
-  },
-  text: {
-    color: Color.colorDarkslategray_300,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    fontSize: FontSize.size_xs,
-    marginTop: 5,
-  },
-=======
 import { Image } from "expo-image";
 import { StyleSheet, Text, View } from "react-native";
 import { Border, FontFamily, FontSize, Color } from "../../GlobalStyles";
@@ -106,13 +8,19 @@ const FrameComponent = ({ navigation }) => {
 	return (
 		<View style={styles.frameParent}>
 			<Image style={[styles.frameChild, styles.frameLayout]} contentFit="cover" source={require("../assets/frame-52.png")} />
-			<Text style={[styles.history, styles.historyTypo]}>History</Text>
+			<Text style={[styles.history, styles.historyTypo]} onPress={() => navigation.navigate("Transactions")}>
+				History
+			</Text>
 			<Image style={[styles.frameItem, styles.frameLayout]} contentFit="cover" source={require("../assets/frame-53.png")} />
-			<Text style={[styles.addMoney, styles.historyTypo]}>Add money</Text>
+			<Text style={[styles.addMoney, styles.historyTypo]} onPress={() => navigation.navigate("FlutterwaveDeposit")}>
+				Add money
+			</Text>
 
 			<Image style={[styles.frameInner, styles.frameLayout]} contentFit="cover" source={require("../assets/frame-54.png")} />
 
-			<Text style={[styles.withdraw, styles.historyTypo]}>Withdraw</Text>
+			<Text style={[styles.withdraw, styles.historyTypo]} onPress={() => navigation.navigate("Withdrawal")}>
+				Withdraw
+			</Text>
 		</View>
 	);
 };
@@ -159,8 +67,8 @@ const styles = StyleSheet.create({
 		width: 61,
 	},
 	frameParent: {
-		top: 286,
-		left: 20,
+		top: 236,
+		left: 0,
 		borderRadius: Border.br_8xs,
 		backgroundColor: Color.colorWhite,
 		shadowColor: "#f6f6f6",
@@ -172,7 +80,6 @@ const styles = StyleSheet.create({
 		overflow: "hidden",
 		position: "absolute",
 	},
->>>>>>> c3a8227f23b23566431422a4dcee67502b4ec656
 });
 
 export default FrameComponent;
