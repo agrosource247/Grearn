@@ -55,139 +55,93 @@ import FlutterwaveDeposit from "./src/screens/FlutterwaveDeposit";
 import Transactions, { TransactionsDetails } from "./src/screens/Transactions";
 import Withdrawal from "./src/screens/Withdrawal";
 import BankDetails from "./src/screens/BankDetails";
-import NewInvestmentPage, {
-  NewInvestmentDetailsPage,
-} from "./src/screens/NewInvestmentPage";
-import Admin, {
-  AdminInvestments,
-  AdminTransactions,
-  AdminUsers,
-} from "./src/screens/Admin ";
-import AdminUserEdit, {
-  AdminInvestmentEdit,
-  AdminNewInvestment,
-  AdminTransactionEdit,
-} from "./src/screens/AdminEdit";
+import NewInvestmentPage, { NewInvestmentDetailsPage } from "./src/screens/NewInvestmentPage";
+import Admin, { AdminInvestments, AdminTransactions, AdminUsers } from "./src/screens/Admin ";
+import AdminUserEdit, { AdminInvestmentEdit, AdminNewInvestment, AdminTransactionEdit } from "./src/screens/AdminEdit";
 import { BottomNavigation } from "react-native-paper";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [fontsLoaded, error] = useFonts({
-    "Poppins-Regular": require("./src/assets/fonts/Poppins-Regular.ttf"),
-    "Poppins-Medium": require("./src/assets/fonts/Poppins-Medium.ttf"),
-    "Poppins-SemiBold": require("./src/assets/fonts/Poppins-SemiBold.ttf"),
-    "Poppins-Bold": require("./src/assets/fonts/Poppins-Bold.ttf"),
-    "Inter-Bold": require("./src/assets/fonts/Inter-Bold.ttf"),
-  });
+	const [fontsLoaded, error] = useFonts({
+		"Poppins-Regular": require("./src/assets/fonts/Poppins-Regular.ttf"),
+		"Poppins-Medium": require("./src/assets/fonts/Poppins-Medium.ttf"),
+		"Poppins-SemiBold": require("./src/assets/fonts/Poppins-SemiBold.ttf"),
+		"Poppins-Bold": require("./src/assets/fonts/Poppins-Bold.ttf"),
+		"Inter-Bold": require("./src/assets/fonts/Inter-Bold.ttf"),
+	});
 
-  if (!fontsLoaded && !error) {
-    return null;
-  }
+	if (!fontsLoaded && !error) {
+		return null;
+	}
 
-  return (
-    <NavigationContainer>
-      <AuthProvider>
-        <Stack.Navigator
-          initialRouteName="Onboarding"
-          screenOptions={{ headerShown: false }}
-        >
-          <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          <Stack.Screen name="Onboarding" component={Onboarding} />
-          <Stack.Screen name="Onboarding1" component={Onboarding1} />
-          <Stack.Screen name="Onboarding2" component={Onboarding2} />
-          <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen name="SecondSignUp" component={SecondSignUp} />
-          <Stack.Screen name="SignUp1" component={SignUp1} />
-          <Stack.Screen name="SignUp2" component={SignUp2} />
-          <Stack.Screen name="NewUserDashboard" component={NewUserDashboard} />
-          <Stack.Screen
-            name="DashboardWith2Investment"
-            component={DashboardWith2Investment}
-          />
-          <Stack.Screen name="Investment" component={Investment} />
-          <Stack.Screen name="NewInvestment" component={NewInvestment} />
-          <Stack.Screen name="NewInvestment1" component={NewInvestment1} />
-          <Stack.Screen name="AddNewCard" component={AddNewCard} />
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen
-            name="ManageProfileText"
-            component={ManageProfileText}
-          />
-          <Stack.Screen name="MyCards" component={MyCards} />
-          <Stack.Screen name="Prompt1" component={Prompt1} />
-          <Stack.Screen name="Prompt2" component={Prompt2} />
-          <Stack.Screen name="Prompt3" component={Prompt3} />
-          <Stack.Screen name="Prompt4" component={Prompt4} />
-          <Stack.Screen name="VerifyCard" component={VerifyCard} />
-          <Stack.Screen name="VerifyCard1" component={VerifyCard1} />
-          <Stack.Screen name="VerifyCard2" component={VerifyCard2} />
-          <Stack.Screen name="InvalidPin" component={InvalidPin} />
-          <Stack.Screen name="NewInvestment2" component={NewInvestment2} />
-          <Stack.Screen name="NewInvestment3" component={NewInvestment3} />
-          <Stack.Screen name="PackageInfo" component={PackageInfo} />
-          <Stack.Screen name="Investing" component={Investing} />
-          <Stack.Screen
-            name="InsufficientFunds"
-            component={InsufficientFunds}
-          />
-          <Stack.Screen name="AboveLimit" component={AboveLimit} />
-          <Stack.Screen name="BelowLimit" component={BelowLimit} />
-          <Stack.Screen name="Confirmation" component={Confirmation} />
-          <Stack.Screen name="Frame" component={Frame} />
-          <Stack.Screen name="Frame1" component={Frame1} />
-          <Stack.Screen name="FrameScreen" component={FrameScreen} />
-          <Stack.Screen name="Profile1" component={Profile1} />
-          <Stack.Screen name="Rectangle" component={Rectangle} />
-          <Stack.Screen name="FirstSignUp" component={FirstSignUp} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-          <Stack.Screen name="ResetPassword" component={ResetPassword} />
-          <Stack.Screen
-            name="FlutterwaveDeposit"
-            component={FlutterwaveDeposit}
-          />
-          <Stack.Screen name="Transactions" component={Transactions} />
-          <Stack.Screen
-            name="TransactionsDetails"
-            component={TransactionsDetails}
-          />
-          <Stack.Screen name="Withdrawal" component={Withdrawal} />
-          <Stack.Screen name="BankDetails" component={BankDetails} />
-          <Stack.Screen
-            name="NewInvestmentPage"
-            component={NewInvestmentPage}
-          />
-          <Stack.Screen
-            name="NewInvestmentDetails"
-            component={NewInvestmentDetailsPage}
-          />
-          <Stack.Screen name="Admin" component={Admin} />
-          <Stack.Screen name="AdminUsers" component={AdminUsers} />
-          <Stack.Screen
-            name="AdminTransactions"
-            component={AdminTransactions}
-          />
-          <Stack.Screen name="AdminInvestments" component={AdminInvestments} />
-          <Stack.Screen name="AdminUserEdit" component={AdminUserEdit} />
-          <Stack.Screen
-            name="AdminNewInvestment"
-            component={AdminNewInvestment}
-          />
-          <Stack.Screen
-            name="AdminInvestmentEdit"
-            component={AdminInvestmentEdit}
-          />
-          <Stack.Screen
-            name="AdminTransactionEdit"
-            component={AdminTransactionEdit}
-          />
-          <Stack.Screen name="Trade" component={Trade} />
-          <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
-        </Stack.Navigator>
-      </AuthProvider>
-    </NavigationContainer>
-  );
+	return (
+		<NavigationContainer>
+			<AuthProvider>
+				<Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
+					<Stack.Screen name="SplashScreen" component={SplashScreen} />
+					<Stack.Screen name="Onboarding" component={Onboarding} />
+					<Stack.Screen name="Onboarding1" component={Onboarding1} />
+					<Stack.Screen name="Onboarding2" component={Onboarding2} />
+					<Stack.Screen name="SignIn" component={SignIn} />
+					<Stack.Screen name="SecondSignUp" component={SecondSignUp} />
+					<Stack.Screen name="SignUp1" component={SignUp1} />
+					<Stack.Screen name="SignUp2" component={SignUp2} />
+					<Stack.Screen name="NewUserDashboard" component={NewUserDashboard} />
+					<Stack.Screen name="DashboardWith2Investment" component={DashboardWith2Investment} />
+					<Stack.Screen name="Investment" component={Investment} />
+					<Stack.Screen name="NewInvestment" component={NewInvestment} />
+					<Stack.Screen name="NewInvestment1" component={NewInvestment1} />
+					<Stack.Screen name="AddNewCard" component={AddNewCard} />
+					<Stack.Screen name="Profile" component={Profile} />
+					<Stack.Screen name="ManageProfileText" component={ManageProfileText} />
+					<Stack.Screen name="MyCards" component={MyCards} />
+					<Stack.Screen name="Prompt1" component={Prompt1} />
+					<Stack.Screen name="Prompt2" component={Prompt2} />
+					<Stack.Screen name="Prompt3" component={Prompt3} />
+					<Stack.Screen name="Prompt4" component={Prompt4} />
+					<Stack.Screen name="VerifyCard" component={VerifyCard} />
+					<Stack.Screen name="VerifyCard1" component={VerifyCard1} />
+					<Stack.Screen name="VerifyCard2" component={VerifyCard2} />
+					<Stack.Screen name="InvalidPin" component={InvalidPin} />
+					<Stack.Screen name="NewInvestment2" component={NewInvestment2} />
+					<Stack.Screen name="NewInvestment3" component={NewInvestment3} />
+					<Stack.Screen name="PackageInfo" component={PackageInfo} />
+					<Stack.Screen name="Investing" component={Investing} />
+					<Stack.Screen name="InsufficientFunds" component={InsufficientFunds} />
+					<Stack.Screen name="AboveLimit" component={AboveLimit} />
+					<Stack.Screen name="BelowLimit" component={BelowLimit} />
+					<Stack.Screen name="Confirmation" component={Confirmation} />
+					<Stack.Screen name="Frame" component={Frame} />
+					<Stack.Screen name="Frame1" component={Frame1} />
+					<Stack.Screen name="FrameScreen" component={FrameScreen} />
+					<Stack.Screen name="Profile1" component={Profile1} />
+					<Stack.Screen name="Rectangle" component={Rectangle} />
+					<Stack.Screen name="FirstSignUp" component={FirstSignUp} />
+					<Stack.Screen name="Home" component={Home} />
+					<Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+					<Stack.Screen name="ResetPassword" component={ResetPassword} />
+					<Stack.Screen name="FlutterwaveDeposit" component={FlutterwaveDeposit} />
+					<Stack.Screen name="Transactions" component={Transactions} />
+					<Stack.Screen name="TransactionsDetails" component={TransactionsDetails} />
+					<Stack.Screen name="Withdrawal" component={Withdrawal} />
+					<Stack.Screen name="BankDetails" component={BankDetails} />
+					<Stack.Screen name="NewInvestmentPage" component={NewInvestmentPage} />
+					<Stack.Screen name="NewInvestmentDetails" component={NewInvestmentDetailsPage} />
+					<Stack.Screen name="Admin" component={Admin} />
+					<Stack.Screen name="AdminUsers" component={AdminUsers} />
+					<Stack.Screen name="AdminTransactions" component={AdminTransactions} />
+					<Stack.Screen name="AdminInvestments" component={AdminInvestments} />
+					<Stack.Screen name="AdminUserEdit" component={AdminUserEdit} />
+					<Stack.Screen name="AdminNewInvestment" component={AdminNewInvestment} />
+					<Stack.Screen name="AdminInvestmentEdit" component={AdminInvestmentEdit} />
+					<Stack.Screen name="AdminTransactionEdit" component={AdminTransactionEdit} />
+					<Stack.Screen name="Trade" component={Trade} />
+					<Stack.Screen name="BottomNavigation" component={BottomNavigation} />
+				</Stack.Navigator>
+			</AuthProvider>
+		</NavigationContainer>
+	);
 };
 
 export default App;

@@ -75,9 +75,10 @@ const FlutterwaveDeposit = ({ navigation }) => {
 
 				const updateRes = await Deposit(success, controller, "patch");
 				if (updateRes.status === 200) {
+					console.log(updateRes);
 					controller.abort();
 					alert("Transaction Successful");
-				} else alert(res?.data.message);
+				} else alert(updateRes?.data.message);
 			} else alert("Transaction Failed, Please try again");
 			navigation.navigate("NewUserDashboard");
 		} catch (error) {
