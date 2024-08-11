@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  Image,
-  Pressable,
-  Modal,
-  Dimensions,
-  Alert,
-} from "react-native";
+import { Text, View, Image, Pressable, Modal, Dimensions } from "react-native";
 import {
   ScrollView,
   GestureHandlerRootView,
@@ -75,76 +67,14 @@ const NewUserDashboard = ({ navigation }) => {
   const [loading, setLoading] = React.useState("true");
   const [isModalVisible, setModalVisible] = useState(true);
   const [contentIndex, setContentIndex] = useState(0);
-  const [avatar, setAvatar] = useState("");
-  ////////////////////
-  useFocusEffect(
-    React.useCallback(() => {
-      let isMounted = true;
-      const controller = new AbortController();
-
-      User(isMounted, setUsers, controller, auth, "get")
-        .then(() => {
-          setLoading(false);
-          setAvatar(users[0]?.avatar || "");
-        })
-        .catch(() => setLoading(false));
-
-      return () => {
-        isMounted = false;
-        controller.abort();
-      };
-    }, [auth.id])
-  );
-
-  const handleSelectImage = () => {
-    launchImageLibraryAsync({ mediaType: "photo" }, (response) => {
-      if (response.didCancel) {
-        console.log("User cancelled image picker");
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else if (response.assets && response.assets.length > 0) {
-        const selectedImage = response.assets[0].uri;
-        setAvatar(selectedImage);
-      }
-    });
-  };
-
-  const handleDeleteImage = () => {
-    Alert.alert(
-      "Delete Image",
-      "Are you sure you want to delete this image?",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          onPress: () => setAvatar(""), // Clear the avatar
-        },
-      ],
-      { cancelable: true }
-    );
-  };
-
-  const handleImagePress = () => {
-    Alert.alert(
-      "Change Profile Picture",
-      "Choose an option",
-      [
-        { text: "Select Image", onPress: handleSelectImage },
-        { text: "Delete Image", onPress: handleDeleteImage },
-        { text: "Cancel", style: "cancel" },
-      ],
-      { cancelable: true }
-    );
-  };
-  ////////////////////////
   const toggleModal = () => {
     setModalVisible(!isModalVisible); // Function to toggle the modal visibility
   };
-  // const toggleTradeNow = () => {
-  //   //Naviagte to the home TradingView
-  //   // navigation.navigate("NewUserDashboard");
-  //   setModalVisible(!isModalVisible); // Function to toggle the modal visibility
-  // };
+  const toggleTradeNow = () => {
+    //Naviagte to the home TradingView
+    // navigation.navigate("NewUserDashboard");
+    setModalVisible(!isModalVisible); // Function to toggle the modal visibility
+  };
   const handleButtonPress = () => {
     if (contentIndex === 0) {
       navigation.navigate("TradePage");
@@ -215,61 +145,25 @@ const NewUserDashboard = ({ navigation }) => {
           flexGrow: 1,
           alignItems: "center",
         }}
-        showsVerticalScrollIndicator={false}
-        // style={{ backgroundColor: Color.colorMintcream }}
+        style={{ backgroundColor: Color.colorMintcream }}
       >
         {users.length > 0 ? (
           <View style={styles.newUserDashboard}>
             <StatusBar />
-            <View
-              style={{
-                top: 69,
-                flexDirection: "row",
-                flex: 1,
-                width: "90%",
-                height: verticalScale(65),
-              }}
-            >
-              <Pressable onPress={handleImagePress} style={{ flex: 1 }}>
-                <Image
-                  style={[
-                    styles.newUserDashboardChild,
-                    { alignSelf: "flex-start" },
-                  ]}
-                  source={
-                    avatar
-                      ? { uri: avatar }
-                      : require("../assets/adaptive-icon.png")
-                  }
-                />
-              </Pressable>
-
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View
-                  style={{
-                    marginLeft: verticalScale(-90),
-                    marginTop: verticalScale(12),
-                  }}
-                >
-                  <Text style={styles.goodMorning}>{time}</Text>
-                  <Text style={styles.omitoyinDavid}>
-                    {users[0].firstname} {users[0].lastname}
-                  </Text>
-                </View>
-                <Image
-                  style={[styles.iconamoonnotification, styles.iconChildLayout]}
-                  contentFit="cover"
-                  source={require("../assets/iconamoonnotification.png")}
-                />
-              </View>
-            </View>
-
+            <Image
+              style={styles.newUserDashboardChild}
+              contentFit="cover"
+              source={{ uri: users[0].avatar }}
+            />
+            <Text style={styles.goodMorning}>{time}</Text>
+            <Text style={styles.omitoyinDavid}>
+              {users[0].firstname} {users[0].lastname}
+            </Text>
+            <Image
+              style={[styles.iconamoonnotification, styles.iconChildLayout]}
+              contentFit="cover"
+              source={require("../assets/iconamoonnotification.png")}
+            />
             <View style={[styles.investmentPackageParent]}>
               <Text style={[styles.investmentPackage, styles.nilFlexBox]}>
                 Investment package
@@ -277,28 +171,18 @@ const NewUserDashboard = ({ navigation }) => {
               <Text style={styles.grearn}>Grearn</Text>
               <Text style={styles.totalAssets}>Total Assets</Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  flex: 1,
-                  marginTop: 50,
-                  left: 15,
-                }}
+                style={[styles.vuesaxlinearhashtag, styles.iconChildLayout]}
               >
-                <View style={{}}>
-                  <Text style={styles.text}>
-                    #00000000 {users[0].walletbalance}
-                  </Text>
-                </View>
-                <View>
-                  <Image
-                    // This is the eye on the card
-                    style={[styles.iconChildLayout]}
-                    contentFit="cover"
-                    source={require("../assets/vuesaxlineareye.png")}
-                  />
+                <View style={styles.wrapper}>
+                  <Text style={styles.text}># {users[0].walletbalance}</Text>
                 </View>
               </View>
-
+              <Image
+                // This is the eye on the card
+                style={[styles.vuesaxlineareyeIcon, styles.iconChildLayout]}
+                contentFit="cover"
+                source={require("../assets/vuesaxlineareye.png")}
+              />
               <View style={styles.nilWrapper}>
                 <Text style={[styles.nil, styles.nilFlexBox]}>NIL</Text>
               </View>
