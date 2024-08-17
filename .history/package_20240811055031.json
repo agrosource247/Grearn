@@ -1,0 +1,23 @@
+{
+  "name": "grearn-main",
+  "version": "1.0.0",
+  "description": "Note: Make sure you have installed native code dependencies [here](https://reactnative.dev/docs/environment-setup#installing-dependencies)",
+  "main": "App.js",
+  
+    "scripts": {
+      "start": "react-native start",
+      "android": "react-native run-android",
+      "ios": "react-native run-ios"
+    }
+  
+  
+
+  
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-native": "^0.74.5"
+  }
+}

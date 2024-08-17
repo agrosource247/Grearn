@@ -1,0 +1,152 @@
+[33mcommit 713a28ddbaa95da144464131fd67ba244f56f681[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Sat Aug 10 23:21:28 2024 -1200
+
+    image picker done
+
+[33mcommit b68d0717a7b1cc6de7f833eeacc9352babc82fe4[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Fri Aug 9 13:35:49 2024 -1200
+
+    just fixed the card and also the bottomNaviagtion
+
+[33mcommit 8925cd402b36596feead0901baa37f6063dfa6c8[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Sat Aug 10 00:17:48 2024 +0100
+
+    Updated deposit and withdraw endpoints
+
+[33mcommit c75871e7c757f9d76c4feeade938702d691c98d4[m
+Merge: f897271 c3a8227
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Tue Aug 6 03:08:25 2024 -1200
+
+    latest
+
+[33mcommit f897271ccf06960088d9f797a445012982a439c6[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Tue Aug 6 02:54:31 2024 -1200
+
+    Resolved merge conflicts
+
+[33mcommit f7b3f81a583ee1e425cd6be0dc7ac209bb333ab8[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Sat Jul 13 10:59:27 2024 -1200
+
+    Resolved merge conflicts and merged Grearn repository
+
+[33mcommit c3a8227f23b23566431422a4dcee67502b4ec656[m[33m ([m[1;31mnew/main[m[33m, [m[1;31mgrearn/main[m[33m)[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Wed Jun 26 19:19:40 2024 +0100
+
+    Added flutterwave withdrawal
+
+[33mcommit de878024d1fa014de3c982d31d5308a2683471a7[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Wed Jun 26 17:10:10 2024 +0100
+
+    Added flutterwave withdrawal
+
+[33mcommit 2bbdbfdb6f3f57c9a7113c5eb6e0926f8f2e419b[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Sun Jun 23 18:54:57 2024 -1200
+
+    rearrange the login
+
+[33mcommit 7a1ebc4fa4d79cd08989e5ffde904ed244a2b231[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Mon Jun 24 00:42:23 2024 +0100
+
+    Added flutterwave withdrawal
+
+[33mcommit b58269b27d4ad345af4d5c4d45c4f29be499cafc[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Mon Jun 24 00:05:37 2024 +0100
+
+    Added flutterwave withdrawal
+
+[33mcommit b8781008fcb401def98c20373463af9d708a102e[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Sun Jun 23 23:25:10 2024 +0100
+
+    Added flutterwave withdrawal
+
+[33mcommit 26d271474da436c038c6d41328ff4f3ea5595835[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Sun Jun 23 18:37:54 2024 +0100
+
+    Added flutterwave withdrawal
+
+[33mcommit 97ae6a8624ec8d487aa9ccc1f9565b834076f681[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Sat Jun 22 13:57:36 2024 +0100
+
+    Added flutterwave
+
+[33mcommit 8403e43ef3251d5e9b073613d2ae62fb5667f850[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Sat Jun 22 08:46:17 2024 +0100
+
+    Fix errors
+
+[33mcommit d4ba1abf63f2917bb2986ded427ce799e9d32058[m
+Merge: 524e07f 5bf524d
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Fri Jun 21 21:06:45 2024 +0100
+
+    Updates
+
+[33mcommit 524e07f2c54feb471b6ca3798f020de9c5f9c44d[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Fri Jun 21 21:02:38 2024 +0100
+
+    Updates
+
+[33mcommit 5bf524d98a4327c4b029ea50787fe798fa8ee66d[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Fri Jun 21 07:58:24 2024 -1200
+
+    check signup and login
+
+[33mcommit b51a8053afea172c55a257e5d188f08a1371c9c7[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Wed Jun 19 01:05:28 2024 -1200
+
+    created NewUserDashboardStyles.js
+
+[33mcommit fefca0d77f2dc4353b963b1cc0fc4232aa56ef37[m
+Merge: bb55b7d dd387d1
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Wed Jun 19 00:43:39 2024 -1200
+
+    Merge branch 'main' of https://github.com/agrosource247/Grearn
+
+[33mcommit bb55b7db998cf0636e38edb02bd3ff1d311d9860[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Wed Jun 19 00:42:32 2024 -1200
+
+    testing nothing
+
+[33mcommit dd387d1c50b3cd0d97f10952e311308a9413d055[m
+Author: Bibiwei <bibiweipere@gmail.com>
+Date:   Tue Jun 18 18:15:24 2024 +0100
+
+    Authentication Added
+
+[33mcommit f9d33dcea285746618083c7e1369e447539ff88c[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Mon Jun 17 00:48:58 2024 -1200
+
+    6/17/24
+
+[33mcommit a8e622e6b7210fd1b1621d7fc383b003efd62dd5[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Mon May 13 19:12:48 2024 -1200
+
+    sample code
+
+[33mcommit 35df3c2a8050b1f321c17e6ba32e99952c694d79[m
+Author: agrosource247 <167599401+agrosource247@users.noreply.github.com>
+Date:   Mon May 13 19:08:35 2024 -1200
+
+    first commit
