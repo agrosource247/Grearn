@@ -7,8 +7,7 @@ import Trade from "../screens/Trade";
 import MyCards from "../screens/MyCards";
 import Profile from "../screens/Profile";
 import { FontSize, Color } from "../../GlobalStyles";
-import Admin from "../screens/Admin ";
-import { FontAwesome5 } from "@expo/vector-icons";
+
 const Tab = createBottomTabNavigator();
 
 export default function BottomNavigation() {
@@ -139,26 +138,6 @@ export default function BottomNavigation() {
                     },
                   ]}
                   source={require("../assets/profile.png")}
-                />
-              </TouchableOpacity>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Admin"
-          component={Admin}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <TouchableOpacity onPress={onPressAdmin}>
-                <FontAwesome5
-                  name="user-cog"
-                  size={24}
-                  color={
-                    focused
-                      ? Color.colorYellowgreen_100
-                      : Color.colorDarkslategray_100
-                  }
-                  style={styles.icon}
                 />
               </TouchableOpacity>
             ),

@@ -146,7 +146,7 @@ const NewUserDashboard = ({ navigation }) => {
                   <View
                     style={{
                       marginLeft: verticalScale(-90),
-                      marginTop: verticalScale(10),
+                      marginTop: verticalScale(12),
                     }}
                   >
                     <Text style={styles.goodMorning}>{time}</Text>
@@ -154,7 +154,7 @@ const NewUserDashboard = ({ navigation }) => {
                       {users[0].firstname} {users[0].lastname}
                     </Text>
                   </View>
-                  <Pressable onPress={() => {}}>
+                  <Pressable>
                     <Image
                       style={[
                         styles.iconamoonnotification,
@@ -178,7 +178,7 @@ const NewUserDashboard = ({ navigation }) => {
                     flexDirection: "row",
                     flex: 1,
                     marginTop: 50,
-                    left: 12,
+                    left: 15,
                   }}
                 >
                   <View style={{}}>
@@ -350,6 +350,10 @@ const NewUserDashboard = ({ navigation }) => {
               >
                 <ImagesWithText />
               </View>
+            </View>
+          ) : loading ? (
+            <View style={styles.newUserDashboard}>
+              <Text style={styles.omitoyinDavid}>Loading...</Text>
             </View>
           ) : (
             <View style={styles.newUserDashboard}>

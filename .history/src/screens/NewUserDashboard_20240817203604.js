@@ -351,6 +351,10 @@ const NewUserDashboard = ({ navigation }) => {
                 <ImagesWithText />
               </View>
             </View>
+          ) : loading ? (
+            <View style={styles.newUserDashboard}>
+              <Text style={styles.omitoyinDavid}>Loading...</Text>
+            </View>
           ) : (
             <View style={styles.newUserDashboard}>
               <Text style={styles.omitoyinDavid}>Loading...</Text>

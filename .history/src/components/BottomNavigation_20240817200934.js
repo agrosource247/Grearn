@@ -8,7 +8,7 @@ import MyCards from "../screens/MyCards";
 import Profile from "../screens/Profile";
 import { FontSize, Color } from "../../GlobalStyles";
 import Admin from "../screens/Admin ";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons"; // For Expo
 const Tab = createBottomTabNavigator();
 
 export default function BottomNavigation() {
