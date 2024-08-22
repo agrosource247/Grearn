@@ -83,9 +83,7 @@ export const AdminUsers = ({ route, navigation }) => {
   const { users } = route.params;
   return (
     <GestureHandlerRootView>
-      <ScrollView
-        style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
-      >
+      <ScrollView>
         <View style={styles.container}>
           <View style={styles.addNewCard}>
             <Text style={styles.enterYourCardNumberWrapper}> ALL USERS</Text>

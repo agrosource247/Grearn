@@ -83,9 +83,7 @@ export const AdminUsers = ({ route, navigation }) => {
   const { users } = route.params;
   return (
     <GestureHandlerRootView>
-      <ScrollView
-        style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
-      >
+      <ScrollView>
         <View style={styles.container}>
           <View style={styles.addNewCard}>
             <Text style={styles.enterYourCardNumberWrapper}> ALL USERS</Text>
@@ -245,7 +243,7 @@ const styles = StyleSheet.create({
   },
 
   proceedButton: {
-    backgroundColor: "#6CBC37",
+    backgroundColor: "#007bff",
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
@@ -261,7 +259,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "lightgray",
     borderRadius: 5,
-    width: "90%",
+    // width: "90%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   enterYourCardNumberWrapper: {
     fontSize: 16,
