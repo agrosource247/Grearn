@@ -188,11 +188,11 @@ const App = () => {
           <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
           {/* Added notification */}
           <Stack.Screen
-            name="UserNotifications"
+            name="User Notifications"
             component={UserNotifications}
           />
           <Stack.Screen
-            name="AdminNotifications"
+            name="Admin Notifications"
             component={AdminNotifications}
           />
         </Stack.Navigator>

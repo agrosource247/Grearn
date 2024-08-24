@@ -86,13 +86,20 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: FontSize.size_3xs,
   },
-  loadingDashboard: {
+  omitoyinDavid: {
     color: Color.colorDarkslategray_200,
     fontSize: FontSize.size_smi,
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
     marginTop: 50,
   },
+  loadingNewuserDashboard:{
+    color: Color.colorDarkslategray_200,
+    fontSize: FontSize.size_smi,
+    fontFamily: FontFamily.poppinsSemiBold,
+    fontWeight: "600",
+    marginTop: 50,
+  }
   iconamoonnotification: {
     // top: 69,
     // right: 17,

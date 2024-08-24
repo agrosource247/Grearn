@@ -69,8 +69,6 @@ import AdminUserEdit, {
   AdminTransactionEdit,
 } from "./src/screens/AdminEdit";
 import { BottomNavigation } from "react-native-paper";
-import AdminNotifications from "./src/screens/AdminNotifications";
-import UserNotifications from "./src/screens/UserNotifications";
 
 const Stack = createNativeStackNavigator();
 
@@ -188,11 +186,11 @@ const App = () => {
           <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
           {/* Added notification */}
           <Stack.Screen
-            name="UserNotifications"
+            name="User Notifications"
             component={UserNotifications}
           />
           <Stack.Screen
-            name="AdminNotifications"
+            name="Admin Notifications"
             component={AdminNotifications}
           />
         </Stack.Navigator>

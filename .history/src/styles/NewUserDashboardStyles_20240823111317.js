@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: FontSize.size_3xs,
   },
-  loadingDashboard: {
+  loadingNewuserDashboard: {
     color: Color.colorDarkslategray_200,
     fontSize: FontSize.size_smi,
     fontFamily: FontFamily.poppinsSemiBold,

@@ -29,7 +29,6 @@ import { Border, Color, FontSize, FontFamily } from "../../GlobalStyles";
 import * as ImagePicker from "expo-image-picker";
 import ImagesWithText from "./ImagesWithText";
 import ImageSelector from "./ImageSelector"; // Import the new component
-import UserNotifications from "./UserNotifications";
 // Get the dimensions of the screen
 const { width, height } = Dimensions.get("window");
 
@@ -155,11 +154,7 @@ const NewUserDashboard = ({ navigation }) => {
                       {users[0].firstname} {users[0].lastname}
                     </Text>
                   </View>
-                  <Pressable
-                    onPress={() => {
-                      navigation.navigate("UserNotifications");
-                    }}
-                  >
+                  <Pressable onPress={() => {}}>
                     <Image
                       style={[
                         styles.iconamoonnotification,
