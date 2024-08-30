@@ -13,14 +13,7 @@ import { Color, FontSize } from "../../GlobalStyles";
 import UseAuth from "../services/hooks/UseAuth";
 import { useFocusEffect } from "@react-navigation/core";
 import { AdminInvestmentCall } from "../services/api";
-const ImagesWithText = ({
-  imageSource,
-  text,
-  text2,
-  text3,
-  text4,
-  navigation,
-}) => {
+const ImagesWithText = ({ imageSource, text, text2, text3, text4 }) => {
   return (
     <View style={styles.itemContainer}>
       <Image style={styles.image} source={imageSource} />
@@ -69,7 +62,13 @@ const ItemList = ({ navigation }) => {
           <Text>"loading"</Text>
         ) : (
           investments.map((item, index) => (
-            <Pressable onPress={() => navigation.navigate("SingleInvestment")}>
+            <Pressable
+              onPress={() =>
+                navigation.navigate("SingleInvestment", {
+                  item,
+                })
+              }
+            >
               <ImagesWithText
                 key={index}
                 imageSource={require("../assets/frame-37.png")}

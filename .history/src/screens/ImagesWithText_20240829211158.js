@@ -6,21 +6,57 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
-  Pressable,
 } from "react-native";
 import { scale } from "react-native-size-matters";
 import { Color, FontSize } from "../../GlobalStyles";
-import UseAuth from "../services/hooks/UseAuth";
-import { useFocusEffect } from "@react-navigation/core";
-import { AdminInvestmentCall } from "../services/api";
-const ImagesWithText = ({
-  imageSource,
-  text,
-  text2,
-  text3,
-  text4,
-  navigation,
-}) => {
+
+// Static data
+const imageData = [
+  {
+    source: require("../assets/frame-25.png"),
+    text: "NGN3,200",
+    text2: "Maize",
+    text3: "Grains",
+    text4: "20.5%", // Added text4
+  },
+  {
+    source: require("../assets/frame-37.png"),
+    text: "NGN6,405",
+    text2: "Melon",
+    text3: "Cucurbits",
+    text4: "15.0%", // Example percentage
+  },
+  {
+    source: require("../assets/frame-36.png"),
+    text: "NGN8,600",
+    text2: "Honey",
+    text3: "Produce section",
+    text4: "20.5%", // Added text4
+  },
+  {
+    source: require("../assets/frame-33.png"),
+    text: "NGN3,200",
+    text2: "Ginger",
+    text3: "Herbaceous",
+    text4: "18.0%", // Example percentage
+  },
+  {
+    source: require("../assets/frame-35.png"),
+    text: "NGN3,200",
+    text2: "Pepper",
+    text3: "Vegetables",
+    text4: "22.0%", // Example percentage
+  },
+  {
+    source: require("../assets/frame-34.png"),
+    text: "NGN3,200",
+    text2: "Soya beans",
+    text3: "Legumes",
+    text4: "17.5%", // Example percentage
+  },
+];
+
+const ImagesWithText = ({ imageSource, text, text2, text3, text4 }) => {
   return (
     <View style={styles.itemContainer}>
       <Image style={styles.image} source={imageSource} />
@@ -38,25 +74,8 @@ const ImagesWithText = ({
   );
 };
 
-const ItemList = ({ navigation }) => {
+const ItemList = () => {
   const screenWidth = Dimensions.get("window").width; // Get screen width
-  const [investments, setInvestments] = React.useState([]);
-  const [loading, setLoading] = React.useState("true");
-  const { auth } = UseAuth();
-  ///*/`
-  React.useEffect(() => {
-    AdminInvestmentCall(setInvestments, new AbortController(), "get");
-  }, [auth.id]);
-  //////
-  useFocusEffect(
-    React.useCallback(() => {
-      setLoading(true);
-      setInvestments([]);
-
-      AdminInvestmentCall(setInvestments, new AbortController(), "get");
-      setLoading(false);
-    }, [])
-  );
 
   return (
     <View style={styles.container}>
@@ -65,24 +84,20 @@ const ItemList = ({ navigation }) => {
           { width: screenWidth * 0.9 }, // Set width to 90% of screen width
         ]}
       >
-        {loading ? (
-          <Text>"loading"</Text>
-        ) : (
-          investments.map((item, index) => (
-            <Pressable onPress={() => navigation.navigate("SingleInvestment")}>
-              <ImagesWithText
-                key={index}
-                imageSource={require("../assets/frame-37.png")}
-                // text={item.text}
-                text={item.minimum_invest}
-                text2={item.product}
-                text3={item.roi}
-                text4={item.geo_location}
-                // text4={item.duration}
-              />
-            </Pressable>
-          ))
-        )}
+        {imageData.map((item, index) => (
+          <ImagesWithText
+            key={index}
+            imageSource={item.source}
+            // text={item.text}
+            text={item.product}
+            text={item.product}
+            text={item.product}
+            text={item.product}
+            // text2={item.text2}
+            // text3={item.text3}
+            // text4={item.text4}
+          />
+        ))}
       </ScrollView>
     </View>
   );

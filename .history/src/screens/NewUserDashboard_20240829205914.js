@@ -18,7 +18,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { scale, verticalScale } from "react-native-size-matters";
 import UseAuth from "../services/hooks/UseAuth";
-import { AdminInvestmentCall, User } from "../services/api";
+import { User } from "../services/api";
 import FrameComponent from "../components/FrameComponent";
 import BottomNavigation from "../components/BottomNavigation";
 import SlideScreen from "./SlideScreen";
@@ -42,12 +42,33 @@ const NewUserDashboard = ({ navigation }) => {
   const [contentIndex, setContentIndex] = useState(0);
   const [avatar, setAvatar] = useState("");
   //////
+  const [investments, setInvestments] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
+  ///*/`
+  React.useEffect(() => {
+    AdminUsersCall(setUsers, new AbortController(), "get");
+    AdminTransactionCall(setTransactions, new AbortController(), "get");
+    AdminInvestmentCall(setInvestments, new AbortController(), "get");
+  }, [auth.id]);
+  useFocusEffect(
+    React.useCallback(() => {
+      // setLoading(true);
+      setInvestments([]);
+
+      AdminInvestmentCall(setInvestments, new AbortController(), "get");
+      // setLoading(false);
+    }, [])
+  );
   ////////////////////////
   const toggleModal = () => {
     setModalVisible(!isModalVisible); // Function to toggle the modal visibility
   };
-
+  // const toggleTradeNow = () => {
+  //   //Naviagte to the home TradingView
+  //   // navigation.navigate("NewUserDashboard");
+  //   setModalVisible(!isModalVisible); // Function to toggle the modal visibility
+  // };
   const handleButtonPress = () => {
     if (contentIndex === 0) {
       navigation.navigate("TradePage");

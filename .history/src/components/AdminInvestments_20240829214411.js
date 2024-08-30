@@ -41,7 +41,7 @@ const AdminInvestments = ({ route, navigation }) => {
               style={cardStyle}
               onPress={() =>
                 navigation.navigate("SingleInvestment", {
-                  item,
+                  investment,
                 })
               }
             >

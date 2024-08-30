@@ -42,7 +42,22 @@ const NewUserDashboard = ({ navigation }) => {
   const [contentIndex, setContentIndex] = useState(0);
   const [avatar, setAvatar] = useState("");
   //////
+  const [investments, setInvestments] = React.useState([]);
 
+  ///*/`
+  React.useEffect(() => {
+    AdminInvestmentCall(setInvestments, new AbortController(), "get");
+  }, [auth.id]);
+  //////
+  useFocusEffect(
+    React.useCallback(() => {
+      // setLoading(true);
+      setInvestments([]);
+
+      AdminInvestmentCall(setInvestments, new AbortController(), "get");
+      // setLoading(false);
+    }, [])
+  );
   ////////////////////////
   const toggleModal = () => {
     setModalVisible(!isModalVisible); // Function to toggle the modal visibility

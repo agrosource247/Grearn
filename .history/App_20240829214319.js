@@ -138,6 +138,7 @@ const App = () => {
           <Stack.Screen name="NewInvestment3" component={NewInvestment3} />
           <Stack.Screen name="PackageInfo" component={PackageInfo} />
           <Stack.Screen name="Investing" component={Investing} />
+          //added single investment
           <Stack.Screen name="SingleInvestment" component={SingleInvestment} />
           <Stack.Screen
             name="InsufficientFunds"

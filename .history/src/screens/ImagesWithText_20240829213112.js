@@ -6,21 +6,14 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
-  Pressable,
 } from "react-native";
 import { scale } from "react-native-size-matters";
 import { Color, FontSize } from "../../GlobalStyles";
 import UseAuth from "../services/hooks/UseAuth";
 import { useFocusEffect } from "@react-navigation/core";
 import { AdminInvestmentCall } from "../services/api";
-const ImagesWithText = ({
-  imageSource,
-  text,
-  text2,
-  text3,
-  text4,
-  navigation,
-}) => {
+
+const ImagesWithText = ({ imageSource, text, text2, text3, text4 }) => {
   return (
     <View style={styles.itemContainer}>
       <Image style={styles.image} source={imageSource} />
@@ -38,11 +31,12 @@ const ImagesWithText = ({
   );
 };
 
-const ItemList = ({ navigation }) => {
+const ItemList = () => {
   const screenWidth = Dimensions.get("window").width; // Get screen width
   const [investments, setInvestments] = React.useState([]);
   const [loading, setLoading] = React.useState("true");
   const { auth } = UseAuth();
+
   ///*/`
   React.useEffect(() => {
     AdminInvestmentCall(setInvestments, new AbortController(), "get");
@@ -50,11 +44,11 @@ const ItemList = ({ navigation }) => {
   //////
   useFocusEffect(
     React.useCallback(() => {
-      setLoading(true);
+      // setLoading(true);
       setInvestments([]);
 
       AdminInvestmentCall(setInvestments, new AbortController(), "get");
-      setLoading(false);
+      // setLoading(false);
     }, [])
   );
 
@@ -65,24 +59,18 @@ const ItemList = ({ navigation }) => {
           { width: screenWidth * 0.9 }, // Set width to 90% of screen width
         ]}
       >
-        {loading ? (
-          <Text>"loading"</Text>
-        ) : (
-          investments.map((item, index) => (
-            <Pressable onPress={() => navigation.navigate("SingleInvestment")}>
-              <ImagesWithText
-                key={index}
-                imageSource={require("../assets/frame-37.png")}
-                // text={item.text}
-                text={item.minimum_invest}
-                text2={item.product}
-                text3={item.roi}
-                text4={item.geo_location}
-                // text4={item.duration}
-              />
-            </Pressable>
-          ))
-        )}
+        {investments.map((item, index) => (
+          <ImagesWithText
+            key={index}
+            imageSource={require("../assets/frame-37.png")}
+            // text={item.text}
+            text={item.minimum_invest}
+            text2={item.product}
+            text3={item.roi}
+            text4={item.geo_location}
+            // text4={item.duration}
+          />
+        ))}
       </ScrollView>
     </View>
   );
