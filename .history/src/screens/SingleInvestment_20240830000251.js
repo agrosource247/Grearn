@@ -158,14 +158,24 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
   },
-
+  principal: {
+    fontSize: moderateScale(FontSize.size_2xs),
+    color: Color.colorYellowgreen_100,
+    fontFamily: FontFamily.poppinsRegular,
+    marginBottom: verticalScale(8),
+  },
   geoLocation: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,
     fontFamily: FontFamily.poppinsRegular,
     marginBottom: verticalScale(8),
   },
-
+  harvestPeriod: {
+    fontSize: moderateScale(FontSize.size_2xs),
+    color: Color.colorYellowgreen_100,
+    fontFamily: FontFamily.poppinsRegular,
+    marginBottom: verticalScale(8),
+  },
   insurance: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,
@@ -223,7 +233,8 @@ const styles = StyleSheet.create({
   investMoreWrapper: {
     backgroundColor: Color.colorYellowgreen_100,
     borderRadius: moderateScale(Border.br_7xs),
-    justifyContent: "center",
+    // paddingVertical: verticalScale(10),
+    paddingHorizontal: scale(20),
     alignItems: "center",
     height: verticalScale(35),
   },

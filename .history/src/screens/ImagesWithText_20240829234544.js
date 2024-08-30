@@ -11,8 +11,9 @@ import {
 import { scale } from "react-native-size-matters";
 import { Color, FontSize } from "../../GlobalStyles";
 import UseAuth from "../services/hooks/UseAuth";
-import { useFocusEffect, useNavigation } from "@react-navigation/core";
+import { useFocusEffect } from "@react-navigation/core";
 import { AdminInvestmentCall } from "../services/api";
+import { navigate } from "@react-navigation/routers/lib/typescript/src/CommonActions";
 const ImagesWithText = ({ imageSource, text, text2, text3, text4 }) => {
   return (
     <View style={styles.itemContainer}>
@@ -31,12 +32,11 @@ const ImagesWithText = ({ imageSource, text, text2, text3, text4 }) => {
   );
 };
 
-const ItemList = () => {
+const ItemList = ({ navigation }) => {
   const screenWidth = Dimensions.get("window").width; // Get screen width
   const [investments, setInvestments] = React.useState([]);
   const [loading, setLoading] = React.useState("true");
   const { auth } = UseAuth();
-  const navigation = useNavigation();
   ///*/`
   React.useEffect(() => {
     AdminInvestmentCall(setInvestments, new AbortController(), "get");

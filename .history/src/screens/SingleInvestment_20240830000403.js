@@ -165,7 +165,12 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.poppinsRegular,
     marginBottom: verticalScale(8),
   },
-
+  harvestPeriod: {
+    fontSize: moderateScale(FontSize.size_2xs),
+    color: Color.colorYellowgreen_100,
+    fontFamily: FontFamily.poppinsRegular,
+    marginBottom: verticalScale(8),
+  },
   insurance: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,

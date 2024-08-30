@@ -159,13 +159,12 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
 
-  geoLocation: {
+  harvestPeriod: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,
     fontFamily: FontFamily.poppinsRegular,
     marginBottom: verticalScale(8),
   },
-
   insurance: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,

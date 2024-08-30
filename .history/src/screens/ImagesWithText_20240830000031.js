@@ -31,7 +31,7 @@ const ImagesWithText = ({ imageSource, text, text2, text3, text4 }) => {
   );
 };
 
-const ItemList = () => {
+const ItemList = ({ navigation }) => {
   const screenWidth = Dimensions.get("window").width; // Get screen width
   const [investments, setInvestments] = React.useState([]);
   const [loading, setLoading] = React.useState("true");

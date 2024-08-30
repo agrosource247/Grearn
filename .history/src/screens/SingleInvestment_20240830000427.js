@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(8),
   },
 
-  insurance: {
-    fontSize: moderateScale(FontSize.size_2xs),
-    color: Color.colorYellowgreen_100,
-    fontFamily: FontFamily.poppinsRegular,
-    marginBottom: verticalScale(8),
-  },
+  //   insurance: {
+  //     fontSize: moderateScale(FontSize.size_2xs),
+  //     color: Color.colorYellowgreen_100,
+  //     fontFamily: FontFamily.poppinsRegular,
+  //     marginBottom: verticalScale(8),
+  //   },
   roi: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,
