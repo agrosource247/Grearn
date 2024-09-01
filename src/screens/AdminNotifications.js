@@ -4,97 +4,37 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const AdminNotifications = ({ navigation }) => {
-  const [message, setMessage] = useState("");
-  const [isConnected, setIsConnected] = useState(true);
+  const { auth } = UseAuth();
+  const [title, setTitle] = React.useState("");
+  const [text, settext] = React.useState("");
+  const [author, setAuthor] = React.useState("");
 
-  useEffect(() => {
-    // Subscribe to network status updates
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      setIsConnected(state.isConnected);
-
-      // Sync notifications when back online
-      if (state.isConnected) {
-        syncNotifications();
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  // Function to send a notification
-  const sendNotification = async () => {
-    if (message.trim()) {
-      if (isConnected) {
-        // If online, send to backend
-        await sendToBackend(message);
-      } else {
-        // If offline, store locally
-        await storeLocally(message);
-        Alert.alert(
-          "Notification saved locally",
-          "It will be sent when you're back online."
-        );
-      }
-      setMessage("");
-      navigation.navigate("User Notifications");
-    } else {
-      Alert.alert("Error", "Please enter a notification message");
-    }
+  const setForm = async () => {
+    const form = {
+      id: auth.id,
+      title: title,
+      text: text,
+      author: author,
+    };
+    return form;
   };
 
-  // Store notification locally
-  const storeLocally = async (message) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     try {
-      const storedNotifications = await AsyncStorage.getItem(
-        "pendingNotifications"
-      );
-      const pendingNotifications = storedNotifications
-        ? JSON.parse(storedNotifications)
-        : [];
-      pendingNotifications.push({ message });
-      await AsyncStorage.setItem(
-        "pendingNotifications",
-        JSON.stringify(pendingNotifications)
-      );
-    } catch (error) {
-      console.error("Error storing notification locally:", error);
-    }
-  };
-
-  // Sync locally stored notifications with the backend
-  const syncNotifications = async () => {
-    try {
-      const storedNotifications = await AsyncStorage.getItem(
-        "pendingNotifications"
-      );
-      const pendingNotifications = storedNotifications
-        ? JSON.parse(storedNotifications)
-        : [];
-
-      for (const notification of pendingNotifications) {
-        await sendToBackend(notification.message);
-      }
-
-      // Clear locally stored notifications once synced
-      await AsyncStorage.removeItem("pendingNotifications");
-    } catch (error) {
-      console.error("Error syncing notifications:", error);
-    }
-  };
-
-  //since your busy i created this Function to send notification to backend your can edit it later
-  const sendToBackend = async (message) => {
-    try {
-      await axios.post("https://your-backend-api.com/notifications", {
-        message,
-      });
-      Alert.alert(
-        "Notification sent!",
-        "The notification has been sent to users."
-      );
-    } catch (error) {
-      console.error("Error sending notification:", error);
-      Alert.alert("Error", "Failed to send notification. Please try again.");
+      const controller = new AbortController();
+      const form = await setForm();
+      const res = await Investment(form, controller, "post");
+      if (res?.status === 200) {
+        controller.abort();
+        alert("Update Successful");
+        navigation.navigate("Admin");
+      } else alert(res?.data.message);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 

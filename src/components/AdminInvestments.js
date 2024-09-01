@@ -3,6 +3,7 @@ import { Pressable, Text, View, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons"; // Import the icon library
 import SingleInvestment from "../screens/SingleInvestment";
+
 const AdminInvestments = ({ route, navigation }) => {
   const { investments } = route.params;
 
@@ -40,8 +41,8 @@ const AdminInvestments = ({ route, navigation }) => {
               key={index}
               style={cardStyle}
               onPress={() =>
-                navigation.navigate("SingleInvestment", {
-                  item,
+                navigation.navigate("AdminInvestmentEdit", {
+                  investment,
                 })
               }
             >

@@ -13,6 +13,7 @@ import { Color, FontSize } from "../../GlobalStyles";
 import UseAuth from "../services/hooks/UseAuth";
 import { useFocusEffect } from "@react-navigation/core";
 import { AdminInvestmentCall } from "../services/api";
+
 const ImagesWithText = ({
   imageSource,
   text,
@@ -23,7 +24,7 @@ const ImagesWithText = ({
 }) => {
   return (
     <View style={styles.itemContainer}>
-      <Image style={styles.image} source={imageSource} />
+      <Image style={styles.image} source={{ uri: imageSource }} />
       <View style={styles.textContainer}>
         <View style={styles.textColumn}>
           <Text style={styles.up}>{text2}</Text>
@@ -54,6 +55,7 @@ const ItemList = ({ navigation }) => {
       setInvestments([]);
 
       AdminInvestmentCall(setInvestments, new AbortController(), "get");
+      console.log(investments[0]);
       setLoading(false);
     }, [])
   );
@@ -72,7 +74,7 @@ const ItemList = ({ navigation }) => {
             <Pressable onPress={() => navigation.navigate("SingleInvestment")}>
               <ImagesWithText
                 key={index}
-                imageSource={require("../assets/frame-37.png")}
+                imageSource={item.image}
                 // text={item.text}
                 text={item.minimum_invest}
                 text2={item.product}
