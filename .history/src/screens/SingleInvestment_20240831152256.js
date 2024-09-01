@@ -1,36 +1,35 @@
-import * as React from "react";
-import { Image } from "expo-image";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import { Color, FontSize, FontFamily, Border } from "../../GlobalStyles";
+import React from "react";
+import { View, Image, Text, Pressable, StyleSheet } from "react-native";
 import {
   GestureHandlerRootView,
   ScrollView,
 } from "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/core";
-import { scale, verticalScale, moderateScale } from "react-native-size-matters";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
+import { Border, Color, FontFamily, FontSize } from "../../GlobalStyles";
+import Investment from "./Investment";
 
-const Investment = () => {
-  const navigation = useNavigation();
+const SingleInvestment = ({ route, navigation }) => {
+  // Ensure that route.params is defined, and fallback to an empty object if not
+  const { transactions } = route.params;
+  const item = route?.params?.item || {}; // Safeguard for undefined params
+
+  console.log("Route params:", route.params); // Debugging to see what is being passed
+
   return (
     <GestureHandlerRootView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.investment}>
-          <StatusBar style="auto" />
           <View>
             <View
               style={{ flexDirection: "row", marginTop: verticalScale(32) }}
             >
-              <Pressable
-                onPress={() => navigation.navigate("NewUserDashboard")}
-              >
+              <Pressable onPress={() => navigation.goBack()}>
                 <Image
                   style={styles.vuesaxlineararrowLeftIcon}
                   contentFit="cover"
                   source={require("../assets/vuesaxlineararrowleft.png")}
                 />
               </Pressable>
-
               <Text style={styles.investments}>Investments</Text>
             </View>
             <View
@@ -49,10 +48,7 @@ const Investment = () => {
               source={require("../assets/frame-47.png")}
             />
             <Text style={styles.description}>
-              Maize offers a stable and potentially lucrative opportunity for
-              both seasoned and novice investors. As a staple crop with diverse
-              applications, maize serves as a resilient investment choice amidst
-              market fluctuations
+              {item.description || "No description available."}
             </Text>
             <View
               style={{
@@ -67,10 +63,11 @@ const Investment = () => {
                 }}
               >
                 <Text style={styles.principal}>
-                  Principal: <Text style={styles.amount}>#40,000</Text>
+                  Principal:{" "}
+                  <Text style={styles.amount}>#{investment.product}</Text>
                 </Text>
                 <Text style={styles.profit}>
-                  Profit:<Text style={styles.amount}>#140,000</Text>
+                  Profit:<Text style={styles.amount}>#{item.profit}</Text>
                 </Text>
               </View>
               <View
@@ -80,11 +77,11 @@ const Investment = () => {
                 }}
               >
                 <Text style={styles.roi}>
-                  ROI: <Text style={styles.monthly}>4% Monthly</Text>
+                  ROI: <Text style={styles.monthly}>{item.roi}</Text>
                 </Text>
                 <Text style={styles.geoLocation}>
                   Geo-location:
-                  <Text style={styles.location}>South-west</Text>
+                  <Text style={styles.location}>{item.location}</Text>
                 </Text>
               </View>
               <View
@@ -94,87 +91,21 @@ const Investment = () => {
                 }}
               >
                 <Text style={styles.harvestPeriod}>
-                  Harvest period: <Text style={styles.duration}>4-Months</Text>
+                  Harvest period:{" "}
+                  <Text style={styles.duration}>{item.duration}</Text>
                 </Text>
                 <View style={{ flexDirection: "row" }}>
                   <Text style={styles.insurance}>Insurance:</Text>
-
                   <View style={styles.activeWrapper}>
-                    <Text style={styles.active}>Active</Text>
+                    <Text style={styles.active}>
+                      {item.insurance ? "Active" : "Not Active"}
+                    </Text>
                   </View>
                 </View>
               </View>
             </View>
           </View>
-          <View>
-            <Image
-              style={styles.investmentImage}
-              contentFit="cover"
-              source={require("../assets/frame-49.png")}
-            />
-            <Text style={styles.description}>
-              Maize offers a stable and potentially lucrative opportunity for
-              both seasoned and novice investors. As a staple crop with diverse
-              applications, maize serves as a resilient investment choice amidst
-              market fluctuations
-            </Text>
-            <View
-              style={{
-                marginTop: verticalScale(24),
-                marginBottom: verticalScale(34),
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={styles.principal}>
-                  Principal: <Text style={styles.amount}>#40,000</Text>
-                </Text>
-                <Text style={styles.profit}>
-                  Profit:<Text style={styles.amount}>#140,000</Text>
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={styles.roi}>
-                  ROI: <Text style={styles.monthly}>4% Monthly</Text>
-                </Text>
-                <Text style={styles.geoLocation}>
-                  Geo-location:
-                  <Text style={styles.location}>South-west</Text>
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={styles.harvestPeriod}>
-                  Harvest period: <Text style={styles.duration}>4-Months</Text>
-                </Text>
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={styles.insurance}>Insurance:</Text>
-
-                  <View style={styles.activeWrapper}>
-                    <Text style={styles.active}>Active</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <Pressable
-            style={styles.investMoreWrapper}
-            onPress={() => navigation.navigate("NewInvestment")}
-          >
+          <Pressable style={styles.investMoreWrapper}>
             <Text style={styles.investMore}>Invest more</Text>
           </Pressable>
         </View>
@@ -182,6 +113,8 @@ const Investment = () => {
     </GestureHandlerRootView>
   );
 };
+
+export default SingleInvestment;
 
 const styles = StyleSheet.create({
   container: {
@@ -222,19 +155,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
   },
-  principal: {
-    fontSize: moderateScale(FontSize.size_2xs),
-    color: Color.colorYellowgreen_100,
-    fontFamily: FontFamily.poppinsRegular,
-    marginBottom: verticalScale(8),
-  },
   geoLocation: {
-    fontSize: moderateScale(FontSize.size_2xs),
-    color: Color.colorYellowgreen_100,
-    fontFamily: FontFamily.poppinsRegular,
-    marginBottom: verticalScale(8),
-  },
-  harvestPeriod: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,
     fontFamily: FontFamily.poppinsRegular,
@@ -286,7 +207,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: verticalScale(8),
   },
-
   active: {
     fontSize: moderateScale(FontSize.size_6xs),
     color: Color.colorGreen_100,
@@ -297,11 +217,9 @@ const styles = StyleSheet.create({
   investMoreWrapper: {
     backgroundColor: Color.colorYellowgreen_100,
     borderRadius: moderateScale(Border.br_7xs),
-    paddingVertical: verticalScale(10),
-    paddingHorizontal: scale(20),
-    // marginTop: verticalScale(0),
+    justifyContent: "center",
     alignItems: "center",
-    height: verticalScale(40),
+    height: verticalScale(35),
   },
   activeWrapper: {
     backgroundColor: Color.colorYellowgreen_200,
@@ -316,5 +234,3 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
-
-export default Investment;

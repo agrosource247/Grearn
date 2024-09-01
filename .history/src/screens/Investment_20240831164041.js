@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
     backgroundColor: Color.colorWhite,
   },
   vuesaxlineararrowLeftIcon: {
-    height: verticalScale(20),
-    width: scale(20),
+    height: verticalScale(24),
+    width: scale(24),
   },
   investments: {
     fontSize: moderateScale(FontSize.size_base),
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(20),
     // marginTop: verticalScale(0),
     alignItems: "center",
-    height: verticalScale(40),
+    height: verticalScale(45),
   },
   activeWrapper: {
     backgroundColor: Color.colorYellowgreen_200,

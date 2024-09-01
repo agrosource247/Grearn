@@ -10,13 +10,13 @@ import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/core";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
-const Investment = () => {
+const SingleInvestment = () => {
   const navigation = useNavigation();
   return (
     <GestureHandlerRootView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.investment}>
-          <StatusBar style="auto" />
+          {/* <StatusBar style="auto" /> */}
           <View>
             <View
               style={{ flexDirection: "row", marginTop: verticalScale(32) }}
@@ -106,70 +106,6 @@ const Investment = () => {
               </View>
             </View>
           </View>
-          <View>
-            <Image
-              style={styles.investmentImage}
-              contentFit="cover"
-              source={require("../assets/frame-49.png")}
-            />
-            <Text style={styles.description}>
-              Maize offers a stable and potentially lucrative opportunity for
-              both seasoned and novice investors. As a staple crop with diverse
-              applications, maize serves as a resilient investment choice amidst
-              market fluctuations
-            </Text>
-            <View
-              style={{
-                marginTop: verticalScale(24),
-                marginBottom: verticalScale(34),
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={styles.principal}>
-                  Principal: <Text style={styles.amount}>#40,000</Text>
-                </Text>
-                <Text style={styles.profit}>
-                  Profit:<Text style={styles.amount}>#140,000</Text>
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={styles.roi}>
-                  ROI: <Text style={styles.monthly}>4% Monthly</Text>
-                </Text>
-                <Text style={styles.geoLocation}>
-                  Geo-location:
-                  <Text style={styles.location}>South-west</Text>
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={styles.harvestPeriod}>
-                  Harvest period: <Text style={styles.duration}>4-Months</Text>
-                </Text>
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={styles.insurance}>Insurance:</Text>
-
-                  <View style={styles.activeWrapper}>
-                    <Text style={styles.active}>Active</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
 
           <Pressable
             style={styles.investMoreWrapper}
@@ -195,8 +131,8 @@ const styles = StyleSheet.create({
     backgroundColor: Color.colorWhite,
   },
   vuesaxlineararrowLeftIcon: {
-    height: verticalScale(20),
-    width: scale(20),
+    height: verticalScale(24),
+    width: scale(24),
   },
   investments: {
     fontSize: moderateScale(FontSize.size_base),
@@ -299,9 +235,8 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(Border.br_7xs),
     paddingVertical: verticalScale(10),
     paddingHorizontal: scale(20),
-    // marginTop: verticalScale(0),
-    alignItems: "center",
-    height: verticalScale(40),
+    // alignItems: "center",
+    height: verticalScale(35),
   },
   activeWrapper: {
     backgroundColor: Color.colorYellowgreen_200,
@@ -317,4 +252,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Investment;
+export default SingleInvestment;

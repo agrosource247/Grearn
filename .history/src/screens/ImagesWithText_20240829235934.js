@@ -8,23 +8,16 @@ import {
   Dimensions,
   Pressable,
 } from "react-native";
+import { navigate } from "@react-navigation/routers/lib/typescript/src/CommonActions";
 import { scale } from "react-native-size-matters";
 import { Color, FontSize } from "../../GlobalStyles";
 import UseAuth from "../services/hooks/UseAuth";
-import { useFocusEffect, useNavigation } from "@react-navigation/core";
+import { useFocusEffect } from "@react-navigation/core";
 import { AdminInvestmentCall } from "../services/api";
-
-const ImagesWithText = ({
-  imageSource,
-  text,
-  text2,
-  text3,
-  text4,
-  navigation,
-}) => {
+const ImagesWithText = ({ imageSource, text, text2, text3, text4 }) => {
   return (
     <View style={styles.itemContainer}>
-      <Image style={styles.image} source={{ uri: imageSource }} />
+      <Image style={styles.image} source={imageSource} />
       <View style={styles.textContainer}>
         <View style={styles.textColumn}>
           <Text style={styles.up}>{text2}</Text>
@@ -39,12 +32,11 @@ const ImagesWithText = ({
   );
 };
 
-const ItemList = () => {
+const ItemList = ({ navigation }) => {
   const screenWidth = Dimensions.get("window").width; // Get screen width
   const [investments, setInvestments] = React.useState([]);
   const [loading, setLoading] = React.useState("true");
   const { auth } = UseAuth();
-  const navigation = useNavigation();
   ///*/`
   React.useEffect(() => {
     AdminInvestmentCall(setInvestments, new AbortController(), "get");
@@ -56,7 +48,6 @@ const ItemList = () => {
       setInvestments([]);
 
       AdminInvestmentCall(setInvestments, new AbortController(), "get");
-      console.log(investments[0]);
       setLoading(false);
     }, [])
   );
@@ -72,15 +63,10 @@ const ItemList = () => {
           <Text>"loading"</Text>
         ) : (
           investments.map((item, index) => (
-            <Pressable
-              onPress={() =>
-                navigation.navigate("SingleInvestment", { investments: item })
-              }
-            >
+            <Pressable onPress={() => navigation.navigate("SingleInvestment")}>
               <ImagesWithText
                 key={index}
-                imageSource={item.image}
-                // text={item.text}
+                imageSource={require("../assets/frame-37.png")}
                 text={item.minimum_invest}
                 text2={item.product}
                 text3={item.roi}

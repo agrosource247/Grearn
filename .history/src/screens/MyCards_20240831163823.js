@@ -148,10 +148,10 @@ const styles = StyleSheet.create({
     backgroundColor: Color.colorWhite,
   },
   scrollViewContainer: {
-    top: 50,
+    top: -80,
     flexGrow: 1,
     // justifyContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
   },
   myCardsContainer: {
     alignItems: "center",

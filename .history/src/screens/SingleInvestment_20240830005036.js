@@ -7,16 +7,35 @@ import {
   ScrollView,
 } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/core";
+import { useFocusEffect, useNavigation } from "@react-navigation/core";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
+import UseAuth from "../services/hooks/UseAuth";
+import { AdminInvestmentCall } from "../services/api";
 
-const Investment = () => {
+const SingleInvestment = () => {
   const navigation = useNavigation();
+  const { investment } = route.params; // Destructure investment from route.params
+  const [investments, setInvestments] = React.useState([]);
+  const [loading, setLoading] = React.useState("true");
+  const { auth } = UseAuth();
+  React.useEffect(() => {
+    AdminInvestmentCall(setInvestments, new AbortController(), "get");
+  }, [auth.id]);
+  //////
+  useFocusEffect(
+    React.useCallback(() => {
+      setLoading(true);
+      setInvestments([]);
+
+      AdminInvestmentCall(setInvestments, new AbortController(), "get");
+      setLoading(false);
+    }, [])
+  );
+
   return (
     <GestureHandlerRootView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.investment}>
-          <StatusBar style="auto" />
           <View>
             <View
               style={{ flexDirection: "row", marginTop: verticalScale(32) }}
@@ -49,74 +68,14 @@ const Investment = () => {
               source={require("../assets/frame-47.png")}
             />
             <Text style={styles.description}>
-              Maize offers a stable and potentially lucrative opportunity for
-              both seasoned and novice investors. As a staple crop with diverse
-              applications, maize serves as a resilient investment choice amidst
-              market fluctuations
-            </Text>
-            <View
-              style={{
-                marginTop: verticalScale(24),
-                marginBottom: verticalScale(34),
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={styles.principal}>
-                  Principal: <Text style={styles.amount}>#40,000</Text>
+              {
+                <Text>
+                  Maize offers a stable and potentially lucrative opportunity
+                  for both seasoned and novice investors. As a staple crop with
+                  diverse applications, maize serves as a resilient investment
+                  choice amidst market fluctuations
                 </Text>
-                <Text style={styles.profit}>
-                  Profit:<Text style={styles.amount}>#140,000</Text>
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={styles.roi}>
-                  ROI: <Text style={styles.monthly}>4% Monthly</Text>
-                </Text>
-                <Text style={styles.geoLocation}>
-                  Geo-location:
-                  <Text style={styles.location}>South-west</Text>
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={styles.harvestPeriod}>
-                  Harvest period: <Text style={styles.duration}>4-Months</Text>
-                </Text>
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={styles.insurance}>Insurance:</Text>
-
-                  <View style={styles.activeWrapper}>
-                    <Text style={styles.active}>Active</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-          <View>
-            <Image
-              style={styles.investmentImage}
-              contentFit="cover"
-              source={require("../assets/frame-49.png")}
-            />
-            <Text style={styles.description}>
-              Maize offers a stable and potentially lucrative opportunity for
-              both seasoned and novice investors. As a staple crop with diverse
-              applications, maize serves as a resilient investment choice amidst
-              market fluctuations
+              }
             </Text>
             <View
               style={{
@@ -222,24 +181,14 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
   },
-  principal: {
-    fontSize: moderateScale(FontSize.size_2xs),
-    color: Color.colorYellowgreen_100,
-    fontFamily: FontFamily.poppinsRegular,
-    marginBottom: verticalScale(8),
-  },
+
   geoLocation: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,
     fontFamily: FontFamily.poppinsRegular,
     marginBottom: verticalScale(8),
   },
-  harvestPeriod: {
-    fontSize: moderateScale(FontSize.size_2xs),
-    color: Color.colorYellowgreen_100,
-    fontFamily: FontFamily.poppinsRegular,
-    marginBottom: verticalScale(8),
-  },
+
   insurance: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,
@@ -297,11 +246,9 @@ const styles = StyleSheet.create({
   investMoreWrapper: {
     backgroundColor: Color.colorYellowgreen_100,
     borderRadius: moderateScale(Border.br_7xs),
-    paddingVertical: verticalScale(10),
-    paddingHorizontal: scale(20),
-    // marginTop: verticalScale(0),
+    justifyContent: "center",
     alignItems: "center",
-    height: verticalScale(40),
+    height: verticalScale(35),
   },
   activeWrapper: {
     backgroundColor: Color.colorYellowgreen_200,
@@ -317,4 +264,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Investment;
+export default SingleInvestment;

@@ -143,14 +143,13 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(32),
   },
   container: {
-    // top: 80,
+    // top: -80,
     flex: 1,
     backgroundColor: Color.colorWhite,
   },
   scrollViewContainer: {
-    top: 50,
     flexGrow: 1,
-    // justifyContent: "center",
+    justifyContent: "center",
     alignItems: "center",
   },
   myCardsContainer: {
@@ -165,8 +164,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   vuesaxlineararrowLeftIcon: {
-    height: 20,
-    width: 20,
+    height: 24,
+    width: 24,
   },
   myCard: {
     color: Color.colorDarkslategray_500,
@@ -187,7 +186,7 @@ const styles = StyleSheet.create({
   card: {
     marginVertical: verticalScale(20),
     borderRadius: Border.br_6xs,
-    height: verticalScale(160),
+    height: verticalScale(193),
     width: width * 0.9, // 90% of the screen width
     alignSelf: "center",
     paddingLeft: 20,
@@ -259,7 +258,7 @@ const styles = StyleSheet.create({
   addNewCardWrapper: {
     marginTop: verticalScale(20),
     backgroundColor: Color.colorYellowgreen_100,
-    height: 45,
+    height: 60,
     borderRadius: Border.br_7xs,
     justifyContent: "center",
     alignItems: "center",
