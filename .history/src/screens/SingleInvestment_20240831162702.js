@@ -10,7 +10,6 @@ import {
 } from "react-native-gesture-handler";
 import { Pressable, StyleSheet, View } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-
 const SingleInvestment = ({ route }) => {
   const navigation = useNavigation();
   const item = route?.params?.item || {}; // Safeguard for undefined params
@@ -21,7 +20,7 @@ const SingleInvestment = ({ route }) => {
   React.useEffect(() => {
     AdminInvestmentCall(setInvestments, new AbortController(), "get");
   }, [auth.id]);
-
+  //////
   useFocusEffect(
     React.useCallback(() => {
       setLoading(true);
@@ -35,36 +34,38 @@ const SingleInvestment = ({ route }) => {
   return (
     <GestureHandlerRootView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.investment}>
-          <View>
-            <View
-              style={{ flexDirection: "row", marginTop: verticalScale(32) }}
-            >
-              <Pressable onPress={() => navigation.goBack()}>
-                <Image
-                  style={styles.vuesaxlineararrowLeftIcon}
-                  contentFit="cover"
-                  source={require("../assets/vuesaxlineararrowleft.png")}
-                />
-              </Pressable>
+      
+            <View style={styles.investment}>
+              <View>
+                <View
+                  style={{ flexDirection: "row", marginTop: verticalScale(32) }}
+                >
+                  <Pressable onPress={() => navigation.goBack()}>
+                    <Image
+                      style={styles.vuesaxlineararrowLeftIcon}
+                      contentFit="cover"
+                      source={require("../assets/vuesaxlineararrowleft.png")}
+                    />
+                  </Pressable>
 
-              <Text style={styles.investments}>Investments</Text>
-            </View>
-            <View
-              style={{
-                marginTop: verticalScale(21),
-                marginBottom: verticalScale(10),
-              }}
-            >
-              <Text style={styles.activePackage}>Active package</Text>
-            </View>
-          </View>
-
-          {loading ? (
-            <Text style={styles.loadingText}>Loading...</Text>
-          ) : investments.length > 0 ? (
-            investments.map((item, index) => (
-              <View key={index}>
+                  <Text style={styles.investments}>Investments</Text>
+                </View>
+                <View
+                  style={{
+                    marginTop: verticalScale(21),
+                    marginBottom: verticalScale(10),
+                  }}
+                >
+                  <Text style={styles.activePackage}>Active package</Text>
+                </View>
+                
+              </View>
+              
+              <View>
+              {loading ? (
+          <Text>"loading"</Text>
+        ) : (
+          investments.map((item, index) => (
                 <Image
                   style={styles.investmentImage}
                   contentFit="cover"
@@ -128,22 +129,19 @@ const SingleInvestment = ({ route }) => {
                     </View>
                   </View>
                 </View>
-                <Pressable style={styles.investMoreWrapper}>
-                  <Text style={styles.investMore}>Invest more</Text>
-                </Pressable>
               </View>
-            ))
-          ) : (
-            <Text style={styles.noDataText}>No investments available.</Text>
-          )}
-        </View>
+
+              <Pressable style={styles.investMoreWrapper}>
+                <Text style={styles.investMore}>Invest more</Text>
+              </Pressable>
+            </View>
+          ))
+        )}
       </ScrollView>
     </GestureHandlerRootView>
   );
 };
-
 export default SingleInvestment;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -183,12 +181,14 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
   },
+
   geoLocation: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,
     fontFamily: FontFamily.poppinsRegular,
     marginBottom: verticalScale(8),
   },
+
   insurance: {
     fontSize: moderateScale(FontSize.size_2xs),
     color: Color.colorYellowgreen_100,
@@ -235,6 +235,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: verticalScale(8),
   },
+
   active: {
     fontSize: moderateScale(FontSize.size_6xs),
     color: Color.colorGreen_100,
@@ -248,7 +249,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: verticalScale(35),
-    bottom: 20,
   },
   activeWrapper: {
     backgroundColor: Color.colorYellowgreen_200,
@@ -261,21 +261,5 @@ const styles = StyleSheet.create({
     color: "#f2f2f2",
     fontFamily: FontFamily.poppinsSemiBold,
     fontWeight: "600",
-  },
-  loadingText: {
-    fontSize: moderateScale(FontSize.size_xs),
-    color: Color.colorDimgray_600,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    textAlign: "center",
-    marginTop: verticalScale(20),
-  },
-  noDataText: {
-    fontSize: moderateScale(FontSize.size_xs),
-    color: Color.colorDimgray_600,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    textAlign: "center",
-    marginTop: verticalScale(20),
   },
 });

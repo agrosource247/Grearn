@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: verticalScale(35),
-    bottom: 20,
+    paddingBottom: 44,
   },
   activeWrapper: {
     backgroundColor: Color.colorYellowgreen_200,

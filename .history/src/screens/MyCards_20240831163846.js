@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.colorWhite,
   },
   scrollViewContainer: {
-    top: 50,
+    top: 32,
     flexGrow: 1,
     // justifyContent: "center",
     alignItems: "center",

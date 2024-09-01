@@ -65,7 +65,9 @@ const ItemList = () => {
           investments.map((item, index) => (
             <Pressable
               onPress={() =>
-                navigation.navigate("SingleInvestment", { investments: item })
+                navigation.navigate("SingleInvestment", {
+                  transaction: selectedTransaction,
+                })
               }
             >
               <ImagesWithText
