@@ -12,7 +12,6 @@ export const User = async (isMounted, data, controller, auth, req) => {
       const response = await apiRequest.get("/users", {
         signal: controller.signal,
       });
-
       const matchingUser = response.data.find((user) => user._id === auth.id);
       if (matchingUser) isMounted && data([matchingUser]);
     }
@@ -85,7 +84,7 @@ export const Transaction = async (isMounted, data, controller, auth, req) => {
   }
 };
 
-export const Notification = async (isMounted, data, controller, auth, req) => {
+export const Notification = async (data, controller, auth, req) => {
   try {
     if (req === "get") {
       const response = await apiRequest.get("/notification", {
@@ -93,7 +92,7 @@ export const Notification = async (isMounted, data, controller, auth, req) => {
       });
 
       const matchingUser = response.data.find((user) => user._id === auth.id);
-      if (matchingUser) isMounted && data([matchingUser]);
+      if (matchingUser) data([matchingUser]);
     }
     if (req === "patch") {
       const response = await apiRequest.patch("/notification", {
@@ -187,6 +186,40 @@ export const Investment = async (data, controller, req) => {
     }
     if (req === "delete") {
       const response = await apiRequest.delete("/investment", {
+        signal: controller.signal,
+        data,
+      });
+      return response;
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const Notifications = async (data, controller, req) => {
+  try {
+    if (req === "get") {
+      const response = await apiRequest.get("/notification", {
+        signal: controller.signal,
+      });
+      return response;
+    }
+    if (req === "post") {
+      const response = await apiRequest.post("/notification", {
+        signal: controller.signal,
+        data,
+      });
+      return response;
+    }
+    if (req === "patch") {
+      const response = await apiRequest.patch("/notification", {
+        signal: controller.signal,
+        data,
+      });
+      return response;
+    }
+    if (req === "delete") {
+      const response = await apiRequest.delete("/notification", {
         signal: controller.signal,
         data,
       });

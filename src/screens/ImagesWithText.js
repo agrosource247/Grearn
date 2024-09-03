@@ -14,14 +14,7 @@ import UseAuth from "../services/hooks/UseAuth";
 import { useFocusEffect, useNavigation } from "@react-navigation/core";
 import { AdminInvestmentCall } from "../services/api";
 
-const ImagesWithText = ({
-  imageSource,
-  text,
-  text2,
-  text3,
-  text4,
-  navigation,
-}) => {
+const ImagesWithText = ({ imageSource, text, text2, text3, text4 }) => {
   return (
     <View style={styles.itemContainer}>
       <Image style={styles.image} source={{ uri: imageSource }} />
@@ -74,7 +67,7 @@ const ItemList = () => {
           investments.map((item, index) => (
             <Pressable
               onPress={() =>
-                navigation.navigate("SingleInvestment", { investments: item })
+                navigation.navigate("SingleInvestment", { investment: item })
               }
             >
               <ImagesWithText

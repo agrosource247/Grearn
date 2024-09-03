@@ -32,7 +32,7 @@ const NewUserDashboard = ({ navigation }) => {
   const { auth } = UseAuth();
   const [users, setUsers] = React.useState([]);
   const [time, setTime] = React.useState("");
-  const [loading, setLoading] = React.useState("true");
+  const [loading, setLoading] = React.useState(true);
   const [isModalVisible, setModalVisible] = useState(true);
   const [contentIndex, setContentIndex] = useState(0);
 
