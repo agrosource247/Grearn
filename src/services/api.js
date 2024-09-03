@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const apiRequest = axios.create({
-  //baseURL: "http://192.168.128.125:3500",
+  // baseURL: "http://192.168.50.125:3500",
   baseURL: "https://grearnapi.vercel.app",
   withCredentials: true,
 });
@@ -57,6 +57,7 @@ export const Transaction = async (isMounted, data, controller, auth, req) => {
     }
 
     if (req === "patch") {
+      console.log(data);
       const response = await apiRequest.patch("/transaction", {
         signal: controller.signal,
         data,
@@ -90,9 +91,12 @@ export const Notification = async (data, controller, auth, req) => {
       const response = await apiRequest.get("/notification", {
         signal: controller.signal,
       });
+      // console.log(response.data);
 
-      const matchingUser = response.data.find((user) => user._id === auth.id);
-      if (matchingUser) data([matchingUser]);
+      const matchingUsers = response.data.filter(
+        (user) => user.user === auth.id
+      );
+      if (matchingUsers) data(matchingUsers);
     }
     if (req === "patch") {
       const response = await apiRequest.patch("/notification", {
@@ -110,10 +114,13 @@ export const Notification = async (data, controller, auth, req) => {
       return response;
     }
     if (req === "delete") {
+      console.log(data);
+
       const response = await apiRequest.delete("/notification", {
         signal: controller.signal,
         data,
       });
+      console.log(response);
       return response;
     }
   } catch (err) {
@@ -186,40 +193,6 @@ export const Investment = async (data, controller, req) => {
     }
     if (req === "delete") {
       const response = await apiRequest.delete("/investment", {
-        signal: controller.signal,
-        data,
-      });
-      return response;
-    }
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-export const Notifications = async (data, controller, req) => {
-  try {
-    if (req === "get") {
-      const response = await apiRequest.get("/notification", {
-        signal: controller.signal,
-      });
-      return response;
-    }
-    if (req === "post") {
-      const response = await apiRequest.post("/notification", {
-        signal: controller.signal,
-        data,
-      });
-      return response;
-    }
-    if (req === "patch") {
-      const response = await apiRequest.patch("/notification", {
-        signal: controller.signal,
-        data,
-      });
-      return response;
-    }
-    if (req === "delete") {
-      const response = await apiRequest.delete("/notification", {
         signal: controller.signal,
         data,
       });

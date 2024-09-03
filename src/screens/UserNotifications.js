@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import {
   View,
@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons"; // Import the icon library for the backarrow am using
 import { Notification } from "../services/api";
+import UseAuth from "../services/hooks/UseAuth";
 
 const UserNotifications = () => {
   const { auth } = UseAuth();
@@ -19,22 +20,32 @@ const UserNotifications = () => {
   const [loading, setLoading] = useState(true);
 
   React.useEffect(() => {
-    Notification(setUsers, new AbortController(), auth, "get");
+    Notification(setNotifications, new AbortController(), auth, "get");
+
     setLoading(false);
   }, [auth.id]);
+  // console.log(notifications);
 
   useFocusEffect(
     React.useCallback(() => {
       setNotifications([]);
-      Notification(setUsers, new AbortController(), auth, "get");
+      Notification(setNotifications, new AbortController(), auth, "get");
     }, [])
   );
 
+  const setForm = async (id) => {
+    const form = {
+      id: auth.id,
+    };
+    return form;
+  };
+
   const handleDelete = async (id) => {
     setLoading(true);
+    const form = await setForm(id);
     try {
       const controller = new AbortController();
-      Notification(id, new AbortController(), auth, "delete");
+      const res = Notification(form, new AbortController(), auth, "delete");
       console.log(res);
       if (res?.status === 200) {
         controller.abort();
@@ -62,7 +73,7 @@ const UserNotifications = () => {
         <Text style={styles.title}>User Notifications</Text>
       </View>
       <View style={styles.content}>
-        {notifications.length === 0 ? (
+        {notifications.length < 0 ? (
           <Text style={styles.noNotifications}>No notifications</Text>
         ) : (
           <FlatList
@@ -72,16 +83,13 @@ const UserNotifications = () => {
               <View>
                 <Text style={styles.notification}>Title: {item.title}</Text>
                 <Text style={styles.notification}>Text: {item.text}</Text>
-                <Text style={styles.notification}>
-                  Author:+
-                  {item.author}
-                </Text>
+                <Text style={styles.notification}>Author: {item.author}</Text>
                 <Text>
-                  Date Created: {new Date(user.createdAt).toLocaleDateString()}
+                  Date Created: {new Date(item.createdAt).toLocaleDateString()}
                 </Text>
                 <Pressable
                   style={styles.button}
-                  onPress={handleDelete(item.id)}
+                  onPress={() => handleDelete(item._id)}
                 >
                   <Text style={styles.buttonText}>
                     {loading ? "Loading..." : "Delete"}

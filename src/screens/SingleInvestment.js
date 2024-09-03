@@ -7,6 +7,7 @@ import { Image, Text } from "react-native";
 import {
   GestureHandlerRootView,
   ScrollView,
+  TextInput,
 } from "react-native-gesture-handler";
 import { Pressable, StyleSheet, View } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
@@ -16,7 +17,7 @@ const SingleInvestment = ({ route }) => {
   const { investment } = route.params;
   const navigation = useNavigation();
   const [amount, setAmount] = React.useState(Number);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [tx_ref, setTx_ref] = React.useState("");
 
   const setForm = async () => {
@@ -88,7 +89,7 @@ const SingleInvestment = ({ route }) => {
             </View>
           </View>
 
-          <View key={index}>
+          <View>
             <Image
               style={styles.investmentImage}
               contentFit="cover"

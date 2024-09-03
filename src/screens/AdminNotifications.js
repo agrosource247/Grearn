@@ -21,12 +21,11 @@ const AdminNotifications = ({ navigation }) => {
   const [title, setTitle] = React.useState("");
   const [text, setText] = React.useState("");
   const [users, setUsers] = React.useState([]);
-  const [sender, setSender] = React.useState([]);
+  const [author, setAuthor] = React.useState("Tim - CEO");
   const [receiver, setReceiver] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
-    User(true, setSender, new AbortController(), auth, "get");
     AdminUsersCall(setUsers, new AbortController(), "get");
   }, [auth.id]);
 
@@ -35,7 +34,7 @@ const AdminNotifications = ({ navigation }) => {
       id: receiver,
       title: title,
       text: text,
-      author: `${sender.firstname} ${sender.lastname}`,
+      author: author,
     };
     return form;
   };
@@ -59,8 +58,6 @@ const AdminNotifications = ({ navigation }) => {
     }
   };
 
-  // console.log(auth);
-  console.log(sender);
   return (
     <GestureHandlerRootView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -84,6 +81,15 @@ const AdminNotifications = ({ navigation }) => {
               placeholder="Text"
               value={text}
               onChangeText={setText}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Author</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Author"
+              value={author}
+              onChangeText={setAuthor}
             />
           </View>
 
