@@ -74,6 +74,12 @@ const Admin = ({ navigation }) => {
           >
             <Text style={buttonTextStyle}>VIEW TRANSACTIONS</Text>
           </Pressable>
+          <Pressable
+            style={buttonStyle}
+            onPress={() => navigation.navigate("AdminNotifications")}
+          >
+            <Text style={buttonTextStyle}>SEND NOTIFICATION</Text>
+          </Pressable>
         </View>
       )}
     </View>

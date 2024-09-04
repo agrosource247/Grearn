@@ -1,36 +1,65 @@
-import { useFocusEffect, useNavigation } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
 import { Border, Color, FontFamily, FontSize } from "../../GlobalStyles";
 import React from "react";
 import UseAuth from "../services/hooks/UseAuth";
-import { AdminInvestmentCall } from "../services/api";
+import { generateRandomCode, Transaction } from "../services/api";
 import { Image, Text } from "react-native";
 import {
   GestureHandlerRootView,
   ScrollView,
+  TextInput,
 } from "react-native-gesture-handler";
 import { Pressable, StyleSheet, View } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
 const SingleInvestment = ({ route }) => {
-  const navigation = useNavigation();
-  const item = route?.params?.item || {}; // Safeguard for undefined params
-  const [investments, setInvestments] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
   const { auth } = UseAuth();
+  const { investment } = route.params;
+  const navigation = useNavigation();
+  const [amount, setAmount] = React.useState(Number);
+  const [loading, setLoading] = React.useState(false);
+  const [tx_ref, setTx_ref] = React.useState("");
 
-  React.useEffect(() => {
-    AdminInvestmentCall(setInvestments, new AbortController(), "get");
-  }, [auth.id]);
+  const setForm = async () => {
+    const form = {
+      id: auth.id,
+      product: investment.product,
+      transactionType: "Investment",
+      amount: amount,
+      tx_ref: tx_ref,
+    };
+    return form;
+  };
 
-  useFocusEffect(
-    React.useCallback(() => {
-      setLoading(true);
-      setInvestments([]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!amount) return alert("Amount field is required");
+    if (amount < investment.minimum_invest)
+      return alert(
+        `Minimum invest must be greater than ${investment.minimum_invest}`
+      );
+    setLoading(true);
+    const ref = await generateRandomCode();
+    setTx_ref(ref);
 
-      AdminInvestmentCall(setInvestments, new AbortController(), "get");
+    try {
+      const controller = new AbortController();
+      let isMounted = true;
+      const form = await setForm();
+
+      const res = Transaction(isMounted, form, controller, auth, "post");
+
+      if (res?.status === 200) {
+        isMounted = false;
+        controller.abort();
+        alert("Transaction succesfully placed");
+      } else alert(res?.data.message);
+    } catch (err) {
+      console.log(err);
+    } finally {
       setLoading(false);
-    }, [])
-  );
+    }
+  };
 
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -60,82 +89,94 @@ const SingleInvestment = ({ route }) => {
             </View>
           </View>
 
-          {loading ? (
-            <Text style={styles.loadingText}>Loading...</Text>
-          ) : investments.length > 0 ? (
-            investments.map((item, index) => (
-              <View key={index}>
-                <Image
-                  style={styles.investmentImage}
-                  contentFit="cover"
-                  source={require("../assets/frame-47.png")}
-                />
-                <Text style={styles.description}>
-                  {item.description || "No description available."}
+          <View>
+            <Image
+              style={styles.investmentImage}
+              contentFit="cover"
+              source={require("../assets/frame-47.png")}
+            />
+            <Text style={styles.description}>
+              {investment.description || "No description available."}
+            </Text>
+            <View
+              style={{
+                marginTop: verticalScale(24),
+                marginBottom: verticalScale(34),
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={styles.principal}>
+                  Principal:{" "}
+                  <Text style={styles.amount}>
+                    # {investment.minimum_invest}
+                  </Text>
                 </Text>
-                <View
-                  style={{
-                    marginTop: verticalScale(24),
-                    marginBottom: verticalScale(34),
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Text style={styles.principal}>
-                      Principal:{" "}
-                      <Text style={styles.amount}># {item.minimum_invest}</Text>
-                    </Text>
-                    <Text style={styles.profit}>
-                      Profit:<Text style={styles.amount}># {item.profit}</Text>
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Text style={styles.roi}>
-                      ROI: <Text style={styles.monthly}>{item.roi}</Text>
-                    </Text>
-                    <Text style={styles.geoLocation}>
-                      Geo-location:
-                      <Text style={styles.location}>{item.geo_location}</Text>
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Text style={styles.harvestPeriod}>
-                      Harvest period:{" "}
-                      <Text style={styles.duration}>{item.duration}</Text>
-                    </Text>
-                    <View style={{ flexDirection: "row" }}>
-                      <Text style={styles.insurance}>Insurance:</Text>
+                <Text style={styles.profit}>
+                  Profit:
+                  <Text style={styles.amount}># {investment.profit}</Text>
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={styles.roi}>
+                  ROI: <Text style={styles.monthly}>{investment.roi}</Text>
+                </Text>
+                <Text style={styles.geoLocation}>
+                  Geo-location:
+                  <Text style={styles.location}>{investment.geo_location}</Text>
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={styles.harvestPeriod}>
+                  Harvest period:{" "}
+                  <Text style={styles.duration}>{investment.duration}</Text>
+                </Text>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.insurance}>Insurance:</Text>
 
-                      <View style={styles.activeWrapper}>
-                        <Text style={styles.active}>
-                          {item.insurance ? "Active" : "Not Active"}
-                        </Text>
-                      </View>
-                    </View>
+                  <View style={styles.activeWrapper}>
+                    <Text style={styles.active}>
+                      {investment.completed ? "Active" : "Not Active"}
+                    </Text>
                   </View>
                 </View>
-                <Pressable style={styles.investMoreWrapper}>
-                  <Text style={styles.investMore}>Invest more</Text>
-                </Pressable>
               </View>
-            ))
-          ) : (
-            <Text style={styles.noDataText}>No investments available.</Text>
-          )}
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Amount</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter amount"
+                value={amount}
+                onChangeText={setAmount}
+              />
+            </View>
+
+            <Pressable
+              style={styles.investMoreWrapper}
+              onPress={handleSubmit}
+              disabled={loading}
+            >
+              <Text style={styles.investMore}>
+                {loading ? "Loading..." : "Proceed"}
+              </Text>
+            </Pressable>
+          </View>
         </View>
       </ScrollView>
     </GestureHandlerRootView>
@@ -148,6 +189,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Color.colorWhite,
+  },
+  inputContainer: {
+    marginBottom: 15,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+    padding: 10,
   },
   scrollContainer: {
     padding: moderateScale(20),

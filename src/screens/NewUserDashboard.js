@@ -18,42 +18,29 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { scale, verticalScale } from "react-native-size-matters";
 import UseAuth from "../services/hooks/UseAuth";
-import { AdminInvestmentCall, User } from "../services/api";
 import FrameComponent from "../components/FrameComponent";
 import BottomNavigation from "../components/BottomNavigation";
 import SlideScreen from "./SlideScreen";
 import SlidingBar from "./SlidingBar";
-import ImageWithText from "./ImagesWithText";
 import styles from "../styles/NewUserDashboardStyles";
 import { Border, Color, FontSize, FontFamily } from "../../GlobalStyles";
-import * as ImagePicker from "expo-image-picker";
 import ImagesWithText from "./ImagesWithText";
 import ImageSelector from "./ImageSelector"; // Import the new component
-import UserNotifications from "./UserNotifications";
-// Get the dimensions of the screen
-const { width, height } = Dimensions.get("window");
+import { User } from "../services/api";
 
 const NewUserDashboard = ({ navigation }) => {
-  const { auth, setAuth } = UseAuth();
+  const { auth } = UseAuth();
   const [users, setUsers] = React.useState([]);
   const [time, setTime] = React.useState("");
-  const [loading, setLoading] = React.useState("true");
+  const [loading, setLoading] = React.useState(true);
   const [isModalVisible, setModalVisible] = useState(true);
   const [contentIndex, setContentIndex] = useState(0);
-  const [avatar, setAvatar] = useState("");
-  //////
 
-  ////////////////////////
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible); // Function to toggle the modal visibility
-  };
+  const toggleModal = () => setModalVisible(!isModalVisible); // Function to toggle the modal visibility
 
   const handleButtonPress = () => {
-    if (contentIndex === 0) {
-      navigation.navigate("TradePage");
-    } else {
-      navigation.navigate("InvestmentPage");
-    }
+    if (contentIndex === 0) navigation.navigate("TradePage");
+    else navigation.navigate("InvestmentPage");
     setModalVisible(false);
   };
 
@@ -93,7 +80,6 @@ const NewUserDashboard = ({ navigation }) => {
     else setTime("Good night");
   };
 
-  // To make a get request to the users API with jsonwebtokens
   useFocusEffect(
     React.useCallback(() => {
       let isMounted = true;
@@ -103,7 +89,7 @@ const NewUserDashboard = ({ navigation }) => {
       User(isMounted, setUsers, controller, auth, "get")
         .then(() => setLoading(false))
         .catch(() => setLoading(false));
-
+      console.log(users);
       return () => {
         isMounted = false;
         controller.abort();
@@ -133,7 +119,11 @@ const NewUserDashboard = ({ navigation }) => {
                   height: verticalScale(65),
                 }}
               >
-                <ImageSelector avatar={avatar} setAvatar={setAvatar} />
+                <Image
+                  style={[styles.avatar]}
+                  source={{ uri: users[0].avatar }}
+                />
+
                 <View
                   style={{
                     flex: 1,
@@ -143,7 +133,7 @@ const NewUserDashboard = ({ navigation }) => {
                 >
                   <View
                     style={{
-                      marginLeft: verticalScale(-90),
+                      marginLeft: verticalScale(10),
                       marginTop: verticalScale(10),
                     }}
                   >

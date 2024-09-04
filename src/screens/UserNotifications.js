@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import {
   View,
   Text,
@@ -7,52 +7,59 @@ import {
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/MaterialIcons"; // Import the icon library for the backarrow am using
+import { Notification } from "../services/api";
+import UseAuth from "../services/hooks/UseAuth";
 
 const UserNotifications = () => {
+  const { auth } = UseAuth();
   const navigation = useNavigation();
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        // Try fetching notifications from the backend
-        const response = await axios.get(
-          "https://your-backend-api.com/notifications"
-        );
-        const fetchedNotifications = response.data.notifications;
+  React.useEffect(() => {
+    Notification(setNotifications, new AbortController(), auth, "get");
 
-        // Store the fetched notifications in AsyncStorage for offline access
-        await AsyncStorage.setItem(
-          "notifications",
-          JSON.stringify(fetchedNotifications)
-        );
+    setLoading(false);
+  }, [auth.id]);
+  // console.log(notifications);
 
-        // Set the notifications to state
-        setNotifications(fetchedNotifications);
-      } catch (error) {
-        console.error("Error fetching notifications:", error);
+  useFocusEffect(
+    React.useCallback(() => {
+      setNotifications([]);
+      Notification(setNotifications, new AbortController(), auth, "get");
+    }, [])
+  );
 
-        // If fetching fails,make i try loading notifications from AsyncStorage
-        const storedNotifications = await AsyncStorage.getItem("notifications");
-        if (storedNotifications) {
-          setNotifications(JSON.parse(storedNotifications));
-        }
-      } finally {
-        setLoading(false); // Stop loading once the fetch or loading from storage is done
-      }
+  const setForm = async (id) => {
+    const form = {
+      id: auth.id,
     };
+    return form;
+  };
 
-    fetchNotifications();
-  }, []);
+  const handleDelete = async (id) => {
+    setLoading(true);
+    const form = await setForm(id);
+    try {
+      const controller = new AbortController();
+      const res = Notification(form, new AbortController(), auth, "delete");
+      console.log(res);
+      if (res?.status === 200) {
+        controller.abort();
+        alert("Investment Successfully Deleted");
+        navigation.navigate("Admin");
+      } else alert(res?.data.message);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
-  }
+  if (loading) return <ActivityIndicator size="large" color="#0000ff" />;
 
   return (
     <View style={styles.container}>
@@ -66,14 +73,29 @@ const UserNotifications = () => {
         <Text style={styles.title}>User Notifications</Text>
       </View>
       <View style={styles.content}>
-        {notifications.length === 0 ? (
+        {notifications.length < 0 ? (
           <Text style={styles.noNotifications}>No notifications</Text>
         ) : (
           <FlatList
             data={notifications}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
-              <Text style={styles.notification}>{item.message}</Text>
+              <View>
+                <Text style={styles.notification}>Title: {item.title}</Text>
+                <Text style={styles.notification}>Text: {item.text}</Text>
+                <Text style={styles.notification}>Author: {item.author}</Text>
+                <Text>
+                  Date Created: {new Date(item.createdAt).toLocaleDateString()}
+                </Text>
+                <Pressable
+                  style={styles.button}
+                  onPress={() => handleDelete(item._id)}
+                >
+                  <Text style={styles.buttonText}>
+                    {loading ? "Loading..." : "Delete"}
+                  </Text>
+                </Pressable>
+              </View>
             )}
           />
         )}
@@ -83,6 +105,16 @@ const UserNotifications = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "blue",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+  },
   container: {
     flex: 1,
   },

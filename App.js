@@ -58,11 +58,7 @@ import BankDetails from "./src/screens/BankDetails";
 import NewInvestmentPage, {
   NewInvestmentDetailsPage,
 } from "./src/screens/NewInvestmentPage";
-// import Admin, {
-//   AdminInvestments,
-//   AdminTransactions,
-//   AdminUsers,
-// } from "./src/screens/Admin ";
+
 import AdminUserEdit, {
   AdminInvestmentEdit,
   AdminNewInvestment,

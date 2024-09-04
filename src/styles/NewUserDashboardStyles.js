@@ -11,6 +11,12 @@ import {
 const { width, height } = Dimensions.get("window");
 const avatarSize = 65; // Adjust this to your desired size
 const styles = StyleSheet.create({
+  avatar: {
+    alignSelf: "flex-start",
+    width: 50, // Adjust size as needed
+    height: 50, // Adjust size as needed
+    borderRadius: 25, // Adjust border radius as needed
+  },
   upBars1Position: {
     top: 0,
     position: "absolute",

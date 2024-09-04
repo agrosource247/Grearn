@@ -13,10 +13,11 @@ import { Color, FontSize } from "../../GlobalStyles";
 import UseAuth from "../services/hooks/UseAuth";
 import { useFocusEffect, useNavigation } from "@react-navigation/core";
 import { AdminInvestmentCall } from "../services/api";
+
 const ImagesWithText = ({ imageSource, text, text2, text3, text4 }) => {
   return (
     <View style={styles.itemContainer}>
-      <Image style={styles.image} source={imageSource} />
+      <Image style={styles.image} source={{ uri: imageSource }} />
       <View style={styles.textContainer}>
         <View style={styles.textColumn}>
           <Text style={styles.up}>{text2}</Text>
@@ -48,6 +49,7 @@ const ItemList = () => {
       setInvestments([]);
 
       AdminInvestmentCall(setInvestments, new AbortController(), "get");
+      console.log(investments[0]);
       setLoading(false);
     }, [])
   );
@@ -65,12 +67,13 @@ const ItemList = () => {
           investments.map((item, index) => (
             <Pressable
               onPress={() =>
-                navigation.navigate("SingleInvestment", { investments: item })
+                navigation.navigate("SingleInvestment", { investment: item })
               }
             >
               <ImagesWithText
                 key={index}
-                imageSource={require("../assets/frame-37.png")}
+                imageSource={item.image}
+                // text={item.text}
                 text={item.minimum_invest}
                 text2={item.product}
                 text3={item.roi}
