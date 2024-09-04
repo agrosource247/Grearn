@@ -9,18 +9,25 @@ import Profile from "../screens/Profile";
 import { FontSize, Color } from "../../GlobalStyles";
 import Admin from "./Admin ";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { useState } from "react";
 const Tab = createBottomTabNavigator();
 
 export default function BottomNavigation() {
   const navigation = useNavigation();
+  const [selectedTab, setSelectedTab] = useState("Home");
 
-  // Define onPress functions for each tab
-  const onPressHome = () => navigation.navigate("NewUserDashboard");
-  const onPressMyCards = () => navigation.navigate("MyCards");
-  const onPressTrade = () => navigation.navigate("Trade");
-  const onPressInvestment = () => navigation.navigate("Investment");
-  const onPressProfile = () => navigation.navigate("Profile");
-  const onPressAdmin = () => navigation.navigate("Admin");
+  // Update the selected tab and navigate to the corresponding screen
+  const handleTabPress = (tabName, routeName) => {
+    setSelectedTab(tabName);
+    navigation.navigate(routeName);
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Reset to Home tab when not focused on a specific tab
+      return () => setSelectedTab("Home");
+    }, [])
+  );
 
   return (
     <View style={styles.tabBarContainer}>
@@ -33,7 +40,7 @@ export default function BottomNavigation() {
             backgroundColor: "white",
             borderTopColor: "transparent",
           },
-          tabBarActiveTintColor: Color.colorYellowgreen_100,
+          tabBarActiveTintColor: Color.colorYellowgreen_100, // Active tab color
           tabBarInactiveTintColor: Color.colorDarkslategray_100,
           tabBarLabelStyle: { paddingBottom: 5, fontSize: FontSize.size_3xs },
         }}
@@ -44,14 +51,17 @@ export default function BottomNavigation() {
           component={Home}
           options={{
             tabBarIcon: ({ focused }) => (
-              <TouchableOpacity onPress={onPressHome}>
+              <TouchableOpacity
+                onPress={() => handleTabPress("Home", "NewUserDashboard")}
+              >
                 <Image
                   style={[
                     styles.widthheight,
                     {
-                      tintColor: focused
-                        ? Color.colorYellowgreen_100
-                        : Color.colorDarkslategray_100,
+                      tintColor:
+                        focused || selectedTab === "Home"
+                          ? Color.colorYellowgreen_100
+                          : Color.colorDarkslategray_100,
                     },
                   ]}
                   source={require("../assets/home.png")}
@@ -65,14 +75,17 @@ export default function BottomNavigation() {
           component={MyCards}
           options={{
             tabBarIcon: ({ focused }) => (
-              <TouchableOpacity onPress={onPressMyCards}>
+              <TouchableOpacity
+                onPress={() => handleTabPress("Cards", "MyCards")}
+              >
                 <Image
                   style={[
                     styles.widthheight,
                     {
-                      tintColor: focused
-                        ? Color.colorYellowgreen_100
-                        : Color.colorDarkslategray_100,
+                      tintColor:
+                        focused || selectedTab === "Cards"
+                          ? Color.colorYellowgreen_100
+                          : Color.colorDarkslategray_100,
                     },
                   ]}
                   source={require("../assets/card.png")}
@@ -86,14 +99,17 @@ export default function BottomNavigation() {
           component={Trade}
           options={{
             tabBarIcon: ({ focused }) => (
-              <TouchableOpacity onPress={onPressTrade}>
+              <TouchableOpacity
+                onPress={() => handleTabPress("Trade", "Trade")}
+              >
                 <Image
                   style={[
                     styles.widthheight,
                     {
-                      tintColor: focused
-                        ? Color.colorYellowgreen_100
-                        : Color.colorDarkslategray_100,
+                      tintColor:
+                        focused || selectedTab === "Trade"
+                          ? Color.colorYellowgreen_100
+                          : Color.colorDarkslategray_100,
                     },
                   ]}
                   source={require("../assets/Tradeicon.png")}
@@ -107,14 +123,17 @@ export default function BottomNavigation() {
           component={Investment}
           options={{
             tabBarIcon: ({ focused }) => (
-              <TouchableOpacity onPress={onPressInvestment}>
+              <TouchableOpacity
+                onPress={() => handleTabPress("Investment", "Investment")}
+              >
                 <Image
                   style={[
                     styles.widthheight,
                     {
-                      tintColor: focused
-                        ? Color.colorYellowgreen_100
-                        : Color.colorDarkslategray_100,
+                      tintColor:
+                        focused || selectedTab === "Investment"
+                          ? Color.colorYellowgreen_100
+                          : Color.colorDarkslategray_100,
                     },
                   ]}
                   source={require("../assets/investment.png")}
@@ -128,14 +147,17 @@ export default function BottomNavigation() {
           component={Profile}
           options={{
             tabBarIcon: ({ focused }) => (
-              <TouchableOpacity onPress={onPressProfile}>
+              <TouchableOpacity
+                onPress={() => handleTabPress("Profile", "Profile")}
+              >
                 <Image
                   style={[
                     styles.widthheight,
                     {
-                      tintColor: focused
-                        ? Color.colorYellowgreen_100
-                        : Color.colorDarkslategray_100,
+                      tintColor:
+                        focused || selectedTab === "Profile"
+                          ? Color.colorYellowgreen_100
+                          : Color.colorDarkslategray_100,
                     },
                   ]}
                   source={require("../assets/profile.png")}
@@ -149,12 +171,14 @@ export default function BottomNavigation() {
           component={Admin}
           options={{
             tabBarIcon: ({ focused }) => (
-              <TouchableOpacity onPress={onPressAdmin}>
+              <TouchableOpacity
+                onPress={() => handleTabPress("Admin", "Admin")}
+              >
                 <FontAwesome5
                   name="user-cog"
                   size={24}
                   color={
-                    focused
+                    focused || selectedTab === "Admin"
                       ? Color.colorYellowgreen_100
                       : Color.colorDarkslategray_100
                   }
@@ -179,5 +203,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+  },
+  icon: {
+    alignSelf: "center",
   },
 });

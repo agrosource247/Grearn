@@ -33,7 +33,7 @@ export default function BottomNavigation() {
             backgroundColor: "white",
             borderTopColor: "transparent",
           },
-          tabBarActiveTintColor: Color.colorYellowgreen_100,
+          tabBarActiveTintColor: Color.colorYellowgreen_100, // Set active tab color
           tabBarInactiveTintColor: Color.colorDarkslategray_100,
           tabBarLabelStyle: { paddingBottom: 5, fontSize: FontSize.size_3xs },
         }}
@@ -179,5 +179,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    // Add styles for your tab bar container
   },
 });

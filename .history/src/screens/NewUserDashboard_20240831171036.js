@@ -123,7 +123,7 @@ const NewUserDashboard = ({ navigation }) => {
         >
           {users.length > 0 ? (
             <View style={styles.newUserDashboard}>
-              {/* <StatusBar /> */}
+              <StatusBar />
               <View
                 style={{
                   top: 50,

@@ -44,18 +44,18 @@ export default function BottomNavigation() {
           component={Home}
           options={{
             tabBarIcon: ({ focused }) => (
-              <TouchableOpacity onPress={onPressHome}>
-                <Image
-                  style={[
-                    styles.widthheight,
-                    {
-                      tintColor: focused
-                        ? Color.colorYellowgreen_100
-                        : Color.colorDarkslategray_100,
-                    },
-                  ]}
-                  source={require("../assets/home.png")}
-                />
+              <TouchableOpacity
+                style={[
+                  styles.widthheight,
+                  {
+                    tintColor: focused
+                      ? Color.colorYellowgreen_100
+                      : Color.colorDarkslategray_100,
+                  },
+                ]}
+                onPress={onPressHome}
+              >
+                <Image source={require("../assets/home.png")} />
               </TouchableOpacity>
             ),
           }}
@@ -179,5 +179,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    // Add styles for your tab bar container
   },
 });

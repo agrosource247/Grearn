@@ -35,7 +35,7 @@ export default function BottomNavigation() {
           },
           tabBarActiveTintColor: Color.colorYellowgreen_100,
           tabBarInactiveTintColor: Color.colorDarkslategray_100,
-          tabBarLabelStyle: { paddingBottom: 5, fontSize: FontSize.size_3xs },
+          // tabBarLabelStyle: { paddingBottom: 5, fontSize: FontSize.size_3xs },
         }}
         initialRouteName="Home"
       >
@@ -179,5 +179,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    // Add styles for your tab bar container
   },
 });
